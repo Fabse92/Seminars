@@ -187,56 +187,53 @@
 \label{sec:introduction}
 
 \subsection{Problem}
-The studied paper \cite{doncieux2015multi} tries to cover the problem of application of complex computational models.
+The studied paper \cite{doncieux2015multi} tries to cover the problems arising at the use of sophisticated computational models.
 In more and more areas computational models are used for increasingly hard scientific issues.
-Doncieux et al. break the problem down to the epistemic opacity. Which they define as
+Doncieux et al. break the problem down to the epistemic opacity. Which they define as follows:
 \begin{align*}
 	&\text{\textit{A process is epistemically opague relative to a cognitive agent X at time t just in}}\\
 	&\text{\textit{case X does not know at t all of the epistemically relevant elements of the process.}}
 \end{align*}
-Epistemic opacity may stem from a complicated mathematical foundation to the model, from the complex interaction of different model parts with each other and from the effect of different input-parameters on the model.
-They say: '[...], the computational model is in itself a complex system top study in order to unravel its unforeseen features' \cite{doncieux2015multi} p. 3.
-This problem can lead to an extensive search for the 'best' values for the model in parameter space.
+Epistemic opacity may stem from a complicated mathematical foundation to the model, from the complex interaction of different model parts with each other or from the effect of different input-parameters.
+They say: \glqq[...], the computational model is in itself a complex system to study in order to unravel its unforeseen features\grqq{} \cite{doncieux2015multi} p. 3.
+This problem can lead to an extensive search in parameter space for the \glqq best\grqq{} parameter values.
 The researcher might have an intuition for some good parameter values, but these are biased by his assumptions about the model. 
 
-Furthermore in a complex system it might not be obvious what properties of the model are actually desirable. Hence the 'best' model parameters wouldn't be recognized if found.
-Since the model should lead to novel knowledge and proven or disproved assumptions about the modelled system interesting parameter-sets are desired. Interesting parameters should be somehow different from other parameters and state something about the model.
+Furthermore in a complex system it might not be obvious what properties of the model are actually desirable. Hence the \glqq best\grqq{} model parameters wouldn't be recognized if found.
+Since the model should lead to novel knowledge, and proven or disproven assumptions about the modelled system, interesting parameter-sets for further studying are desired. Interesting parameters should be somehow different from other parameters and state something about the model.
 
 To overcome the epistemic opacity the researcher would have to analyse the complex model by approximating it with a model again. This step might be necessary multiple times, each step using a more abstract and simple model, until it is easy enough to understand by the researcher. The knowledge gained from the simpler models could then be used to understand the more complex models. At some point the problem is understood well enough to use the primary model with confident insight.
 
 \subsection{Suggested solution}
-Because modelling a model becomes exponentially intricate and success isn't guaranteed it can hardly be a feasible approach to study a problem. The paper suggests to exploit the fact, that the computational model can be computed in a 'huge number of experiments' \cite{doncieux2015multi} p. 3.
+Because modelling a model becomes exponentially intricate and success isn't guaranteed it can hardly be a feasible approach to study a problem. The paper suggests to exploit the fact, that the computational model can be computed in a \glqq huge number of experiments\grqq{} \cite{doncieux2015multi} p. 3.
 They suggest a framework method that once set up searches automatically for interesting model parameters, which can then be analysed.
-The framework requires that a set of functions with three properties:
+The framework requires that a set of functions that describe the model with three properties are given:
 \begin{enumerate}
 	\item The functions measure the model performance.
 	\item For optimal model performance the functions have to be maximized or minimized.
 	\item Some functions are contrary to each other, as optimizing one function value worsens an other.
 \end{enumerate}
-The given function set maps parameter space to behaviour space, calculating many possible solutions allows to find relations between both spaces.
+The given function set maps parameter space to behaviour space. Calculating many possible solutions allows to find relations between both spaces.
 Since the performance of individual functions is contrary to each other multi-objective algorithms can be used to find sets of trade-off solutions \cite{doncieux2015multi} p. 3.
-Doncieux et al. then suggest to use evolutionary multi-objective algorithms, since they are efficient and versatile in usage.
-Following the discovery of interesting parameter sets, the paper suggests some tools to acquire knowledge about the relations of parameter values and model behaviours.
+Doncieux et al. then suggest to use evolutionary multi-objective algorithms, since they are efficient and versatile in usage. Following the steps of the framework interesting parameter sets are thereby found.
+The paper suggests then some tools to acquire knowledge about the relations of obtained parameter values and model behaviours.
 
 \subsection{Goals and structure of this paper}
-This paper is supposed to give a in-depth analysis of the presented paper \cite{doncieux2015multi}.
-Firstly in Chapter \ref{sec:background} some background, necessary to understand the main concepts of the paper, will be given.
-The proposed frame work of Doncieux et al. will be presented in a summarized form in Chapter \ref{sec:model}.
+This paper is supposed to give an in-depth analysis of the presented paper \cite{doncieux2015multi}.
+In Chapter \ref{sec:background} some background, necessary to understand the main concepts of the paper, will be given.
+The proposed frame work of Doncieux et al. will then be presented in a summarized form in Chapter \ref{sec:model}.
 In the following chapter \ref{sec:analysis} the model and its results will be critically reviewed.
-Especially the applicability of and assumptions made by the framework will be analysed.
+Especially the applicability of and assumptions made by the framework will be discussed.
 Chapter \ref{sec:concl} will conclude the paper by stating the achieved insights on the usage and applicability of the framework. 
 %- Is this framework applicable to all kinds of computational methods? What conditions must be met by the computational method?
 \section{Background Information}
 \label{sec:background}
-The crucial concepts to understand the framework for computational methods are:
+The crucial concepts to understand the framework for computational methods are presented in this chapter.
 
-Multi-objective problems and what a optimal solution to such an ambiguous problem looks like. These topics will be discussed in section \ref{back:multi-opt}.
- 
-The functionality of evolutionary algorithms (\ref{back:evo}).
-
+At first the topics of Multi-objective problems and what a optimal solution to such an ambiguous problem looks like are outlined. These issues will be discussed in section \ref{back:multi-opt}. 
+The functionality of evolutionary algorithms is subject to section \ref{back:evo}.
 Section \ref{back:evo_in_multi-opt} brings these concepts in context for the usage of evolutionary algorithms in Multi-objective-optimization.
-
-And finally in section \ref{back:indicators} some indicators are introduced, that will be used to analyse the results of the multi-objective-optimization.
+And finally in section \ref{back:indicators} some indicators are introduced, that will be used to analyse the results of multi-objective-optimization.
 
 \subsection{Multi-objective optimization}
 \label{back:multi-opt}
@@ -262,36 +259,36 @@ Doncieux et al. \cite{doncieux2015multi} formalize optimization problems as
 For $m = 1$ such a task is called mono-objective problem, whereas it's a multi-objective problem for any $m > 1$.
 
 As soon as you want to examine a real world like problem it's very likely that the solution won't be a single one dimensional value. Instead there will be multiple objectives to be considered simultaneously.
-Fonseca and Fleming \cite{fonseca1995overview} state that an optimal solution to a multi dimensional problem is commonly not optimal for each of the objectives.
+Fonseca and Fleming state that an optimal solution to a multi dimensional problem is commonly not optimal for each of the objectives (cf. \cite{fonseca1995overview} p. ?)
 This should be the case as long as the different objectives are somehow conflicting.
 They say further that you would rather aim at a solution that is at least acceptable for all sub-objectives.
 This however isn't a explicit problem statement. In a non-trivial case there will be several quite different alternative approaches to the problem that are optimal in some aspects.
 All these approaches should be valid solutions given by a multi-objective optimization-algorithm.
 To allow this to happen the Pareto dominance relation and the Pareto-optimal set are introduced.
-A solution $\mathbf{X_1}$ dominates another solution $\mathbf{X_2}$ if $\mathbf{X_1}$ is not worse than $\mathbf{X_2}$ for any objective and for at least one objective strictly better. \cite{doncieux2015multi} 
+A solution $\mathbf{X_1}$ dominates another solution $\mathbf{X_2}$ if $\mathbf{X_1}$ is not worse than $\mathbf{X_2}$ for any objective and for at least one objective strictly better (cf. \cite{doncieux2015multi} p. 6).
 A solution is called Pareto-optimal if it isn't dominated. All Pareto-optimal solutions form the Pareto-optimal set. 
 Since the Pareto dominance relation is a partial ordering it allows any number of optimal solutions.
-The Pareto-optimal set is just the set of interesting solutions, because each of these solutions is the best in some aspects.
+The Pareto-optimal set contains interesting solutions, because each of its members is a solution that is best in some aspect.
 
 \subsection{Evolutionary algorithms}
 \label{back:evo}
 \cite{eiben2004introduction}\\
-
+TODO
 \subsection{Evolutionary Algorithms for Multi-objective optimization}
 \label{back:evo_in_multi-opt}
 As common optimization-algorithms like gradient descent or simulated annealing aren't suited to deal with multi-objective problems \cite{fonseca1995overview} other approaches have been used.
-One of the strengths evolutionary algorithms have, is to pursue different possible solutions at the same time. That's because in a well structured evolutionary algorithm the surviving individuals aren't only associated with the single best solution at the given time, but also momentary suboptimal solutions are being tracked.
+One of the strengths evolutionary algorithms have, is to pursue different possible solutions at the same time. That's because in a well structured evolutionary algorithm the surviving individuals aren't only associated to the single best solution at the given time, but also momentary suboptimal solutions are being tracked.
 Through crossover partially optimal parts of solutions can be exchanged as a whole. 
-Therefore the Pareto front, the current Pareto-optimal set during execution of the algorithm, can be explored effectively.
+Therefore the Pareto front, the current Pareto optimal set during execution of the algorithm, can be explored effectively.
 
-As evolutionary algorithms impose no mathematical constraints on the examined problem. The stochastic approach of evolutionary algorithms however entails in application to calculate many possible solutions to work properly. Also evolutionary algorithm doesn't ensure to find global optima, instead it converges to some local optimum. Accordingly only an approximation to the Pareto optimal solutions will be found.
+As evolutionary algorithms impose no mathematical constraints on the examined problem. The stochastic approach of evolutionary algorithms however entails to calculate many possible solutions in application to work properly. Also evolutionary algorithms don't ensure to find global optima, instead it converges to some local optimum. Accordingly only an approximation to the Pareto optimal solutions will be found.
 
-The concept used by Doncieux et al. to gain knowledge about a system by analysing the results of a multi-objective optimization algorithm is called INNOVIZATION as they state \cite{doncieux2015multi} (p. 5) this stands for 'INNOVation through optimIZATION'.
+The concept used by Doncieux et al. to gain knowledge about a system by analysing the results of a multi-objective optimization algorithm on it is called INNOVIZATION as they state this stands for 'INNOVation through optimIZATION' (cf. \cite{doncieux2015multi} p. 5).
 Evolutionary multi-objective optimization algorithms were already used successfully with this approach as shown in \cite{efstratiadis2010one}, where Efstratiadis and Koutsoyiannis sum up the experience with the INNOVIZTION method for calibration of hydrological models.
 
 \subsection{Indicators for multi-objective analysis}
 \label{back:indicators}
-To be able to analyse the gained information from multi-objective-optimization on the examined problem Doncieux et al. \cite{doncieux2015multi} (p. 7) introduce some indicators.
+To be able to analyse the gained information from multi-objective-optimization on the examined problem Doncieux et al. introduce some indicators (cf. \cite{doncieux2015multi} p. 7 et seq.)
 In the following it is without loss of generality assumed, that all objective-functions are to be maximized to be optimal.
 The evolutionary multi-objective-optimization is used multiple times on the problem. Each run generates a set of approximations for the Pareto optimal solutions called $\chi_i$ for the $i$-th run.
 The required indicators are defined as follows.
@@ -305,42 +302,44 @@ The required indicators are defined as follows.
 	\end{align*}
 	With $\psi_p$ containing all points, that are equal or greater than $p$ in every dimension.
 	Therefore $I^p_H(\chi)$ measures the area of points above $p$ that are dominated by a solution in $\chi$.
-	\item $\eta(\chi)$ is the point with the least possible value for each objective found in $\chi$. So for each dimension all solutions in $\chi$ are scanned for the minimum value.
-	When $\eta^i(\chi)$ is the nadir point to the $i$-th set of solutions, the conservative nadir point $\bar{\eta}$ is defined over $r$ sets of solutions and its values are the maximum value for each dimension found in any $\eta^i(\chi)$ with $i\in r$. The conservative nadir helps to get rid of outliers and is a more reliable representation of the 'worst' returned solution.
+	\item The nadir $\eta(\chi)$ is the point with the least possible value for each objective found in $\chi$. So for each dimension all solutions in $\chi$ are scanned for the minimum value.
+	When $\eta^i(\chi)$ is the nadir point to the $i$-th set of solutions, the conservative nadir point $\bar{\eta}$ is defined over $r$ sets of solutions and its values are the maximum value for each dimension found in any $\eta^i(\chi)$ with $i\in r$. The conservative nadir helps to get rid of outliers and is a more reliable representation of the \glqq worst\grqq{} returned solution.
 \end{itemize}
 \paragraph{Summary:}
 \textit{
 	In this chapter the basics concepts used by the framework were introduced.
-	The core part of the framework is multi-objective-optimization. 
+	The core part of the framework is a multi-objective-optimization. 
 	As shown the evolutionary approach is suitable for this task, its only drawback is the need for calculation of many iterations since there is no global convergence guaranteed.
 	At last a couple of indicators for analysis of the obtained approximations of Pareto-optimal solutions were presented.
 }
 
 \section{Framework description and application}
 \label{sec:model}
-The proposed framework by Doncieux et al. \cite{doncieux2015multi} aims at automatically finding parameter values worth to be studied further, that can then be analysed by experts.
+The proposed framework by Doncieux et al. \cite{doncieux2015multi} aims at automatically finding parameter values worth to be studied further.
 There are three steps to application of the framework.
 \begin{enumerate}
 	\item The definition of functions to evaluate the performance of the examined computational method.
-	\item Obtain an approximation of the Pareto-optimal solutions by application of evolutionary multi-objective optimization solutions.
+	\item Obtain an approximation of the Pareto optimal solutions by application of evolutionary multi-objective optimization.
 	\item Knowledge creation by analysing the solutions.
 \end{enumerate}
 These steps are specified more in detail in the following sections.
 
 \subsection{Seach space and objective functions}
-First the search space as part of the parameter space must be stated. For a set of m unbound parameters it would be $\mathbb{R}^m$. 
+First the search space as part of the parameter space must be stated. For a set of $m$ unbound parameters $\in \mathbb{R}$ it would be $\mathbb{R}^m$. 
 
 The framework relies on the comparison of different Pareto optimal solutions to find interesting parameter values, therefore multiple contrary objective functions have to be defined.
 They need to be contrary in terms of not linearly dependent, since such a dependency would lead to a set of Pareto optimal solutions with only one member that is optimal in each dimension.
-A simple second objective for an computational model whose performance actually only depends on one variable might be found in the computational cost.
-With increasing computation time the algorithm might find better and better solutions as more time is given. The optimal parameters would then be a compromise between quality of solution and time consumption.
+A simple second objective for a computational model whose performance actually only depends on one variable might be found in the computational cost.
+With increasing computation time the algorithm might find better and better solutions. The optimal parameters would then be a compromise between quality of solution and time consumption.
 
 \subsection{Application of multi-objective-optimization}
 If ideally no promising parameter vectors shall be missed it is important to make a dense search in parameter space, otherwise behaviours that only occur in a small area in parameter space might be skipped.
 As explained in chapter \ref{back:evo_in_multi-opt} evolutionary algorithms are a good choice for the multi-objective-optimization.
 The local convergence of evolutionary algorithms makes it necessary to run the optimization many times to ensure statistical significance of the results. Therefore the \textbf{first step} of application is to repeat the multi-objective-optimization several times.
 However the results from evolutionary algorithms strongly depend on their parametrisation, it is important to verify the results somehow.
-Therefore the variability of results to successive runs of evolutionary multi-objective-optimization can be checked. Similar results of most instances of the evolutionary algorithm hints at a convergence of the algorithm to local minima, whereas a high variability in results might be a sign of a ill parametrisation, as mentioned by Doncieux et al. \cite{doncieux2015multi} (p. 11).
+Therefore the variability of results to successive runs of evolutionary multi-objective-optimization can be checked.
+%Similar results of most instances of the evolutionary algorithm hints at a convergence to a good approximation of the Pareto optimal set, whereas 
+A high variability in results might be a sign of a ill parametrisation, as mentioned by Doncieux et al. \cite{doncieux2015multi} (p. 11).
 Thus the \textbf{second step} of application is the evaluation of disparity between multiple iterations of the algorithm. Doncieux et al. propose the following schemata for this:
 \begin{enumerate}
 	\item Compute the 0-attainment $\Psi_0$ and 1-attainment $\Psi_1$ surface.
@@ -349,17 +348,17 @@ Thus the \textbf{second step} of application is the evaluation of disparity betw
 \end{enumerate}
 The difference between the hypervolumes is a measure for the disparity of the worst to the best solutions. If this value is above some threshold step 1 needs to be repeated with different parametrization of the evolutionary algorithm.
 
-Besides the global variability the local variability in the approximation of the Pareto optimal set contains interesting information, as strongly diverging optimal solutions in a small area of parameter space hints at a difficulties for the algorithm.
+For the last step local variability in the approximation of the Pareto optimal set is studied. Strongly diverging optimal solutions in a small area of parameter space is a sign for a difficult parameter range to explore.
 This area of high disparity of solutions might emerge from model instability and a critical point of parameter values might lie there, which should be worth further studying of the researcher.
 Correspondingly the \textbf{third step} to apply multi-objective-optimization is to compute the maximum distance of each point in $\Psi_0$ to its neighbours.
 \subsection{Analysis of results}
-As they provide some assistance for the analysis of obtained results (approximation of the Pareto optimal set) from the previous step, Doncieux et al. divide the study in three categories.
+Doncieux et al. provide some assistance for the analysis of obtained approximation of the Pareto optimal set from the previous step. They divide the study in three categories.
 \begin{itemize}
-	\item Analysis of the results in \textbf{behaviour space}. Particular high and low values for objective functions might be interesting. After this a plot of the trend for the objective function values is necessary, to examine the shape of the surface of function values. Thereby relations between objectives can be seen. A funny shaped surface 'may even be the symptom of an ill-posed model' Doncieux et al. explain \cite{doncieux2015multi} (p. 13).
+	\item Analysis of the results in \textbf{behaviour space}. Particular high and low values for objective functions might be interesting. After this a plot of the trend for the objective function values is necessary, to examine the shape of the surface of function values. Thereby relations between objectives can be seen. A funny shaped surface \glqq may even be the symptom of an ill-posed model\grqq{} Doncieux et al. \cite{doncieux2015multi} (p. 13).
 	\item Analysis of the results in \textbf{parameter space}. The relations between model parameters and their objective function values can be interesting. Plotting the trend of a parameter against an objective function might exploit some kind of dependency between them.
 	\item Analysis of the actual proposed \textbf{solutions} to parametrization of the model. The Pareto optimal set has to be clustered in multiple groups of similar solutions. This can be done by experts or clustering algorithms.
-	Doncieux et al. suggest to make a classification of the clusters using a decision tree algorithm. The decision tree will find discriminative objective values that are most suitable to come for each suggested solution to a decision which cluster they belong to.
-	By examining the constructed decision rules afterwards one can find out what characterizes each cluster and sets them apart from each other. Each cluster might represent a specific pattern of behaviour.
+	Doncieux et al. suggest to make a classification of the clusters using a decision tree algorithm. The decision tree will find discriminative objective values. These boundary values are best suited to make a decision for each suggested solution as to which cluster they belong to.
+	By examining the constructed decision rules afterwards, one can find out what characterizes the clusters and sets them apart from each other. Each cluster might represent a specific pattern of behaviour.
 \end{itemize}
 
 \paragraph{Summary:}
