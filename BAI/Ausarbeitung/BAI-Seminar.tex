@@ -214,6 +214,44 @@ Different encodings to describe neural networks tested in this paper\\
 - How do they work?\\
 - What differentiates them?
 
+
+\subsection{map-based encoding}
+The map-based encoding develops a network structure in a similar way as the direct encoding does, but instead of directly setting neurons and their connections, nodes and edges are used.
+Nodes and Edges of the developed neural net are however encoded in a specific, more complex way. Because of this part of the encoding it doesn't behave as a direct encoding, but as a developmental encoding.\\
+Each node of the network represents a whole map of neurons. A map of neurons is an array of $N \times M$ identical neurons and is defined by a set of parameters (??? \cite{tonelli2011using} p. 3). 
+In the map-based encoding in the studied paper each parameter value is a real number between 0 and 1 and is mutated during the evolutionary process.
+The meaning of an parameter 'flips' by exceeding a certain value (for example: a parameter value between 0 and 0.4 means 'a' and between 0.4 and 1 'b').
+One parameter of the neuron map for example decides if it represents only a single neuron or a set array size of neurons.\\
+The edges between maps are described as well with a number of parameters.
+In this case the type of connection and the synaptic weight are set by parameters.
+One parameter decides if each neuron of a map is only connected to one neuron of the map on the other side of the edge or if each neuron is connected to each other neuron.
+Another parameter implies if the connection weights have positive or negative sign (excitatory or inhibitory). And the last parameter sets the weight value.
+
+\subsection{HNN encoding}
+The Hyper Neural Network (HNN) encoding used by Tonelli and Mouret is a modification of the complex HyperNEAT encoding.
+When using this encoding the network structure has to be specified beforehand (in this case 9 input neurons, 5 hidden neurons and 4 output neurons).
+During the evolutionary development of the network two additional included networks are formed. One of them answers the question to each pair of neurons, if they are connected or not and if so which connection weight the edge has.
+The second inherent network defines the parameters of each neuron. These two networks are developed using the direct encoding.
+Through the interaction of the two inherent networks with the given main-network structure a the HNN encoding meets the requirements of a developmental encoding.
+
+\subsection{Skinner box}
+A Skinner box is a typical experiment to test the learning ability of an animal (usually rats).
+The standard configuration of a Skinner box can be seen in figure \ref{fig:skinner}, it can be described with input and output items.
+The test animal has to associate the inputs with the	appropriate output.
+As main input, lights or sounds from a loudspeaker might be used. The test animal is then supposed to press the associated response lever according to the input pattern.
+The association patterns are set arbitrarily by the experimenter. For example the test animal might be supposed to push the lever (as output) if the green light appears, but not if the red light shines.
+As additional input the food dispenser and electrified grid can then be used to support the 'right' behaviour and/or punish the 'wrong' behaviour.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=.43\textwidth]{Skinner_box_scheme_01.png}
+	\end{center}
+	\caption{Skinner box, wiki}
+	\label{fig:skinner}
+\end{figure}
+
+A test animal (or different test object) with good general learning ability, should be able to identify the supported input to output associations independent of the specific used pairing and act accordingly.
+
 \section{Approach description}
 \label{sec:model}
 Proposal of the paper\\

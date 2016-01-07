@@ -63,8 +63,8 @@
   pages = {223--246},
   size = {30 pages},
   timestamp = {2008-06-19T17:41:44.000+0200},
-  title = {Creating High-Level Components with a Generative
-                 Representation for Body-Brain Evolution},
+  title = {{Creating High-Level Components with a Generative
+                 Representation for Body-Brain Evolution}},
   url = {http://mitpress.mit.edu/journals/pdf/alife_8_3_223_0.pdf},
   volume = 8,
   year = 2002
@@ -82,14 +82,14 @@
   number = 3,
   pages = {346-367},
   timestamp = {2011-08-13T11:31:39.000+0200},
-  title = {On the Performance of Indirect Encoding Across the Continuum of Regularity.},
+  title = {{On the Performance of Indirect Encoding Across the Continuum of Regularity.}},
   url = {http://dblp.uni-trier.de/db/journals/tec/tec15.html#CluneSPO11},
   volume = 15,
   year = 2011
 }
 
 @inproceedings{hornby2001body,
-  title={Body-brain co-evolution using L-systems as a generative encoding},
+  title={{Body-brain co-evolution using L-systems as a generative encoding}},
   author={Hornby, Gregory S and Pollack, Jordan B and others},
   booktitle={Proceedings of the Genetic and Evolutionary Computation Conference (GECCO-2001)},
   pages={868--875},
@@ -97,7 +97,7 @@
 }
 
 @inproceedings{mouret2010importing,
-  title={Importing the computational neuroscience toolbox into neuro-evolution-application to basal ganglia},
+  title={{Importing the computational neuroscience toolbox into neuro-evolution-application to basal ganglia}},
   author={Mouret, Jean-Baptiste and Doncieux, St{\'e}phane and Girard, Beno{\^\i}t},
   booktitle={Proceedings of the 12th annual conference on Genetic and evolutionary computation},
   pages={587--594},
