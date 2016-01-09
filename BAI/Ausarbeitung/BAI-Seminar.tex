@@ -230,17 +230,23 @@ The better general learning ability of more regular ANNs is supposed to stem fro
 
 \section{Background Information}
 \label{sec:background}
+
+\subsection{subject index (Stichwortverzeichnis)}
+Phenotype, Genotype, 
+
 %Evolutionary algorithms
 \subsection{Regularity}
+\label{regularity}
 Regularity measures the compressibility of a network. It is a characterization of the phenotype, not the genotype, of the ANN.
 Tonelli and Mouret compute the regularity by calculating the number of symmetry axes (cf. \cite{citeulike:12788284} p. 4).
 If two parts of the network can be interchanged without altering the graph they are called symmetric.
 It is only necessary to describe one of these parts and reference it for each additional occurance, therefore the description of a network with more symmetries is more compressable.\\
-These symmetries are automorphisms and can be easily calculated for most graphs (actually it is an NP-complete problem).\\
+These symmetries are graph automorphisms and can be easily calculated for most graphs (actually it is an NP-complete problem).\\
 A graph automorphism is a permutation $\sigma$ of the vertex set V of the graph $G = (V,E)$, that maps an edge $(\sigma(u),\sigma(v))$ to the vertices u and v iff they formed an edge (u,v) already in G.\\
 Since an automorphism of the graph to itself always exists, the number of symmetries is the number of automorphisms less one.
 
 \subsection{From genes to nervous systems}
+\label{genes_nervous}
 It is necessary to encode the structure of an ANN to a representation that can be modified easily if an evolutionary algorithm is to be used for its developement.
 Encodings can be divided into two groups:
 \begin{itemize}
@@ -251,10 +257,10 @@ Encodings can be divided into two groups:
 In the studied paper three different encodings are compared with each other, two of them are developemental encodings (HNN and map-based) and one direct encoding.
 
 \subsubsection{Direct encoding}
-The ANN is decribed by a directed graph. The networks of the first generation of the evolutionary algorithm are initiated as a simple feed-forward network without hidden layers and random weights.\\
-Seven different mutation operators are modifying the network during evolution while no cross over is implemented.
+The ANN is decribed by a directed graph. The networks of the first generation of the evolutionary algorithm are initiated as a simple feed-forward network without hidden layers and randomly initialized weights.\\
+Seven different mutation operators are modifying the network during evolution while no cross over is implemented in the version used by Tonelli and Mouret (cf. \cite{citeulike:12788284} p. 9-10).
 Each mutation happens with a specific probability to the operation:
-\begin{enumerate}
+\begin{itemize}
 	\item A connection is randomly added
 	\item A random connection is removed
 	\item Randomly choose a connection and change its target or source
@@ -262,14 +268,14 @@ Each mutation happens with a specific probability to the operation:
 	\item Delete a random neuron and its connections
 	\item Randomly choose a connection and modify its weight
 	\item Activation function of a random neuron is changed
-\end{enumerate}
+\end{itemize}
 
 \subsubsection{map-based encoding}
 The map-based encoding develops a network structure in a similar way as the direct encoding does, but instead of directly setting neurons and their connections, nodes and edges are used.
 Nodes and Edges of the developed neural net are however encoded in a specific, more complex way. Because of this part of the encoding it doesn't behave as a direct encoding, but as a developmental encoding.\\
 Each node of the network represents a whole map of neurons. A map of neurons is an array of $N \times M$ identical neurons and is defined by a set of parameters (??? \cite{tonelli2011using} p. 3). 
 In the map-based encoding in the studied paper each parameter value is a real number between 0 and 1 and is mutated during the evolutionary process.
-The meaning of an parameter 'flips' by exceeding a certain value (for example: a parameter value between 0 and 0.4 means 'a' and between 0.4 and 1 'b').
+The meaning of an parameter 'flips' by exceeding a certain value (for example: a parameter value between 0 and 0.4 means 'a' and 'b' for a value between 0.4 and 1).
 One parameter of the neuron map for example decides if it represents only a single neuron or a set array size of neurons.\\
 The edges between maps are described as well with a number of parameters.
 In this case the type of connection and the synaptic weight are set by parameters.
@@ -301,29 +307,24 @@ As additional input the food dispenser and electrified grid can then be used to 
 
 A test animal (or different test subject) with good general learning ability, should be able to identify the supported input to output associations independent of the specific used pairing and act accordingly.
 
-\section{TODO: related work}
-\label{sec:related_work}
-Typical approaches from related work\\
-- typically the two problems ( 1. encoding of nervous systems for evolution of large good neural networks and 2. synaptic plasticity in neural networks) are studied separately\\
-About generative encodings: \\
-- \cite{hornby2001body} $\rightarrow$ L-Systems\\
-- \cite{mouret2010importing} $\rightarrow$ neuroscience toolbox\\
-About synaptic plasticity:\\
-- \cite{hebb2005organization} $\rightarrow$ importance of synaptic plasticity for learning\\
-- \cite{abbott2000synaptic} $\rightarrow$ synaptic plasticity in neural networks
+%\section{TODO: related work}
+%\label{sec:related_work}
+%Typical approaches from related work\\
+%- typically the two problems ( 1. encoding of nervous systems for evolution of %large good neural networks and 2. synaptic plasticity in neural networks) are %studied separately\\
+%About generative encodings: \\
+%- \cite{hornby2001body} $\rightarrow$ L-Systems\\
+%- \cite{mouret2010importing} $\rightarrow$ neuroscience toolbox\\
+%About synaptic plasticity:\\
+%- \cite{hebb2005organization} $\rightarrow$ importance of synaptic plasticity for %learning\\
+%- \cite{abbott2000synaptic} $\rightarrow$ synaptic plasticity in neural networks
 
-\section{TODO: Approach description}
+\section{Approach description}
 \label{sec:model}
-Proposal of the paper\\
-- Bias towards regularity is critical to evolve plastic neural networks\\
-Experiment in the paper to verify the proposal - design of analysis\\
-- How is it structured?\\
-- What is it able to show?\\
-- Expected results?\\
-
+%Experiment in the paper to verify the proposal - design of analysis\\
+%- What kind of simplifications were made for this approach?\\
 To test their hypothesis, that developmental encodings lead to ANNs with better general learning ability, Tonelli and Mouret used the following experimental setup:\medskip
 
-Developed ANNs are tested in a simulated Skinner box with four stimuli inputs (1,2,3,4) and also four possible output actions (A,B,C,D). Only one stimulus is presented at once and is associated with one desired output action.
+Developed ANNs are trained and tested in a simulated Skinner box with four stimuli inputs (1,2,3,4) and also four possible output actions (A,B,C,D). Only one stimulus is presented at once and is associated with one desired output action.
 For further consideration four terms are defined by Tonelli and Mouret:
 \begin{itemize}
 	\item A \textbf{association} (I,O) is a pair of input stimulus and output action, where the input I should lead to the output O (e.g. (1,A)).
@@ -344,12 +345,35 @@ The figure \ref{fig:formalization} shows an illustration of the network structur
 	\label{fig:formalization}
 \end{figure}
 
-To calculate the answer of the ANN to an input the softmax of the output values is taken. The softmax in contrast to the simple max function does not just take the output node with the highest value as answer of the ANN, but assigns a probability to be taken proportional to the quantity of a value.\medskip
+To calculate the answer of the ANN to an input the softmax of the output values is taken. The softmax in contrast to the simple max function does not just take the output node with the highest value as answer of the ANN, but assigns a probability to be taken proportional to the quantity of a value (higher value leads to higher likelyhood to be choosen as final answer).\medskip
+
+Example of input/outoput values to the network (abbildung maipulieren)\medskip
 
 The learning process of an ANN to a association set is not done with classical backpropagation and corresponding weight changes, but by using modulatory neurons.
 Each neuron in the ANN can be a standard or a modulatory one.
-Modulatory neurons change the connection weights of standard neurons using Hebb's rule ("Cells that fire together, wire together") and induce thereby plasticity to the ANN (cf. \cite{citeulike:12788284} p.2).
+Modulatory neurons change the connection weights of standard neurons using Hebb's rule ("Cells that fire together, wire together") and induce thereby plasticity to the ANN (cf. \cite{citeulike:12788284} p.2).\\
+Beispiel wie das funktionieren kann, zeigen. Mehrere Iterationen führen zu jeweils utnerschiedlicher modulation der gewichte bis irgendwann das korrekte ergebnis erscheint. \medskip
 
+To start a new experiment a subset of the global training set is randomly chosen as evolutionary training set.
+An evolutionary algorithm is then used to create ANNs with good performance on the training set for each of the three different genetic encodings studied by Tonelli and Mouret : direct, map-based and HNN encoding. As the name suggests direct encoding is a representative of the direct encodings introduced in chapter \ref{genes_nervous}, whereas map-based and HNN encoding are among the developemental encodings.
+The 'Non-dominated Sorting Genetic Algorithm-II' (NSGA-II) a multi-objective optimization algorithm, that utilizes evolutionary methods, is the selected evolutionary algorithm by Tonelli and Mouret for their experiments.\\
+It is necessary to define a fitness function, to evaluate the performance of individuals during the evolutionary process. The fitness function used by Tonelly and Mouret does the following:\\
+First an association set of the evolutionary training set is chosen. The connection weights in the ANN are randomly initiated (the ANN forgets previous knowledge), respectively a new instance of an ANN with the particular genetic code is taken. The ANN is then supposed to adapt to each association of the association set, therefore the stimulus is initially presented without feedback or reward input, after the first action to that stimulus was selected the feedback and reward inputs are set for additional iterations while still showing the same stimulus. This procedure is done for each association of each association set of the training set. The fitness score is then the mean value of the number of positive rewards (correct associated actions) at the end of each procedure.\medskip
+
+The application of the evolutionary algorithm generates a set of ANNs with decent fitness score on the evolutionary training set. For the ANN with highest score the GLA is calculated. Therefore the fitness function is computed on the association sets that weren't in the training set.\\
+Finally the regularity of the obtained ANN is computed. As described in chapter \ref{regularity} this can be done by evaluating the number of graph automorphisms in the phenotype of the ANN. The comparison of GLA with the number of automorphism can then be used by Tonelli and Mouret to study the relation between both values and  therby show proof or disproof to their hypothesis. \medskip
+
+One experiment looks then like the following:
+\begin{enumerate}
+	\item Choose a genetic encoding (direct, map-based, HNN)
+	\item Select random evolutionary training set
+	\item Develope ANNs with an evolutionary algorithm, which are performing well on the training set
+	\item Calculate the GLA of the ANN with the best fitness score (on the evolutionary training set), by computing the fitness funcion on the unseen association sets of the global training set
+	\item Evaluate the regularity of the ANN by counting the graph automorphisms
+\end{enumerate}
+
+According to the hypothesis of Tonelli and Mouret about regularity inducing a better general learning ability in ANNs, the GLA should be positively correlated to the number of graph automorphisms. 
+Also the usage of developemental encodings should lead to more regular networks and therfore ANNs with better general learning ability.
 
 \section{TODO: Approach analysis}
 \label{sec:analysis}
