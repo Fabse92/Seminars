@@ -1,0 +1,46 @@
+Paper Title: Examination of a framework for multi-objective analysis of computational models 
+Paper Author: Jan Fabian Schmid
+
+A. Summary of the paper:
+The necessity and approach to solving the potential issues arising from the use of computational models are presented, followed by an (intended) critical discussion of the applicability of the framework.
+
+B. Strengths of the paper:
+The writing of a section summary seems to be an interesting idea, since it is helping the reader to quickly sum up the main points.
+The proper usage of lists/enumerations makes the paper easy to read and quite pleasant to the eye.
+The very specific citations (including page numbers) are a proof of the research efforts and are highly likely to be appreciated by the final assessor or a more inquisitive reader.
+The indication of the missing parts makes the reviewer's life painless, which is much appreciated.
+
+C. Weaknesses of the paper:
+No alternative approach tackling the same issue is mentioned. That is understandable given its particularity, but might also prove convenient for further interpretation of the discussed framework.
+
+D. Short evaluations
+
+D1. Coverage of the Field:
+Broad. Especially the extensive nature of the second section ("Background information") provides a hint into the specificity of the presented framework's utility.
+
+D2. Depth of the topic:
+The addressed topic is quite complex and specific, requiring appropriate understanding of the underlying models.
+
+D3. Structure:
+The structure is clean and allows for easy exploration through the content. The reader's guide is also helpful in this direction.
+
+D4. Quality of presentation / Clarity:
+The paper shows well articulated content and is successful in conveying information.
+
+D5. Quality of the language:
+The paper is showing highly skilled use of English.
+
+D6. Critical elaboration of the topic:
+Currently not addressed.
+
+E. Detailed comments to the author:
+
+A really strong first impression is made by the clarity of speech, which is by nature far-fetched and unexpected when dealing with such a specific theme. 
+Writing section summaries is a good way to get the main points through to the reader, only if the author can successfully avoid repetitions.
+
+
+
+
+
+
+

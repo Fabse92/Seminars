@@ -1,0 +1,76 @@
+Paper Title: Effects of encoding on the general learning ability of artificial neural networks
+Paper Author: Jan Fabian Schmid
+
+A. Summary of the paper:
+	- nice, go further in this kind of writing, it's really nice to read it
+
+
+B. Strengths of the paper:
+	- logical structure
+	- well chosen figure
+
+C. Weaknesses of the paper:
+	- subparts in the introduction
+
+
+D. Short evaluations
+
+D1. Coverage of the Field:
+
+D2. Depth of the topic:
+	- Background is good referenced, so the reader can go deeper in the topic
+
+D3. Structure:
+	Abstract
+		- not written yet
+	1 Introduction 
+		- Where do you know from that it is a "more prominent topic"?
+		- "using artificial neural networks (ANNs). In contrast to artificial neural networks"
+		-> there is a wrong vocabulary
+		- maybe add in the first lines which paper/topic you are presenting (like the first paragraph of 1.2)
+		1.1 Suggested solution
+			- sounds more like a solution
+			- maybe place this part somewhere else, because it's already part of the method description which doesn't have to be in the introduction
+			- "Figure 1.1." - not the right number for the figure
+		1.2 Goals and structure of this paper 
+			- use the first sentence of this paragraph earlier in the paper, so that the reader get's an idea what he is about to read
+			- For me, this section isn't needed as an own point, maybe make it just as a new paragraph
+			- all the informations you give, are alredy available in the table of contents (Do you need this explanation for a paper of 10 pages?)
+	2 Background Information 
+		2.1 Regularity
+			- very comprehensible 
+			- the definition of the graph automorphisms doesn't seem to have a relation to the upper part.
+			-> Maybe write it in a less mathematical way, or make the link to the upper part clearer
+		2.2 From genes to nervous systems 
+			2.2.1 Direct encoding
+				- Are the seven mutation operators always used in this order? Otherwise don't use an enumeration.
+				- Where did you get the mutation operators from? reference
+				- Are this mutation operators based on some biological background?
+				- If you name this part "Direct encoding" than the next part should name "developemental encodings"
+			2.2.2 TODO: map-based encoding
+				- not written yet
+			2.2.3 TODO: HNN encoding
+				- not written yet
+		2.3 TODO: Skinner-box 
+	3 TODO: related work 
+		- "typically" you can't know if you have seen more than 75% of the papers related to this topic
+	4 TODO: Approach description 
+		- What kind of simplifications were made for this approach?
+	5 TODO: Approach analysis 
+		- plan looks logical
+	6 TODO: Conclusion 
+		- not written yet
+	7 Bibliography
+
+D4. Quality of presentation / Clarity:
+	- the parts which are already presented have a good content which is understandable without a deep understand of the topic
+
+D5. Quality of the language:
+	- nice to read, you don't get stuck because of complex sentence structures
+	- length of the sentences is good (nice mixture of ong and short ones)
+
+D6. Critical elaboration of the topic:
+
+
+E. Detailed comments to the author:
+

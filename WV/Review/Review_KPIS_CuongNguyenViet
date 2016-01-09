@@ -1,0 +1,41 @@
+Paper Title: Hierarchical Reinforcement Learning
+Paper Author: Cuong Nguyen Viet
+
+A. Summary of the paper:
+Reinforcement learning is a wide used utility for problem solving, but its application might be problematic.
+Hierarchical reinforcement learning addresses this problem by breaking the problem into several low-level subproblems and solving them step by step.
+HRL is considered as the learning mechanism used in nature.
+Different approaches to HRL got developed, all having strengths and weaknesses.
+
+B. Strengths of the paper:
+- Some good illustrations
+- extensive coverage of the field
+
+C. Weaknesses of the paper:
+- No introductions and summaries of chapters
+- Some complicated math with very little motivation
+- maybe too much content for one paper
+
+D. Short evaluations
+D1. Coverage of the Field:
+Excellent: quite extensive, many related topics picked up
+
+D2. Depth of the topic:
+Excellent: everything well defined
+
+D3. Structure:
+Medium: Background given not only in the section provided therefor, but also in section 3 and 4. New concepts are still introduced in the discusson 
+
+D4. Quality of presentation / Clarity:
+Good: Much background provided, could be better structured and motivated
+
+D5. Quality of the language:
+Medium: mostly understandable, plenty of minor errors
+
+D6. Critical elaboration of the topic:
+Good: short but compact discussion
+
+E. Detailed comments to the author:
+You should consider to split the introduction into multiple subsections, like general introduction, problem statement and structure of the paper.
+You could use the "itemize"-environment for example in 2.1 for defining the four main-sub-elements of RL.
+

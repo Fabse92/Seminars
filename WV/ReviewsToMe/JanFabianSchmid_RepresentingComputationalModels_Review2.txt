@@ -1,0 +1,52 @@
+Paper Title: Examination of a framework for
+multi-objective analysis of computational
+models
+Paper Author: Jan Fabian Schmid
+
+
+A. Summary of the paper:
+
+The paper aims to present and evaluate a framework of Doncieux et al, which is supposed to optimize the strategy to achieve multiple objectives.
+
+B. Strengths of the paper:
+
+Very clear motivation of both the paper and the issue
+
+
+C. Weaknesses of the paper:
+
+The paper uses very little information from outside the paper it is evaluating.
+
+D. Short evaluations
+
+D1. Coverage of the Field:
+
+The paper is completely focused on the paper by Doncieux et al and could use outside sources to add perspectives, maybe those are to come in the TODO sections.
+
+D2. Depth of the topic:
+
+The in-depth analysis is still to come in the TODO sections so it is hard to comment on that
+
+D3. Structure:
+
+The structure does make sense, however it seems confusing at first. It is hard to tell by the structure where something is applicable to the general issue and 
+it is specific to the discussed paper.
+
+D4. Quality of presentation / Clarity:
+
+There are no diagrams of concepts/relations but they could very much help to elaborate the topic.
+
+D5. Quality of the language:
+
+The quality of the language is okay.
+
+D6. Critical elaboration of the topic:
+
+As of yet it is only a collection of information without critical evaluation except for notes/keywords in TODO sections
+
+
+E. Detailed comments to the author:
+
+
+
+

@@ -1,0 +1,40 @@
+Paper Title: Effects of encoding on the general learning ability of artificial neural networks
+
+Paper Author: Jan Fabian Schmid
+
+A. Summary of the paper: 
+	- The paper focuses on analysing the learning ability of neural network depending of its structure. It describes different ways of encoding for generating the connectivity within the network and elaborates on the hypothesis that the more regular structure of a network leads to better learning abilities
+
+
+B. Strengths of the paper:
+	- early draft, hard to tell
+
+C. Weaknesses of the paper:
+	- early draft, hard to tell
+
+D. Short evaluations
+
+D1. Coverage of the Field:
+	- it focuses on one paper but there is enough background and a "Related work" section to be written, the coverage of the field would probably be sufficient in the final version
+
+D2. Depth of the topic:
+
+D3. Structure:
+	- there is a good plan of how to structure the paper
+
+D4. Quality of presentation / Clarity:
+	- too little content to judge, seems clear so far
+
+D5. Quality of the language:
+	- the language used is good, only consider usage of commas (see comment bellow)  
+
+D6. Critical elaboration of the topic:
+	-this part is still not written
+
+E. Detailed comments to the author:
+	- maybe give short definitions for important terms (genotype, fenotype)
+	- it would be nice to show a figure where you ilustrate the automorphism with an example graph
+	- I notice commas in some illogical places like: Section 1.1: Tonelli and Mouret say, that...; 
+	- Also missing commas: Section 1:  ...that are used for function approximation in a variety of application fields [comma here] ... 
+ 	
+
