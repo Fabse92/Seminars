@@ -144,4 +144,22 @@
   publisher={Psychology Press}
 }
 
+@inproceedings{tonelli2011using,
+  title={Using a map-based encoding to evolve plastic neural networks},
+  author={Tonelli, Paul and Mouret, Jean-Baptiste},
+  booktitle={Evolving and Adaptive Intelligent Systems (EAIS), 2011 IEEE Workshop on},
+  pages={9--16},
+  year={2011},
+  organization={IEEE}
+}
+
+@inproceedings{clune2010investigating,
+  title={Investigating whether hyperneat produces modular neural networks},
+  author={Clune, Jeff and Beckmann, Benjamin E and McKinley, Philip K and Ofria, Charles},
+  booktitle={Proceedings of the 12th annual conference on Genetic and evolutionary computation},
+  pages={635--642},
+  year={2010},
+  organization={ACM}
+}
+
 

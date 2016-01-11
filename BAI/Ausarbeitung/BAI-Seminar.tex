@@ -186,26 +186,31 @@
 
 \section{Introduction}
 \label{sec:introduction}
+
+Finde mehr Referenzen!
+
 This seminar paper is supposed to give an in-depth analysis of the presented paper \cite{citeulike:12788284} with focus on the effects of encoding on the general learning ability of artificial neural networks.\medskip
+
 One of the more prominent topics in bio-inspired artificial intelligence is the modelling of animal nervous systems using artificial neural networks (ANNs) (cf. \cite{citeulike:12788284} p.1).\\
-ANNs are used for function approximation in a variety of application fields.
-In contrast to them nature-like neural networks should be larger, more organized and more plastic (cf. \cite{citeulike:12788284} p.1). 
-The common approach to develope such networks, are evolutionary algorithms, since the evolution was responsible for developing the prototype.\\
-Two aspects of creating nature-like ANNs, that research mainly focuses on, are:
+ANNs are not readily useful to model animal nervous systems, instead they can be used for function approximation in a variety of application fields.
+In contrast to ANNs nature-like neural networks should be larger, more organized and more plastic (cf. \cite{citeulike:12788284} p.1). 
+The common approach to develop such networks, are evolutionary algorithms, since the evolution was responsible for developing the natural example.\\
+Two aspects of creating nature-like ANNs, that research mainly focuses on, are (cf. \cite{citeulike:12788284} p.1):
 \begin{itemize}
-	\item \textbf{Genetic encoding:} To use evolutionary algorithms for the developement of neural networks with specific behaviours, it is necessary to present the structure in some kind of encoding that can be handled by them.
+	\item \textbf{Genetic encoding:} To use evolutionary algorithms for the development of neural networks with specific behaviours, it is necessary to present the structure in some kind of encoding that can be handled by them.
 	As in the genotype of animals, it is not desired to encode each neuron specifically, but rather to define rules for the network structure, that then lead to regular patterns (cf. \cite{citeulike:12788284} p.1).\\
 	Algorithms that use a mapping of genotype to phenotype are called \textit{artificial developmental systems}.
 	\item \textbf{Synaptic plasticity:} The ability of an artificial neural network to change repeatedly during lifetime is called synaptic plasticity.
-	A neural network with good plasticity is supposed to be able to adapt to different problems through a learning process, ideally even to situations that were not considered during the developement of the network.
+	A neural network with good plasticity is supposed to be able to adapt to different problems through a learning process, ideally even to situations that were not considered during the development of the network.
 \end{itemize}
-Alongside a proper genetic encoding the fitness function has to be defined for evolutionary algorithms. Individuals that are newly developed during the application of the algorithm are adapted to the fitness function. \\
-To obtain plastic ANNs the fitness function could check for fitness on many different test cases to ensure the general learning ability.
+For the usage of evolutionary algorithms alongside a proper genetic encoding the fitness function has to be defined. To this fitness function individuals that are newly developed during the application of the evolutionary algorithm are adapted.\\
+If it is desired to obtain plastic ANNs the fitness function could check for fitness on many different test cases to ensure the general learning ability.
 It turns out however that this approach can hardly be feasible for more complex environments as the number of required test cases grows exponentially (cf. \cite{citeulike:12788284} p.2).\medskip
+
 In the studied paper \cite{citeulike:12788284} it is therefore suggested that genetic encoding and synaptic plasticity should be examined simultaneously (cf. \cite{citeulike:12788284} p. 1).\\
 
 \subsection{Hypothesis}
-Tonelli and Mouret say that the use of artificial developmental systems leads to more regular network structures since it is easier to describe a more regular structure with repetitions and symmetries than to describe an irregular structure with seemingly no relations between the induvidual network parts using a general rule set like genetic encoding does.(cf. \cite{citeulike:12788284} p.2)
+Tonelli and Mouret say that the use of artificial developmental systems leads to more regular network structures since it is easier to describe a more regular structure with repetitions and symmetries than to describe an irregular structure with seemingly no relations between the individual network parts using a general rule set like genetic encoding does.(cf. \cite{citeulike:12788284} p.2)
 Therefore their main hypothesis is:
 \glqq We here propose that this bias towards regularity is critical to evolve plastic neural networks that can learn in a large variety of situations\grqq{}(\cite{citeulike:12788284} p.2).\\
 To visualize this idea they present the illustration in figure (\textbf{???}).
@@ -238,10 +243,16 @@ The better general learning ability of more regular ANNs is supposed to stem fro
 Regularity measures the compressibility of a network. It is a characterization of the phenotype, not the genotype, of the ANN.
 Tonelli and Mouret compute the regularity by calculating the number of symmetry axes (cf. \cite{citeulike:12788284} p. 4).
 If two parts of the network can be interchanged without altering the graph they are called symmetric.
-It is only necessary to describe one of these parts and reference it for each additional occurance, therefore the description of a network with more symmetries is more compressable.\\
-These symmetries are graph automorphisms and can be easily calculated for most graphs (actually it is an NP-complete problem).\\
-A graph automorphism is a permutation $\sigma$ of the vertex set V of the graph $G = (V,E)$, that maps an edge $(\sigma(u),\sigma(v))$ to the vertices u and v iff they formed an edge (u,v) already in G.\\
-Since an automorphism of the graph to itself always exists, the number of symmetries is the number of automorphisms less one.\medskip
+It is only necessary to describe one of these parts and reference it for each additional occurrence, therefore the description of a network with more symmetries is more compressible.\\
+These symmetries are graph automorphisms and can be easily calculated for \textbf{most} graphs (not all graphs since it is actually an NP-complete problem).\\
+A graph automorphism is a permutation $\sigma$ of the vertex set V of the graph $G = (V,E)$, that maps an edge $(\sigma(u),\sigma(v))$ to the vertices u and v iff they formed an edge (u,v) already in G. A permutation of a set is an particular ordering of all its members. For example all permutations of the set $\left\{ 1,2,3 \right\}$ are (1,2,3),(1,3,2),(2,1,3),(2,3,1),(3,1,2),(3,2,1). If the vertices of G are fixed in a particular ordering, the graph automorphism can be written as mapping from the previous ordering to the new one like this: 
+$
+\begin{pmatrix}
+1 & 2 & 3 \\
+2 & 1 & 3
+\end{pmatrix}
+$ where the original ordering was (1,2,3) and the automorphism mapped the vertices to (2,1,3).\\
+Since an automorphism of the graph to itself always exists, the number of symmetries is the number of automorphisms minus one.\medskip
 
 In figure ??? symmetry axes on a equilateral triangle are shown. A couple of graph automorphisms along these axes are the following:
 \begin{itemize}
@@ -272,25 +283,25 @@ In figure ??? symmetry axes on a equilateral triangle are shown. A couple of gra
 
 \subsection{From genes to nervous systems}
 \label{genes_nervous}
-It is necessary to encode the structure of an ANN to a representation that can be modified easily if an evolutionary algorithm is to be used for its developement.
+It is necessary to encode the structure of an ANN to a representation that can be modified easily if an evolutionary algorithm is to be used for its development.
 Encodings can be divided into two groups:
 \begin{itemize}
-	\item \textbf{Developemental encodings} use a genotype to phenotype mapping like DNA does. The code defines construction rules which if followed lead to a certain network structure. Small changes in the code can, if followed, have huge impacts on the resulting phenotype allowing a fast exploration of parameter space, but the fine tuning becomes difficult.
+	\item \textbf{Developmental encodings} use a genotype to phenotype mapping like DNA does. The code defines construction rules which if followed lead to a certain network structure. Small changes in the code can, if followed, have huge impacts on the resulting phenotype allowing a fast exploration of parameter space, but the fine tuning becomes difficult.
 	Often similar and symmetric network structure parts arise in the phenotype since all neurons, and all connections, follow the same rules.
-	\item For \textbf{direct encodings} the mapping from genotype to phenotype is immediate as the parameters to each neuron and each connection can be directly derived from the code. In the developemental encoding this is not possible since they depend on their relation to different network parts by the defined rules.
+	\item For \textbf{direct encodings} the mapping from genotype to phenotype is immediate as the parameters to each neuron and each connection can be directly derived from the code. In the developmental encoding this is not possible since they depend on their relation to different network parts by the defined rules.
 \end{itemize}
-In the studied paper three different encodings are compared with each other, two of them are developemental encodings (HNN and map-based) and one direct encoding.
+In the studied paper three different encodings are compared with each other, two of them are developmental encodings (HNN and map-based) and one direct encoding.
 
 \subsubsection{Direct encoding}
-The ANN is decribed by a directed graph. The networks of the first generation of the evolutionary algorithm are initiated as a simple feed-forward network without hidden layers and randomly initialized weights.\\
+The ANN is described by a directed graph. The networks of the first generation of the evolutionary algorithm are initiated as a simple feed-forward network without hidden layers and randomly initialized weights.\\
 Seven different mutation operators are modifying the network during evolution while no cross over is implemented in the version used by Tonelli and Mouret (cf. \cite{citeulike:12788284} p. 9-10).
 Each mutation happens with a specific probability to the operation:
 \begin{itemize}
 	\item A connection is randomly added
-	\item A random connection is removed
+	\item Randomly choose a connection and remove it
 	\item Randomly choose a connection and change its target or source
 	\item Create a new neuron by randomly choosing a connection and creating a new target neuron with the same connection weight
-	\item Delete a random neuron and its connections
+	\item Randomly choose a neuron and delete it and its connections
 	\item Randomly choose a connection and modify its weight
 	\item Activation function of a random neuron is changed
 \end{itemize}
@@ -308,7 +319,7 @@ One parameter decides if each neuron of a map is only connected to one neuron of
 Another parameter implies if the connection weights have positive or negative sign (excitatory or inhibitory). And the last parameter sets the weight value.
 
 \subsubsection{HNN encoding}
-The Hyper Neural Network (HNN) encoding used by Tonelli and Mouret is a modification of the complex HyperNEAT encoding.
+The Hyper Neural Network (HNN) encoding used by Tonelli and Mouret is a modification of the complex HyperNEAT encoding. The HyperNEAT encoding is used by other researchers as well to study the effect of developmental encodings on plasticity in ANNs \cite{clune2010investigating} \cite{verbancsics2011constraining}.
 When using this encoding the network structure has to be specified beforehand (in this case 9 input neurons, 5 hidden neurons and 4 output neurons).
 During the evolutionary development of the network two additional included networks are formed. One of them answers the question to each pair of neurons, if they are connected or not and if so which connection weight the edge has.
 The second inherent network defines the parameters of each neuron. These two networks are developed using the direct encoding.
@@ -353,9 +364,9 @@ Developed ANNs are trained and tested in a simulated Skinner box with four stimu
 For further consideration four terms are defined by Tonelli and Mouret:
 \begin{itemize}
 	\item A \textbf{association} (I,O) is a pair of input stimulus and output action, where the input I should lead to the output O (e.g. (1,A)).
-	\item The \textbf{association set} is a set with one association to each input simulus (e.g. $\left\{(1,A),(2,B),(3,C),(4,D)\right\})$
+	\item The \textbf{association set} is a set with one association to each input stimulus (e.g. $\left\{(1,A),(2,B),(3,C),(4,D)\right\})$
 	\item The \textbf{global training set} is the set of all possible association sets (with four different stimuli and four possible actions there are $4^4 = 256$ different possibilities).
-	\item The \textbf{evolutionary training set} is a randomly chosen subset of the global training set, that is used during a particular experiment to evaluate the general leraning ability of the evolved ANNs.
+	\item The \textbf{evolutionary training set} is a randomly chosen subset of the global training set, that is used during a particular experiment to evaluate the general  ability of the evolved ANNs.
 	\item With the \textbf{General Learning Ability} (GLA) score the performance of an evolved ANN on all association sets, that were not used during the evolutionary process.
 \end{itemize}
 
@@ -370,7 +381,7 @@ The figure \ref{fig:formalization} shows an illustration of the network structur
 	\label{fig:formalization}
 \end{figure}
 
-To calculate the answer of the ANN to an input the softmax of the output values is taken. The softmax in contrast to the simple max function does not just take the output node with the highest value as answer of the ANN, but assigns a probability to be taken proportional to the quantity of a value (higher value leads to higher likelyhood to be choosen as final answer).\medskip
+To calculate the answer of the ANN to an input the softmax of the output values is taken. The softmax in contrast to the simple max function does not just take the output node with the highest value as answer of the ANN, but assigns a probability to be taken proportional to the quantity of a value (higher value leads to higher likelihood to be chosen as final answer).\medskip
 
 Example of input/outoput values to the network (abbildung maipulieren)\medskip
 
@@ -380,35 +391,38 @@ Modulatory neurons change the connection weights of standard neurons using Hebb'
 Beispiel wie das funktionieren kann, zeigen. Mehrere Iterationen führen zu jeweils utnerschiedlicher modulation der gewichte bis irgendwann das korrekte ergebnis erscheint. \medskip
 
 To start a new experiment a subset of the global training set is randomly chosen as evolutionary training set.
-An evolutionary algorithm is then used to create ANNs with good performance on the training set for each of the three different genetic encodings studied by Tonelli and Mouret : direct, map-based and HNN encoding. As the name suggests direct encoding is a representative of the direct encodings introduced in chapter \ref{genes_nervous}, whereas map-based and HNN encoding are among the developemental encodings.
+An evolutionary algorithm is then used to create ANNs with good performance on the training set for each of the three different genetic encodings studied by Tonelli and Mouret : direct, map-based and HNN encoding. As the name suggests direct encoding is a representative of the direct encodings introduced in chapter \ref{genes_nervous}, whereas map-based and HNN encoding are among the developmental encodings.
 The 'Non-dominated Sorting Genetic Algorithm-II' (NSGA-II) a multi-objective optimization algorithm, that utilizes evolutionary methods, is the selected evolutionary algorithm by Tonelli and Mouret for their experiments.\\
-It is necessary to define a fitness function, to evaluate the performance of individuals during the evolutionary process. The fitness function used by Tonelly and Mouret does the following:\\
+It is necessary to define a fitness function, to evaluate the performance of individuals during the evolutionary process. The fitness function used by Tonelli and Mouret does the following:\\
 First an association set of the evolutionary training set is chosen. The connection weights in the ANN are randomly initiated (the ANN forgets previous knowledge), respectively a new instance of an ANN with the particular genetic code is taken. The ANN is then supposed to adapt to each association of the association set, therefore the stimulus is initially presented without feedback or reward input, after the first action to that stimulus was selected the feedback and reward inputs are set for additional iterations while still showing the same stimulus. This procedure is done for each association of each association set of the training set. The fitness score is then the mean value of the number of positive rewards (correct associated actions) at the end of each procedure.\medskip
 
 The application of the evolutionary algorithm generates a set of ANNs with decent fitness score on the evolutionary training set. For the ANN with highest score the GLA is calculated. Therefore the fitness function is computed on the association sets that weren't in the training set.\\
-Finally the regularity of the obtained ANN is computed. As described in chapter \ref{regularity} this can be done by evaluating the number of graph automorphisms in the phenotype of the ANN. The comparison of GLA with the number of automorphism can then be used by Tonelli and Mouret to study the relation between both values and  therby show proof or disproof to their hypothesis. \medskip
+Finally the regularity of the obtained ANN is computed. As described in chapter \ref{regularity} this can be done by evaluating the number of graph automorphisms in the phenotype of the ANN. The comparison of GLA with the number of automorphism can then be used by Tonelli and Mouret to study the relation between both values and  thereby show proof or disproof to their hypothesis. \medskip
 
 One experiment looks then like the following:
 \begin{enumerate}
 	\item Choose a genetic encoding (direct, map-based, HNN)
 	\item Select random evolutionary training set
-	\item Develope ANNs with an evolutionary algorithm, which are performing well on the training set
-	\item Calculate the GLA of the ANN with the best fitness score (on the evolutionary training set), by computing the fitness funcion on the unseen association sets of the global training set
+	\item Develop ANNs with an evolutionary algorithm, which are performing well on the training set
+	\item Calculate the GLA of the ANN with the best fitness score (on the evolutionary training set), by computing the fitness function on the unseen association sets of the global training set
 	\item Evaluate the regularity of the ANN by counting the graph automorphisms
 \end{enumerate}
 
 According to the hypothesis of Tonelli and Mouret about regularity inducing a better general learning ability in ANNs, the GLA should be positively correlated to the number of graph automorphisms. 
-Also the usage of developemental encodings should lead to more regular networks and therfore ANNs with better general learning ability.
-Since plasticity in the ANNs can only be achieved by modulatory neurons it can be expected, that the occurence of at least one modulatory neuron is necessary for good GLA scores. 
+Also the usage of developmental encodings should lead to more regular networks and therefore ANNs with better general learning ability.
+Since plasticity in the ANNs can only be achieved by modulatory neurons it can be expected, that the occurrence of at least one modulatory neuron is necessary for good GLA scores. 
 
 \section{Approach analysis}
 \label{sec:analysis}
 As they expected Tonelli and Mouret come to the conclusion that well suited ANNs to the problem of the general learning task heavily depend on the usage of modulatory neurons (cf. \cite{citeulike:12788284} p.3-4). In fact they summarize: "[...] and we never found any solution with less than two hidden neurons (one of them being modulatory)." (\cite{citeulike:12788284} p.3)\\
-A modulatory neuron has to utilize the rewards and feedback input values to change connection weights if the reward signal corresponds to a punishment and strenghten the present weights if the previous action was correct.\medskip
+A modulatory neuron has to utilize the rewards and feedback input values to change connection weights if the reward signal corresponds to a punishment and  the present weights if the previous action was correct.\medskip
 
-Some of the results actually suggest that the correlation of the GLA score and the number of graph automorphisms isn't as strong as expected, since ANNs can be found, that achieve high GLA scores with only a few automorphisms in the network and some ANNs with many automorphisms only reach low GLA scores.
-The first case appears when direct encoding is used, in this encoding no mechanism is available to copy network subparts, as it is in the developemental encodings, therefore the regularity might not be measured correctly with automorphisms, because slight differences in otherwise very similar network parts mean that no automorphisms accure. Direct encoding should still tend to produce regular ANNs, but the parallel network parts are developed step by step in the evolutionary algorithm, it is then unlikely that these actually quite similar network parts can be described with an automorphism. (dieser Satz soll den vorherigen nocheinmal in anderen Worten ausdrücken, damit man es versteht. Gut oder schlecht?)
-The second case of ANNs with many automorphisms, but low GLA score, are actually no counter proof to the hypothesis of Tonelli and Mouret since their proposal states that plasticity requires high regularity, but not that high regularity implies plasticity. ANNs can have high regularity but completly unsufficient structure to solve the given task (cf. \cite{citeulike:12788284} p.5).\medskip
+Some of the results actually suggest that the correlation of the GLA score and the number of graph automorphisms isn't as strong as expected, since ANNs can be found, that achieve high GLA scores with only a few automorphisms in the network and some ANNs with many automorphisms only reach low GLA scores. Both problems can be explained without impairment of the hypothesis of Tonelli and Mouret:
+\begin{itemize}
+	\item The first case appears when direct encoding is used, in this encoding no mechanism is available to copy network subparts, as it is in the developmental encodings, therefore the regularity might not be measured correctly with automorphisms, because slight differences in otherwise very similar network parts mean that no suitable mapping of vertices for a automorphism are available. Direct encoding should still tend to produce regular ANNs, but the parallel network parts are developed step by step in the evolutionary algorithm, it is then unlikely that these actually quite similar network parts can be described with an automorphism. (dieser Satz soll den vorherigen nocheinmal in anderen Worten ausdrücken, damit man es versteht. Gut oder schlecht?)
+In the example in chapter \ref{regularity} of an equilateral triangle this would mean, that a small displacement of a node to one direction prohibits the possibility to use the mentioned reflections and rotations for an uniform mapping.
+	\item The second case is about ANNs with many automorphisms, but low GLA score, these are actually no counter proof to the hypothesis of Tonelli and Mouret since their proposal states that plasticity requires high regularity, but not that high regularity implies plasticity. ANNs can have high regularity but completely insufficient structure to solve the given task (cf. \cite{citeulike:12788284} p.5).
+\end{itemize} 
 
 The figure \ref{fig:results} summarizes the results of the experiments. Plotted are data of ANNs with perfect fitness function score on their evolutionary training set.
 For A and B the X-Axis shows the minimum number of graph automorphisms of the ANNs, where a network with n automorphisms is included in the columns from 1 to n. In A the performance and in B the distribution of ANNs with more or less automorphisms is shown on the Y-Axis.
@@ -424,12 +438,12 @@ For A and B the X-Axis shows the minimum number of graph automorphisms of the AN
 Two distict observations can be made from the two graphs in figure \ref{fig:results}:
 \begin{itemize}
 	\item \textbf{Graph A:} The number of graph automorphisms in an ANN is positively correlated to its GLA score. 
-	\item \textbf{Graph B:} The developemental encodings (map-based and HNN) produce ANNs with more graph automorphisms that the direct encoding.
+	\item \textbf{Graph B:} The developmental encodings (map-based and HNN) produce ANNs with more graph automorphisms that the direct encoding.
 \end{itemize}
 
 \subsection{Discussion}
 Tonelli and Mouret conclude from shown results in figure \ref{fig:results}: "[...] using a developmental encoding improves the learning abilities of evolved, plastic neural networks."\\
-This is well justified, even though ANNs with direct encoding achieve higher GLA scores than HNN encoding for ANNs with at least 3 graph automorphisms, since the occurance of ANNs with direct encoding and with 3 or more automorphisms is very rare.\medskip
+This is well justified, even though ANNs with direct encoding achieve higher GLA scores than HNN encoding for ANNs with at least 3 graph automorphisms, since the occurrence of ANNs with direct encoding and with 3 or more automorphisms is very rare.\medskip
 
 The main hypothesis of the paper is therefore confirmed by the experimental data. The usage of developmental encodings did lead to ANNs with higher GLA score and more graph automorphisms that direct encoding. 
 With one caveat in the relation of graph automorphisms and regularity. Since graph automorphisms represent symmetries in the graph the appearance of many graph automorphisms does imply high regularity of the network. The absence of them however doesn't imply irregularity, this is, as already described, because if little variations in otherwise similar network parts appear the measurement with automorphisms doesn't give the ANN credit for being regular in that regard.\\
@@ -437,15 +451,15 @@ To make secured conclusions about the superiority of developmental encodings ove
 
 Tonelli and Mouret write further: "To achieve this flexibility, they have to possess
 connections that were not directly selected during evolution." (\cite{citeulike:12788284} p.7)\\
-This conclusion makes sense and should hold true, but there is actually no experimental data shown to back it up. In fact they themself stated, that solutions with only two hidden neurons were found (cf. \cite{citeulike:12788284} p.3).
+This conclusion makes sense and should hold true, but there is actually no experimental data shown to back it up. In fact they them self stated, that solutions with only two hidden neurons were found (cf. \cite{citeulike:12788284} p.3).
 With a measurement for the proportion of actually used connections in the ANN during the evaluation of its fitness, the assertion could be shown.\medskip
 
-Since higher flexibility of the ANN should imply a higher amount of 'useless' network parts, a trade-off between flexibility and trainibility of ANNs might exist (cf. \cite{citeulike:12788284} p.7).
+Since higher flexibility of the ANN should imply a higher amount of 'useless' network parts, a trade-off between flexibility and trainability of ANNs might exist (cf. \cite{citeulike:12788284} p.7).
 The used experimental setup however considered only a rather simple task (four to four association) to solve for ANNs (cf. \cite{citeulike:12788284} p.8).
 Therefore the  shown dominance of ANNs with many graph automorphisms might be impaired for a more complex problem. A second experiment with higher demands on the ANNs could have answered this question.\medskip
  
-A Problem of the used experiment is, that the complexity of the networks weren't penalized. With a cost for connections a additional goal, which requieres to minimize the sum of connection costs, could have been introduced (cf. \cite{citeulike:12788284} p.7).
-With this implemented it would have been possible to make statements about the effiency of ANNs with high regularity (and high general learning ability) compared to ANNs evolved with direct encoding (and maybe same GLA score).
+A Problem of the used experiment is, that the complexity of the networks weren't penalized. With a cost for connections a additional goal, which requires to minimize the sum of connection costs, could have been introduced (cf. \cite{citeulike:12788284} p.7).
+With this implemented it would have been possible to make statements about the efficiency of ANNs with high regularity (and high general learning ability) compared to ANNs evolved with direct encoding (and maybe same GLA score).
 Thereby the actual usefulness of regularity for animal nervous systems could be as assessed.
 
 %psychological consistence of results\\
@@ -465,11 +479,13 @@ Thereby the actual usefulness of regularity for animal nervous systems could be 
 
 Tonelli and Mouret were able to prove their hypothesis that developmental encodings lead to plastic ANNs with good general learning ability.
 They used a experimental setup in which ANNs were put into a simulated skinner-box. An evolutionary algorithm was then utilized to find representative ANNs for three different genetic encodings that solves the task in a satisfying manner.
-Two genetic encodings were put in the category of developmental encodings, which exploit a more indirect way to describe network structures, with high impact of little changes, and the last encoding was a direct encoding, were each node and edge of the network is immediatly accessible by looking at the code.
+Two genetic encodings were put in the category of developmental encodings, which exploit a more indirect way to describe network structures, with high impact of little changes, and the last encoding was a direct encoding, were each node and edge of the network is immediately accessible by looking at the code.
 Through a calculation of regularity by counting the number of graph automorphisms in the ANNs it was possible to evaluate the correlation of regularity, general learning ability and genetic encoding.\medskip
 
 The main hypothesis was proofed quite well, but some questions stay unanswered and could be topic of further research.
-Mainly the measurement of regularity should be refined, maybe the specification of multiple metrics would shed some light to the evolved regularity in direct encoded networks.
+Mainly the measurement of regularity could be refined, maybe the specification of multiple metrics would shed some light to the evolved regularity in direct encoded networks.\\
+Furthermore it might be interesting to study the source of plasticity in ANNs from the structure of their networks in comparison with not so plastic ANNs.\\
+To verify the attained results from Tonelli and Mouret a similar series of experiments with a more complex problem to solve for ANNs and maybe with a penalization of big networks would be desirable.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % hier werden - zum Ende des Textes - die bibliographischen Referenzen
