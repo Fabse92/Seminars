@@ -33,6 +33,7 @@
 \usepackage{amsmath}                    % AMS Math Packet
 \usepackage{amssymb}                    % Additional mathematical symbols
 \usepackage{amsthm}
+\usepackage{caption}
 \usepackage{booktabs}                   % Nicer tables
 %\usepackage[font=small,labelfont=bf]{caption} % Numbered captions for figures
 \usepackage{color}                      % Enables defining of colors via \definecolor
@@ -254,7 +255,15 @@ $
 $ where the original ordering was (1,2,3) and the automorphism mapped the vertices to (2,1,3).\\
 Since an automorphism of the graph to itself always exists, the number of symmetries is the number of automorphisms minus one.\medskip
 
-In figure ??? symmetry axes on a equilateral triangle are shown. A couple of graph automorphisms along these axes are the following:
+\begin{figure}[!b]
+	\begin{center}
+		\includegraphics[width=.43\textwidth]{GleichseitigUndGeschmeidig.png}
+	\end{center}
+	\caption{Equilateral triangle with symmetrie axis through a and rotation of 120\degree clockwise drawn in}
+	\label{fig:dreieck}
+\end{figure}
+
+In figure \ref{fig:dreieck} possible graph automorphisms on an equilateral triangle are shown. These graph automorphisms are the following:
 \begin{itemize}
 	\item Identity (mapping of a to a, b to b and c to c):
 	$
@@ -278,8 +287,6 @@ In figure ??? symmetry axes on a equilateral triangle are shown. A couple of gra
 	\end{pmatrix}
 	$
 \end{itemize} 
-
-\textbf{Darstellung von automorphism}
 
 \subsection{From genes to nervous systems}
 \label{genes_nervous}
@@ -375,20 +382,37 @@ The figure \ref{fig:formalization} shows an illustration of the network structur
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=.9\textwidth]{network_structure.png}
+		\includegraphics[width=.4\textwidth]{network_structure.png}
 	\end{center}
-	\caption{Formalizastion of the Skinner box as a task for an artificial neural network. Abschneiden!}
+	\caption{Formalizastion of the Skinner box as a task for an artificial neural network.}
 	\label{fig:formalization}
 \end{figure}
 
 To calculate the answer of the ANN to an input the softmax of the output values is taken. The softmax in contrast to the simple max function does not just take the output node with the highest value as answer of the ANN, but assigns a probability to be taken proportional to the quantity of a value (higher value leads to higher likelihood to be chosen as final answer).\medskip
 
-Example of input/outoput values to the network (abbildung maipulieren)\medskip
+An example of the first steps to the calculation of the fitness of an ANN in respect to the association (3,B) is presented in figure \ref{fig:input}
 
-The learning process of an ANN to a association set is not done with classical backpropagation and corresponding weight changes, but by using modulatory neurons.
+\begin{figure}[!tbp]
+	\centering
+	\begin{minipage}[b]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{network_structure_input1.png}
+		\captionsetup{labelformat=empty}
+		\caption*{a) First activation}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[b]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{network_structure_input2.png}
+		\captionsetup{labelformat=empty}
+		\caption*{b) Second activation}
+	\end{minipage}	
+	\caption{The currently considered association be (3,B). \textbf{a)} In the beginning the feedback- and reward-input are set to 0, the network calculates its answer to the stimulus and with the softmax function one particular action is chosen. By chance no the ANN ouput with the highest value is chosen by the softmax function. \textbf{b)} after the initial answer to the stimulus got derived it is together with positiv or negativ reward given as additional feedback.}
+	\label{fig:input}
+\end{figure}
+
+The learning process of an ANN to an association set is not done with classical backpropagation and corresponding weight changes, but by using modulatory neurons.
 Each neuron in the ANN can be a standard or a modulatory one.
 Modulatory neurons change the connection weights of standard neurons using Hebb's rule ("Cells that fire together, wire together") and induce thereby plasticity to the ANN (cf. \cite{citeulike:12788284} p.2).\\
-Beispiel wie das funktionieren kann, zeigen. Mehrere Iterationen führen zu jeweils utnerschiedlicher modulation der gewichte bis irgendwann das korrekte ergebnis erscheint. \medskip
+\textbf{Beispiel wie das funktionieren kann, zeigen. Mehrere Iterationen führen zu jeweils utnerschiedlicher modulation der gewichte bis irgendwann das korrekte ergebnis erscheint.} \medskip
 
 To start a new experiment a subset of the global training set is randomly chosen as evolutionary training set.
 An evolutionary algorithm is then used to create ANNs with good performance on the training set for each of the three different genetic encodings studied by Tonelli and Mouret : direct, map-based and HNN encoding. As the name suggests direct encoding is a representative of the direct encodings introduced in chapter \ref{genes_nervous}, whereas map-based and HNN encoding are among the developmental encodings.

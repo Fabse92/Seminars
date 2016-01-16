@@ -1,0 +1,11 @@
+digraph {
+	node [style=filled]
+ 	node [fontname = "helvetica"];
+ 	edge [fontname = "helvetica"];	
+	node [fontsize = 21];
+ 	edge [fontsize = 21];	
+	rankdir=UD;
+	Problem -> Encoding -> "Fitness evaluation"
+	"Fitness evaluation" -> Selection -> "Recombination and Mutation" -> "Fitness evaluation"
+	
+}
