@@ -306,11 +306,10 @@ As common optimization-algorithms like gradient descent or simulated annealing a
 One of the strengths evolutionary algorithms have, is to pursue different possible solutions at the same time. That's because in a well structured evolutionary algorithm the surviving individuals aren't only associated to the single best solution at the given time, but also momentary suboptimal solutions are being tracked.
 Through crossover partially optimal parts of solutions can be exchanged as a whole. 
 Therefore the Pareto front, the current Pareto optimal set during execution of the algorithm, can be explored effectively.
-
 As evolutionary algorithms impose no mathematical constraints on the examined problem. The stochastic approach of evolutionary algorithms however entails to calculate many possible solutions in application to work properly. Also evolutionary algorithms don't ensure to find global optima, instead it converges to some local optimum. Accordingly only an approximation to the Pareto optimal solutions will be found.
 
 The concept used by Doncieux et al. to gain knowledge about a system by analysing the results of a multi-objective optimization algorithm on it is called INNOVIZATION as they state this stands for 'INNOVation through optimIZATION' (cf. \cite{doncieux2015multi} p. 5).
-Evolutionary multi-objective optimization algorithms were already used successfully with this approach as shown in \cite{efstratiadis2010one}, where Efstratiadis and Koutsoyiannis sum up the experience with the INNOVIZTION method for calibration of hydrological models.
+Evolutionary multi-objective optimization algorithms were already used successfully with this approach as shown in \cite{efstratiadis2010one}, where Efstratiadis and Koutsoyiannis sum up the experience with the INNOVIZATION method for calibration of hydrological models.
 
 \subsection{Indicators for multi-objective analysis}
 \label{back:indicators}
@@ -319,28 +318,45 @@ In the following it is without loss of generality assumed, that all objective-fu
 The evolutionary multi-objective optimization is used multiple times on the problem. Each run generates a set of approximations to the Pareto optimal solutions called $\chi_i$ for the $i$-th run.
 The required indicators are defined as follows.
 \begin{itemize}
-	\item The attainment function $\alpha_\chi(z)$ returns the probability to find in the set of results $\chi$ \textbf{at least one} solution $x$ that attains $z$, which means here that $x$ dominates $z$. This function can't be computed directly, but it can be approximated with the empirical attainment function $\alpha_r(z)$ over $r$ sets of approximation results as mean number of sets in which a solution is found that dominates $z$.
+	\item The attainment function $\alpha_\chi(z)$ returns the probability to find in the set of results $\chi$ \textbf{at least one} solution $x$ that attains $z$, which here means that $x$ dominates $z$. This function can't be computed directly, but can be approximated with the empirical attainment function $\alpha_r(z)$ over $r$ sets of approximation results as mean number of sets in which a solution is found that dominates $z$.
 	\item The attainment surface $\Psi_p$ to an attainment function value $p$ is defined as the hyper surface in behaviour space over points with probability $p$ given by the attainment function.
-	Therefore the 0-attainment surface $\Psi_0$ covers the set of non-dominated solutions and the 1-attainment surface $\Psi_0$ represents the worst performing solutions that will certainly be dominated.
+	Therefore the 0-attainment surface $\Psi_0$ covers the set of non-dominated solutions and the 1-attainment surface $\Psi_1$ represents the worst performing solutions that will certainly be dominated.
+	In figure \ref{fig:attainment1} a visualisation to the attainment surfaces is given.
+\end{itemize}
+\begin{figure}[h!]
+	\vspace*{-0.5cm}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{Bilder/attainment_surfaces.png}
+	\end{center}
+	\vspace*{-0.9cm}
+	\caption{Visualisation of the attainment function $\alpha$ to the objective functions f and g. The solutions where split into three groups: (1) Solutions from $\Psi_0$, which all have attainment function value 0, (2) Solutions from $\Psi_1$, which all have attainment function value 1 and (3) solutions with an attainment function value somewhere between 0 and 1.} 
+	\label{fig:attainment1}
+\end{figure}
+\begin{itemize}
 	\item The hypervolume indicator $I^p_H(\chi)$ is defined for a particular reference point $p$ for a set of results $\chi_0$. A simplified attainment function $\beta\chi(z)$ definition is used for the hypervolume indicator, it returns $1$ if there is a solution in $\chi$, that dominates z, and $0$ otherwise. The hypervolume indicator is then defined as:
 	\begin{align*}
 		I^p_H(\chi_0) &= \int_{\psi_p}\beta\chi(z) dz
 	\end{align*}
 	With $\psi_p$ containing all points, that are equal or greater than $p$ in every dimension.
-	Therefore $I^p_H(\chi)$ measures the area of points above $p$ that are dominated by a solution in $\chi$.
+	Therefore $I^p_H(\chi)$ through the use of the simplified attainment function $\beta$ measures the number of solutions above $p$ that are dominated by a solution in $\chi$.
+	This indicator will later be used in the framework to compare the 0- and the 1-attainment surfaces, by calculating the difference to the number of solutions that are dominated by a solution from the surfaces.
 	In figure \ref{fig:attainment} a visualisation of the simplified attainment function and its hyper volume is shown.
+\end{itemize}
+ \addtocounter{footnote}{-1}
+ \begin{figure}[h]
+ 	\begin{center}
+ 		\vspace*{-0.8cm}
+ 		\includegraphics[width=1\textwidth]{Bilder/attainment.png}
+ 	\end{center}
+ 	\vspace*{-1cm}
+ 	\caption[On the left: $\beta\chi(z)$ for $\chi = \text{\{x1,x2,x3,x4,x5\}}$ and the attainment surfaces $\Psi_0$ and $\Psi_1$ to the simplified attainment function $\beta$ with objective functions $f_1$ and $f_2$ are highlighted. On the right: The hypervolumne $I^p_H(\chi)$ is shown.]{On the left: $\beta\chi(z)$ for $\chi = \text{\{x1,x2,x3,x4,x5\}}$ and the attainment surfaces $\Psi_0$ and $\Psi_1$ to the simplified attainment function $\beta$ with objective functions $f_1$ and $f_2$ are highlighted. On the right: The hypervolumne $I^p_H(\chi)$ is shown. \footnotemark}
+ 	\label{fig:attainment}
+ \end{figure}
+ \footnotetext{image from \cite{doncieux2015multi} p. 8}
+\begin{itemize}
 	\item The nadir $\eta(\chi)$ is the point with the least possible value found for each objective in $\chi$. So for each dimension all solutions in $\chi$ are scanned for the minimum value.
 	When $\eta^i(\chi)$ is the nadir point to the $i$-th set of solutions, the conservative nadir point $\bar{\eta}$ is defined over $r$ sets of solutions and its values are the maximum value for each dimension found in any $\eta^i(\chi)$ with $i\in r$. The conservative nadir is well suited to be used as reference point ($p$) for the calculation of the hypervolume indicator. If the conservative nadir is used as reference point for the hypervolume, outliers with unusual bad objective function values are not considered in the integral. The conservative nadir is a reliable representation of the \glqq worst\grqq{} returned solution.
 \end{itemize}
- \addtocounter{footnote}{-1}
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=1\textwidth]{Bilder/attainment.png}
-	\end{center}
-	\caption[f1 and f2 are the two objective functions in this example. On the left: $\beta\chi(z)$ for $\chi = \text{\{x1,x2,x3,x4,x5\}}$ and the attainment surfaces $\Psi_0$ and $\Psi_1$ (to the simplified attainment function $\beta$) are highlighted. On the right: The hypervolumne $I^p_H(\chi)$ is shown.]{f1 and f2 are the two objective functions in this example. On the left: $\beta\chi(z)$ for $\chi = \text{\{x1,x2,x3,x4,x5\}}$ and the attainment surfaces $\Psi_0$ and $\Psi_1$ (to the simplified attainment function $\beta$) are highlighted. On the right: The hypervolumne $I^p_H(\chi)$ is shown. \footnotemark}
-	\label{fig:attainment}
-\end{figure}
-\footnotetext{image from \cite{doncieux2015multi} p. 8}
 \paragraph{Summary:}
 \textit{
 	In this chapter the basics concepts used by the framework were introduced.
@@ -419,7 +435,7 @@ If the computational costs for simulation are too high or the available computat
 The usage of multi-objective optimization and the following study of the Pareto optimal set requires the definition of multiple objective functions, where some of them are contrary (not linearly dependent (cf. \cite{doncieux2015multi} p. 10) to each other. Otherwise the Pareto optimal set contains only a few similar solutions that are not interesting to examine further. The objective of low computational cost or fast execution of the model is often a possible objective function that is contrary to a objective to achieve (some kind of) optimal results. Therefore the framework could also be used if only one objective is actually inherent to the model. This might however not be a desired objective, if the expenditure of time for simulation is already low enough. Ideally the computational model should therefore have inherent contrary objectives to achieve optimality.\medskip
 
 During application of the multi-objective optimization it is necessary to compute the attainment function for each suggested solution of every run of approximating the Pareto optimal set with the evolutionary algorithm.\\
-These computations are not trivial as Fonseca et al. identified a time complexity of $\Omega(m\,\mbox{log}\,m+m^{d/2})$ (cf. \cite{fonseca2011computation} p. 7: Proposition 5) with the number of input points $m$ and $d$-dimensional objective space ($d$ is the number of objectives) for algorithms that solve the EAF(empirical attainment function) computation problem.
+These computations are not trivial as Fonseca et al. identified a lower bound to the time complexity of $\Omega(m\,\mbox{log}\,m+m^{d/2})$ (cf. \cite{fonseca2011computation} p. 7: Proposition 5) with the number of input points $m$ and $d$-dimensional objective space ($d$ is the number of objectives) for algorithms that solve the EAF(empirical attainment function) computation problem.
 Therefore the definition of many objective functions can lead to an explosion of computational cost for application of the framework.\medskip
 
 Since evolutionary algorithms are used to find good solutions no global convergence is guaranteed and therefore only an approximation to the Pareto optimal set with unknown accuracy is available (cf. \cite{doncieux2015multi} p. 5). Their upside however is that no strong mathematical constraints are made on the objective functions, for example no derivative is needed (cf. \cite{doncieux2015multi} p. 7).
