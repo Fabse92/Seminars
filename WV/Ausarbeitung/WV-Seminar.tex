@@ -168,7 +168,10 @@
 
 % Abstract gives a brief summary of the main points of a paper:
 \section*{Abstract}
-  Your text here...
+The simulation of computational models is an increasingly popular method in science for knowledge generation about otherwise to complex systems.
+If a point is reached at which the scientist can't foresee which parametrization of the model might lead to interesting behaviour, studying the model can become a tremendously time-consuming task. A framework method proposed by Doncieux et al. is able to generate in a partly automated way interesting model parameter values worth further studying.
+The framework however has a quite extensive grounding itself and for its proper application several requirements have to be met.
+It is necessary that the performance of the model can be described with multiple antagonistic objective functions, sufficient computational power has to be available and the obtained results have to be studied advisedly, because no assurance can be given that all relevant results were retrieved.
 
 % Lists:
 \setcounter{tocdepth}{2} 					% depth of the table of contents (for Seminars 2 is recommented)
@@ -204,9 +207,9 @@ This problem can lead to an extensive search in parameter space for the \glqq be
 The researcher might have an intuition for some good parameter values, but these are biased by his assumptions about the model. 
 
 Furthermore in a complex system it might not be obvious what properties of the model are actually desirable. Hence the \glqq best\grqq{} model parameters wouldn't be recognized if found.
-Since the model should lead to novel knowledge, and proven or disproven assumptions about the modelled system, interesting parameter-sets for further studying are desired. Interesting parameters should be somehow different from other parameters and state something about the model.
+Since the model should lead to novel knowledge, and proven or disproved assumptions about the modelled system, interesting parameter-sets for further studying are desired. Interesting parameters should be somehow different from other parameters and state something about the model.
 
-To overcome the epistemic opacity the researcher would have to analyse the complex model by approximating it with a model again (cf. \cite{doncieux2015multi} p. 3). This process of modelling a modell could be repeated multiple times, each step using a more abstract and simple model, until it is easy enough to understand by the researcher. The knowledge gained from the simpler models could then be used to understand the more complex models. At some point the problem is understood well enough to use the primary model with confident insight.
+To overcome the epistemic opacity the researcher would have to analyse the complex model by approximating it with a model again (cf. \cite{doncieux2015multi} p. 3). This process of modelling a model could be repeated multiple times, each step using a more abstract and simple model, until it is easy enough to understand by the researcher. The knowledge gained from the simpler models could then be used to understand the more complex models. At some point the problem is understood well enough to use the primary model with confident insight.
 
 \subsection{Suggested solution}
 Because modelling a model becomes exponentially intricate and success isn't guaranteed it can hardly be a feasible approach to study a problem. The paper suggests to exploit the fact, that the computational model can be computed in a \glqq huge number of experiments\grqq{} \cite{doncieux2015multi} p. 3.
@@ -221,7 +224,7 @@ The given function set maps parameter space to behaviour space. Calculating many
 Since the performance of individual functions is contrary to each other multi-objective algorithms can be used to find sets of trade-off solutions (cf. \cite{doncieux2015multi} p. 3).
 Doncieux et al. then suggest to use evolutionary multi-objective algorithms, since they are efficient and versatile in usage. Following the steps of the framework interesting parameter sets are thereby found.
 The paper suggests then some tools to acquire knowledge about the implications of obtained parameter values on model behaviour.\\
-It is important to note that the proposed method is not used to find the best parametrisation for optimal model performance, but to aquire knowledge about the behaviour of the model for different parameter values \footnote{cf. \cite{doncieux2015multi} p. 9}.
+It is important to note that the proposed method is not used to find the best parametrisation for optimal model performance, but to acquire knowledge about the behaviour of the model for different parameter values (cf. \cite{doncieux2015multi} p. 9).
 
 \subsection{Goals and structure of this paper}
 This paper is supposed to give an in-depth analysis of the presented paper \cite{doncieux2015multi}.
@@ -246,7 +249,7 @@ And finally in section \ref{back:indicators} some indicators are introduced, tha
 Doncieux et al. \cite{doncieux2015multi} formalize optimization problems approximately as follows:
 
 \begin{align*}
-	\text{Find the parameter }\textbf{X} &=
+	\text{Find the parameter }\textbf{X} =
 	\left \{
 	\begin{tabular}{c}
 		$x_1$\\
@@ -255,10 +258,11 @@ Doncieux et al. \cite{doncieux2015multi} formalize optimization problems approxi
 		$x_m$
 	\end{tabular}
 	\right \}
-	\in \mathbb{R}^m \text{that maximizes (or minimizes) f(\textbf{X}) under}\\
-		 \text{a given set of constraints.}
+	\in \mathbb{R}^m &\text{that maximizes (or minimizes) f(\textbf{X})}\\
+		 \text{under a given set of constraints.}
 \end{align*}
 
+Where $f$ is composed of one function $f_i$ for each dimension $i \in \{1,..,m\}$.  
 For $m = 1$ such a task is called mono-objective problem, whereas it's a multi-objective problem for any $m > 1$.
 
 As soon as you want to examine a real world like problem it's very likely that the solution won't be a single one dimensional value. Instead there will be multiple objectives to be considered simultaneously.
@@ -275,7 +279,7 @@ The Pareto-optimal set contains interesting solutions, because each of its membe
 
 \subsection{Evolutionary algorithms}
 \label{back:evo}
-An evolutionary algorithm is a stoachastical approach to obtain a solution to a problem. Because of the stochastic behavior in general the solutions won't be optimal, but are often feasible. Similar to the evolutionary process in nature, a group of individuals is developed over multiple generations under the influence of a pressure to adapt to the environment. An induviduum during this process represents a solution to the problem.\medskip
+An evolutionary algorithm is a stochastical approach to obtain a solution to a problem. Because of the stochastic behaviour in general the solutions won't be optimal, but are often feasible. Similar to the evolutionary process in nature, a group of individuals is developed over multiple generations under the influence of a pressure to adapt to the environment. An individual during this process represents a solution to the problem.\medskip
 
 \begin{wrapfigure}{r}{0.3\textwidth}
 	\begin{center}
@@ -287,14 +291,14 @@ An evolutionary algorithm is a stoachastical approach to obtain a solution to a 
 
 In figure \ref{fig:evo} a rough schemata of the important steps of an evolutionary algorithm are shown. At first an (genetic) encoding for all possible solutions to the problem has to be defined in a way that the different functions of the following steps can handle. The first group of solutions has to be initiated randomly.\\
 
-Now the following steps are used repeatetly until some stopping criterea holds true:
+Now the following steps are used repeatedly until some stopping criteria holds true:
 \begin{enumerate}
 	\item \textbf{Fitness evalution:} For each individual a \textbf{fitness function} evaluates its performance at solving the problem.
-	\item \textbf{Selection}: Select the surviving invividuals, maybe just the best x\% of solutions. Some of the survivors are selected as parents for a new generation of individuals. For example a few percent of individuals with the highest fitness score are selected and with probability according to their fitness some more.
+	\item \textbf{Selection}: Select the surviving individuals, maybe just the best x\% of solutions. Some of the survivors are selected as parents for a new generation of individuals. For example a few percent of individuals with the highest fitness score are selected and with probability according to their fitness some more.
 	\item \textbf{Recombination and Mutation:} New solutions are bred out of the selected parents through crossover and mutation.
 \end{enumerate}
 
-Such an simple evolutionary algorithm has only local convergence and therefore depends on the random initiation, as it follows a greedy approach, which follows the best solutions in a narrow seach space around the already avaiable solutions.
+Such an simple evolutionary algorithm has only local convergence and therefore depends on the random initiation, as it follows a greedy approach, which follows the best solutions in a narrow search space around the already available solutions.
 
 \subsection{Evolutionary algorithms for multi-objective optimization}
 \label{back:evo_in_multi-opt}
@@ -324,9 +328,9 @@ The required indicators are defined as follows.
 	\end{align*}
 	With $\psi_p$ containing all points, that are equal or greater than $p$ in every dimension.
 	Therefore $I^p_H(\chi)$ measures the area of points above $p$ that are dominated by a solution in $\chi$.
-	In figure \ref{fig:attainment} a visualisation of the simplified attainment function and its hyper volumne is shown.
-	\item The nadir $\eta(\chi)$ is the point with the least possible value for each objective found in $\chi$. So for each dimension all solutions in $\chi$ are scanned for the minimum value.
-	When $\eta^i(\chi)$ is the nadir point to the $i$-th set of solutions, the conservative nadir point $\bar{\eta}$ is defined over $r$ sets of solutions and its values are the maximum value for each dimension found in any $\eta^i(\chi)$ with $i\in r$. The conservative nadir helps to get rid of outliers and is a more reliable representation of the \glqq worst\grqq{} returned solution.
+	In figure \ref{fig:attainment} a visualisation of the simplified attainment function and its hyper volume is shown.
+	\item The nadir $\eta(\chi)$ is the point with the least possible value found for each objective in $\chi$. So for each dimension all solutions in $\chi$ are scanned for the minimum value.
+	When $\eta^i(\chi)$ is the nadir point to the $i$-th set of solutions, the conservative nadir point $\bar{\eta}$ is defined over $r$ sets of solutions and its values are the maximum value for each dimension found in any $\eta^i(\chi)$ with $i\in r$. The conservative nadir is well suited to be used as reference point ($p$) for the calculation of the hypervolume indicator. If the conservative nadir is used as reference point for the hypervolume, outliers with unusual bad objective function values are not considered in the integral. The conservative nadir is a reliable representation of the \glqq worst\grqq{} returned solution.
 \end{itemize}
  \addtocounter{footnote}{-1}
 \begin{figure}[h]
@@ -378,7 +382,7 @@ Thus the \textbf{second step} of application is the evaluation of disparity betw
 	\item Calculate the conservative nadir point $\bar{\eta}$ over all independent runs of the optimizer.
 	\item Compute the hypervolumes of $\Psi_0$ and $\Psi_1$ relative to $\bar{\eta}$\\ $I^{\bar{\eta}}_H(\Psi_0)$ and $I^{\bar{\eta}}_H(\Psi_1)$ and calculate their difference.
 \end{enumerate}
-With the difference between these hypervolumes the number of dominated solutions by the best and the worst found solutions is compared. If the difference is high the disparity between the solutions is high and vice versa. This is therfore a measure for the disparity of the worst to the best solutions. If this value is above some threshold step 1 needs to be repeated with different parametrization of the evolutionary algorithm.\\
+With the difference between these hypervolumes the number of dominated solutions by the best and the worst found solutions is compared. If the difference is high the disparity between the solutions is high and vice versa. This is therefore a measure for the disparity of the worst to the best solutions. If this value is above some threshold step 1 needs to be repeated with different parametrization of the evolutionary algorithm.\\
 
 For the last step local variability in the approximation of the Pareto optimal set is studied. \textbf{Strongly diverging optimal solutions in a small area of parameter space is a sign for a difficult parameter range to explore.}
 This area of high disparity of solutions might emerge from model instability and a critical point of parameter values might lie there, which should be worth further studying of the researcher.
@@ -404,30 +408,30 @@ Doncieux et al. provide some assistance for the analysis of obtained approximati
 \label{sec:analysis}
 
 The framework is used in two experiments by Doncieux et al. \cite{doncieux2015multi}.
-In the first experiment a model of a flapping wing aircraft is simulated and in the second a model of the basal ganglia is studied. Both computational models are highly complex and requiere the setting of many parameters. The usage of the proposed framework lead to mostly expected results, that were consistent with the literature. Only the results to the simulated aircraft with low speed as objective function are inconsistent to the literature. This might stem from a problem of the used models or from a poor convergence during the multi-objective optimization (cf. \cite{doncieux2015multi} p. 19).\medskip
+In the first experiment a model of a flapping wing aircraft is simulated and in the second a model of the basal ganglia is studied. Both computational models are highly complex and require the setting of many parameters. The usage of the proposed framework lead to mostly expected results, that were consistent with the literature. Only the results to the simulated aircraft with low speed as objective function are inconsistent to the literature. This might stem from a problem of the used models or from a poor convergence during the multi-objective optimization (cf. \cite{doncieux2015multi} p. 19).\medskip
 
-The framework has a quite extensive grounding, but the positive results justifiy the approach. Several things have however to be considered for the application of the framework. In the following some of these are elaborated.\medskip
+The framework has a quite extensive grounding, but the positive results justify the approach. Several things have however to be considered for the application of the framework. In the following some of these are elaborated.\medskip
 
 Essential for the functionality of the framework is that the used computational model is simulated many times (cf. \cite{doncieux2015multi} p. 3).
-This is necessary because the search in parameter space should be quite dense to give confidence in the representability of the results, also the used evolutionary algorithms might take many iterations to converge: "typically from $10^5$ to $10^6$ evaluations", \cite{doncieux2015multi} p. 7.
+This is necessary because the search in parameter space should be quite dense to give confidence in the representability of the results, also the used evolutionary algorithms might take many iterations to converge: \glqq typically from $10^5$ to $10^6$ evaluations\grqq{}, \cite{doncieux2015multi} p. 7.
 If the computational costs for simulation are too high or the available computational power too low to test lots of parameter values even with low chances of success (to be interesting) the researcher might rather hand pick a couple of parameter values he is confident in.\medskip
 
-The usage of multi-objective optimization and the following study of the Pareto optimal set requires the definition of multiple objective functions, where some of them are contrary (not linearly dependent\footnote{cf. \cite{doncieux2015multi} p. 10}) to each other. Otherwise the Pareto optimal set contains only a few similar solutions that are not interesting to examine further. The objective of low computational cost or fast execution of the model is often a possible objective function that is contrary to a objective to achieve (some kind of) optimal results. Therefore the framework could also be used if only one objective is actually inherent to the model. This might however not be a desired objective, if the expenditure of time for simulation is already low enough. Ideally the computational model should therefore have inherent contrary objectives to achieve optimality.\medskip
+The usage of multi-objective optimization and the following study of the Pareto optimal set requires the definition of multiple objective functions, where some of them are contrary (not linearly dependent (cf. \cite{doncieux2015multi} p. 10) to each other. Otherwise the Pareto optimal set contains only a few similar solutions that are not interesting to examine further. The objective of low computational cost or fast execution of the model is often a possible objective function that is contrary to a objective to achieve (some kind of) optimal results. Therefore the framework could also be used if only one objective is actually inherent to the model. This might however not be a desired objective, if the expenditure of time for simulation is already low enough. Ideally the computational model should therefore have inherent contrary objectives to achieve optimality.\medskip
 
 During application of the multi-objective optimization it is necessary to compute the attainment function for each suggested solution of every run of approximating the Pareto optimal set with the evolutionary algorithm.\\
-These computations are not trivial as Fonseca et al. identified a time complexity of $\Omega(m\,\mbox{log}\,m+m^{d/2})$\footnote{cf. \cite{fonseca2011computation} p. 7 (Proposition 5)} with the number of input points $m$ and $d$-dimensional objective space ($d$ is the number of objectives) for algorithms that solve the EAF(empirical attainment function) computation problem.
-Therefore the definiton of many objective functions can lead to an explosion of computational cost for application of the framework.\medskip
+These computations are not trivial as Fonseca et al. identified a time complexity of $\Omega(m\,\mbox{log}\,m+m^{d/2})$ (cf. \cite{fonseca2011computation} p. 7: Proposition 5) with the number of input points $m$ and $d$-dimensional objective space ($d$ is the number of objectives) for algorithms that solve the EAF(empirical attainment function) computation problem.
+Therefore the definition of many objective functions can lead to an explosion of computational cost for application of the framework.\medskip
 
 Since evolutionary algorithms are used to find good solutions no global convergence is guaranteed and therefore only an approximation to the Pareto optimal set with unknown accuracy is available (cf. \cite{doncieux2015multi} p. 5). Their upside however is that no strong mathematical constraints are made on the objective functions, for example no derivative is needed (cf. \cite{doncieux2015multi} p. 7).
 Because it is unknown if the obtained solutions are even close to the Pareto optimal set the researcher has to be careful not to deduce anything about the computational model from the absence of particular solutions (cf. \cite{doncieux2015multi} p. 28).
 A specific model behaviour might occur with the right parameter values, but by chance the local convergence inhibited its appearance.
-For example if the behaviour-space has an optimum that is shaped like a very sharp mexican hat function with a very small corresponding parameter-space area it is extremly difficult for search algorithms with local convergence to find the optimum (the search would have to be initialized very close to the optimum).
+For example if the behaviour-space has an optimum that is shaped like a very sharp Mexican hat function with a very small corresponding parameter-space area it is extremely difficult for search algorithms with local convergence to find the optimum (the search would have to be initialized very close to the optimum).
 If the researcher wants to use the framework to compare the performances of optimal solutions to different models with each other he should be confident that the global optima were found, therefore the objective functions have to define an objective space that is more friendly for search algorithms with local convergence.\medskip
 
 It should also be noted that for the application of the framework method it is still necessary to be an expert about the modelled subject.
 First of all the definition of accurate and fitting objective functions is a very difficult task (cf. \cite{doncieux2015multi} p. 10). 
 The multi-objective optimization can mostly be done automatically without further knowledge, but the last step of the frame work the analysis of obtained solutions requires a very good understanding of the matter (cf. \cite{doncieux2015multi} p. 14). 
-Data mining methods and visualisations have to be chosen accodingly to the model and the obtained solutions and observations during the study of the results are as difficult to make as without the usage of the framework.
+Data mining methods and visualisations have to be chosen accordingly to the model and the obtained solutions and observations during the study of the results are as difficult to make as without the usage of the framework.
 
 \paragraph{Summary:}
 \textit{
@@ -449,19 +453,19 @@ Data mining methods and visualisations have to be chosen accodingly to the model
 \section{Conclusion}
 \label{sec:concl}
 
-The study of complex modells can challenging, because the researcher doesn't understand his own modell to the full extent.
-Therefore a framework method is proposed by Doncieux et al. \cite{doncieux2015multi} which can in a partly automated way find interesting modell parameters that might be relevant to the modell. 
+The study of complex models can challenging, because the researcher doesn't understand his own model to the full extent.
+Therefore a framework method is proposed by Doncieux et al. \cite{doncieux2015multi} which can in a partly automated way find interesting model parameters that might be relevant to the model. 
 The framework utilizes evolutionary multi-objective optimization to find an approximation to the Pareto-optimal solutions to a set of objective functions.
-Then a couple of specific indicators are used to gain knowledge about the quality and distribution of the solutions and at last the relationship of the found parameter values to the behaviour of the modell is studied.
-For the application of the modell however multiple contrary objective functions have to be defined and enough computational power has to be available.\medskip
+Then a couple of specific indicators are used to gain knowledge about the quality and distribution of the solutions and at last the relationship of the found parameter values to the behaviour of the model is studied.
+For the application of the model however multiple contrary objective functions have to be defined and enough computational power has to be available.\medskip
 
 The framework is able to generate huge amounts of data with interesting features that can then be studied further with data mining methods.
-It might provide an hint to otherwise overlooked behaviours of the modell, because the researcher would have had a hard time finding the right parameter values.\medskip
+It might provide an hint to otherwise overlooked behaviours of the model, because the researcher would have had a hard time finding the right parameter values.\medskip
 
 For future research it might be interesting to find a measure to evaluate the completeness of the found approximations to the Pareto-optimal set.
 If then it would be possible to exclude the problem that the best solutions were not found. 
 Otherwise a different algorithm than the evolutionary algorithm for the generation of new solutions with global convergence would solve the problem as well and its interaction with the other parts of the framework should be studied.\\
-As the two provided examples by Doncieux et al. were highly complex and in one case lead to unsatisfactory results not consistent with the literature, the framework method should be tested further on less complex computational modells with fully reliable knowledge about ideal solutions.
+As the two provided examples by Doncieux et al. were highly complex and in one case lead to unsatisfactory results not consistent with the literature, the framework method should be tested further on less complex computational models with fully reliable knowledge about ideal solutions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % hier werden - zum Ende des Textes - die bibliographischen Referenzen
@@ -472,7 +476,7 @@ As the two provided examples by Doncieux et al. were highly complex and in one c
 %
 \newpage
 \bibliographystyle{plain}
-\addcontentsline{toc}{chapter}{Bibliography}% Add to the TOC
+\addcontentsline{toc}{section}{Bibliography}% Add to the TOC
 \bibliography{bib}
 
 \end{document}
