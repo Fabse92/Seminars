@@ -1,0 +1,8 @@
+Title:
+Examination of a framework for multi-objective analysis of computational models
+
+Abstract:
+The simulation of computational models is an increasingly popular method in science for knowledge generation about otherwise too complex systems.
+If a point is reached at which the scientist can't foresee which parametrization of the model might lead to interesting behaviour, studying the model can become a tremendously time-consuming task. A framework method proposed by Doncieux et al. is able to generate interesting model parameter values worth further studying in a partly automated way.
+The framework however has a quite extensive grounding itself and for its proper application several requirements have to be met.
+It is necessary that the performance of the model can be described with multiple antagonistic objective functions, sufficient computational power has to be available and the obtained results have to be studied advisedly because no assurance can be given that all relevant results were retrieved.
