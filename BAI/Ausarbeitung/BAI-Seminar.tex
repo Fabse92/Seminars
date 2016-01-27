@@ -174,7 +174,7 @@
  The ability of ANNs to deal with a larger scope of problems depends strongly on their synaptic plasticity.
  Tonelli and Mouret are using an approach to develop ANNs with evolutionary algorithms and different genetic encodings.
  They describe synaptic plasticity as the appearance of regularity in the ANN and successfully identify a dependency of the regularity of ANNs and their general learning ability.
- The approach and its results seem promising, but the measurement of regularity is problematic and doesn't allow doubtless conclusions.
+ The approach and its results seem promising, however the measurement of regularity is problematic and doesn't allow doubtless conclusions.
 
 % Lists:
 \setcounter{tocdepth}{2} 					% depth of the table of contents (for Seminars 2 is recommented)
@@ -251,13 +251,14 @@ If two parts of the network can be interchanged without altering the graph they 
 It is only necessary to describe one of these parts and reference it for each additional occurrence, therefore the description of a network with more symmetries is more compressible.\\
 These symmetries are graph automorphisms and can be easily calculated for \textbf{most} graphs (not all graphs since it is actually an NP-complete problem).\\
 A graph automorphism is a permutation $\sigma$ of the vertex set V of the graph $G = (V,E)$ that maps an edge $(\sigma(u),\sigma(v)) \in E$ to the vertices u and v iff\footnote{if and only if} they formed an edge (u,v) already in G.\\
-A permutation of a set is a particular ordering of all its members. For example all permutations of the set $\left\{ 1,2,3 \right\}$ are (1,2,3),(1,3,2),(2,1,3),(2,3,1),(3,1,2),(3,2,1). If the vertices of G are fixed in a particular ordering, the graph automorphism can be written as mapping from the previous ordering to the new one like this: 
-$
+A permutation of a set is a particular ordering of all its members. For example all permutations of the set $\left\{ 1,2,3 \right\}$ are (1,2,3),(1,3,2),(2,1,3),(2,3,1),(3,1,2),(3,2,1). If the vertices of G are fixed in a particular ordering, the graph automorphism can be written as mapping from the previous ordering to the new one like this:
+\begin{align*}
 \begin{pmatrix}
 1 & 2 & 3 \\
 2 & 1 & 3
 \end{pmatrix}
-$ where the original ordering was (1,2,3) and the automorphism mapped the vertices to (2,1,3).\\
+\end{align*}
+where the original ordering was (1,2,3) and the automorphism mapped the vertices to (2,1,3).\\
 Since an automorphism of the graph to itself always exists, the number of symmetries is the number of automorphisms minus one.\medskip
 
 \begin{figure}[!bth]
@@ -419,9 +420,13 @@ An example of the first steps to the calculation of the fitness of an ANN in res
 \end{figure}
 \footnotetext{Source: Based on \cite{citeulike:12788284} p.3}
 
-The learning process of an ANN to an association set is not done with classical backpropagation and corresponding weight changes, but by using modulatory neurons.
+Usually an ANN is adapted to a new problem through weight changes from a backpropagation learning algorithm, however this is supervised learning and requires to present the optimal output to calculate the error of the ANN in respect to this.
+In the experiment the ANN should associate input stimulus to output action according to an reward signal, therefore the optimal solution is not known. The adapting behaviour (synaptic plasticity) of the ANN has to be implemented in a different way.\\
+Vassiliades and Christodoulou were able to let ANNs adapt to new situations with 'switch neurons' which depending on their activation choose one connection whose signal is forwarded while all others are ignored \cite{vassiliades2016behavioral}.\\
+Tonelli and Mouret however are using modulatory neurons to implement synaptic plasticity.
 Each neuron in the ANN can be a standard or a modulatory one.
-Modulatory neurons change the connection weights of standard neurons using Hebb's rule ("Cells that fire together, wire together") and thereby induce plasticity to the ANN (cf. \cite{citeulike:12788284} p.2).\medskip
+Modulatory neurons change the connection weights of standard neurons using Hebb's rule and thereby induce plasticity to the ANN (cf. \cite{citeulike:12788284} p.2).\\ 
+ \medskip
 %\textbf{Beispiel wie das funktionieren kann, zeigen. Mehrere Iterationen führen zu jeweils utnerschiedlicher modulation der gewichte bis irgendwann das korrekte ergebnis erscheint.}
 
 \subsubsection*{A run of the experiment}
@@ -495,6 +500,9 @@ Therefore the  shown dominance of ANNs with many graph automorphisms might be im
 It is problematic that the used experiment doesn't penalize the complexity of the networks. With a cost for connections an additional goal which requires to minimize the sum of connection costs could have been introduced (cf. \cite{citeulike:12788284} p.7).
 With an implementation of these suggestions it would be possible to make statements about the \textbf{efficiency} of ANNs with high regularity (and high general learning ability) compared to ANNs evolved with direct encoding (and maybe same GLA score).
 Thereby the actual usefulness of regularity for animal nervous systems could be assessed.
+Also Ellefsen et. al were able to show that the introduction of a connection cost leads to modularity in an ANN, if it is supposed to adapt to different problems \cite{ellefsen2015neural}. This makes sense because without connection cost a new complex network part can be used for every new problem, if high complexity is penalized however network parts are more likely to be used for multiple tasks.
+Huizinga et. al were actually able to show that the introduction of an connection cost combined with an HyperNEAT algorithm lead to \glqq significantly more modular, regular, and higher performing [neural networks]\grqq \cite{huizinga2014evolving} p.1.\\
+Therefore the implementation of connection cost might have helped by producing regular ANNs. Furthermore the influence of the different genetic encodings on modularity might be interesting to study.
 
 %psychological consistence of results\\
 %- importance of regularity\\
@@ -517,8 +525,7 @@ Through a calculation of regularity by counting the number of graph automorphism
 
 With the results of their results the main hypothesis was proven quite well, but some questions stay unanswered and could be topic of further research.
 Mainly the measurement of regularity could be refined, maybe the specification of multiple metrics focusing on different aspects of regularity would shed some light on the evolved regularity in direct encoded networks.\\
-Furthermore it might be interesting to study the source of plasticity in ANNs from the structure of their networks in comparison with not so plastic ANNs.\\
-To verify the attained results from Tonelli and Mouret a similar series of experiments with a more complex problem to solve for ANNs and maybe with a penalization of big networks would be desirable.
+To verify the attained results from Tonelli and Mouret a similar series of experiments with a more complex problem to solve for ANNs and maybe along with additional connection cost would be desirable.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % hier werden - zum Ende des Textes - die bibliographischen Referenzen
