@@ -15,7 +15,7 @@
 
 \begin{document}
 
-\title{ Model-Checking für Multiagentensysteme } 
+\title{ Model Checking für Multiagentensysteme } 
 \subtitle{Betrachtung des Tools MCMAS}
 \author{Jan Fabian Schmid}
 \date{\small Hausarbeit im Modul FGI-3, WS 2015/2016\\
@@ -37,129 +37,64 @@
 
 \section{Einleitung}
 
-Multiagentensysteme (kurz MAS) eignen sich zur Beschreibung von Systemen dessen Eigenschaften sich durch die verschränkte Zusammenarbeit mehrerer eigenständig agierender Einheiten beschreiben lassen.
+\textbf{Multiagentensysteme} (kurz \textbf{MAS}) eignen sich zur Beschreibung von Systemen dessen Eigenschaften sich durch die verschränkte Zusammenarbeit mehrerer eigenständig agierender Einheiten beschreiben lassen.\medskip
 
-Ein Agent wird von Raimondi als eine Einheit eingeführt, die autonom, also ohne Einwirkung anderer, handeln kann, mit anderen Agenten interagieren kann, auf die Handlungen anderer Agenten oder Änderungen in der Umgebung reagieren kann und in der Lage ist mit seinen Handlungen ein eigenes Ziel zu verfolgen. \citep{raimondi2006model} S. 2.
+Ein \textbf{Agent} wird von Raimondi als eine Einheit eingeführt, die autonom, also ohne Einwirkung anderer, handeln kann, mit anderen Agenten interagieren kann, auf die Handlungen anderer Agenten oder Änderungen in der Umgebung reagieren kann und in der Lage ist mit seinen Handlungen ein eigenes Ziel zu verfolgen. \citep{raimondi2006model} S. 2.
 
-Agenten werden zunächst individuell modelliert, dann können durch die Betrachtung des Zusammenspiels mehrerer Agenten in einem MAS komplexe Szenarien nachgebildet und untersucht werden. Zusätzlich zu den interagierenden Agenten kann eine Umgebung des MAS definiert werden, die ebenso Einfluss auf die Agenten hat und von ihnen beeinflusst werden kann. Da sich die Umgebung somit wie ein weiterer Agent verhält, kann sie zur Vereinfachung auch als ein solcher definiert werden.
+Agenten werden zunächst individuell modelliert, dann können durch die Betrachtung des Zusammenspiels mehrerer Agenten in einem MAS komplexe Szenarien nachgebildet und untersucht werden. Zusätzlich zu den interagierenden Agenten kann eine Umgebung des MAS definiert werden, die ebenso Einfluss auf die Agenten hat und von ihnen beeinflusst werden kann. Da sich die Umgebung somit wie ein weiterer Agent verhält, kann sie zur Vereinfachung auch als ein solcher definiert werden.\medskip
 
+Beim \textbf{Model Checking} wird zu einem Modell M überprüft, ob es eine Eigenschaft $\phi$ erfüllt ($M\models\phi$). Ein \textit{model checker} kann in automatischer Weise verifizieren, ob die Eigenschaft gilt, oder liefert ein entsprechendes Gegenbeispiel, das die Eigenschaft verletzt.
+
+Model Checking für Multiagentensysteme bedeutet dementsprechend, dass Eigenschaften von Modellen untersucht werden, die als MAS repräsentiert sind. Das Tool \textbf{MCMAS} (Model Checking for Multi-Agent Systems) erfüllt diese Aufgabe für eine große Bandbreite möglicher Eigenschaften.
 
 \subsection{Motivation}
 
 Wenn Systeme modelliert werden sollen, die intuitiv als das Zusammenspiel mehrerer Einheiten angesehen werden, wie beispielsweise ein Fußballfeld mit zwei Teams von gegeneinander antretenden Robotern, beim Kommunikationsprotokoll zwischen mehreren Einheiten oder bei einem Kartenspiel mit mehreren Mitspielern, dann bietet es sich an ein MAS zu verwenden. In einem solchen Fall können die verschiedenen Einheiten des realen Systems direkt als einzelne Agenten des MAS modlliert werden, sodass die Beziehungen zwischen realem System und Modell intuitiv erkannt werden können.
-Anschließend können Eigenschaften des Modells anhand von Spezifikationsformeln untersucht werden, so könnte man beispielsweise zeigen, dass zu Beginn eines Kartenspiels der Gewinner nicht bereits feststeht.
+Anschließend können Eigenschaften des Modells anhand von Spezifikationsformeln untersucht werden, so könnte man beispielsweise zeigen, dass zu Beginn eines Kartenspiels der Gewinner nicht bereits feststeht.\medskip
 
-Die Alternative wäre im Modell eine Einzelne Einheit zu verwenden, die das Verhalten mehrerer individueller Einheiten simuliert. Man würde beispielsweise das Verhalten der Agenten als einzelne Automaten modellieren und anschließend den Produktautomaten aller Einheiten berechnen. Zur Überprüfung einer Spezifikation im System könnten dann herkömmliche \textit{model checker} auf den Produktautomaten angewendet werden.
+Die Alternative wäre im Modell eine einzelne Einheit zu verwenden, die das Verhalten mehrerer individueller Einheiten simuliert. Man würde beispielsweise das Verhalten der Agenten als einzelne Automaten modellieren und anschließend den Produktautomaten aller Einheiten berechnen. Zur Überprüfung einer Spezifikation im System könnten dann herkömmliche \textit{model checker} auf den Produktautomaten angewendet werden.
 Mit diesem Vorgehen wird es für den Modellierer jedoch schwierig Spezifikationen zu definieren und positiv oder negativ Beispiele nachzuvollziehen, da das Modell seine intuitive Anschauung, in der das Verhalten der einzelnen Agenten nachvollzogen werden kann, verloren hat.
 
 
 \subsection{Probleme und  Fragen}
 
-Will man sich mit roten Gummibären beschäftigen, dann treten folgende
-Probleme und Fragen auf:
+Oft stellt sich zu einem entworfenen Modell die Frage, ob es bestimmte Eigenschaften erfüllt, beispielsweise das vom System nie eine Deadlock-Situation eingenommen wird. \citep{raimondi2006model} S. 2. Erschöpfendes Testen, bei dem sämtliche möglichen Anfangsbedingungen überprüft werden, ist aufgrund der großen Grundmenge vieler Variablen oft nicht praktikabel. Stattdessen kann mittels formaler Verifikation mit mathematischen Hilfsmitteln bewiesen werden, dass bestimmte Eigenschaften im Modell gelten. Dabei wird gezeigt, dass das System nie einen Zustand einnehmen kann, in dem die Eigenschaft nicht gilt. Aufgrund der 'Zustandsraumexplosion' (analog zum Problem der Vielfalt an Startbedingungen) in komplexen Systemen, ist es eine der Hauptaufgaben eines \textit{model checkers} auf effiziente Weise die möglichen Zustände abzuarbeiten. \citep{raimondi2006model} S. 37.
 
+Im Model Checking Tool MCMAS werden dazu OBDDs (Ordered Binary Decision Diagramms) genutzt \citep{lomuscio2006mcmas} S. 1. Das Überprüfen einer Spezifikation als CTL-Formel kann auf das Problem reduziert werden zwei OBDDs miteinander zu vergleichen \citep{raimondi2006model} S. 40. 
 
-\subsection{Die Theorie der Iteration von Ensembles}
-
-Der Ansatz der hier betrachtet werden soll ist die Theorie der
-Iteration von Ensembles. Dabie handelt es sich um.....
-
+Ein alternativer Ansatz für LTL-Formeln besteht darin Büchi-Automaten zu verwenden \citep{raimondi2006model} S. 47. Dabei werden zwei Büchi-Automaten konstruiert, einer der die Sprache der negativen Spezifikation akzeptiert und einer der die Sprache des Modells akzeptiert, anschließend wird die Sprache des Produktautomaten der beiden Büchi-Automaten darauf untersucht, ob sie leer ist oder nicht. 
 
 \subsection{Aufbau der Arbeit}
 
-Die Arbeit hat den folgenden Aufbau: Um zu einer Theorie der roten
-Gummibären zu gelangen, beschäftigen wir uns in
-Kapitel~\ref{sec:Iterierte-Umfärbungen} mit ....
+Nachdem in diesem Kapitel der thematische Rahmen zum Thema Model Checking für Multiagentensysteme gelegt wurde, soll nun betrachtet werden, wie das Tool MCMAS das Problem löst.
+Dazu wird im folgenden Kapitel \ref{hintergrund} detailiert darauf eingegangen, wie OBDDs zum Model Checking für CTL Formeln verwendet werden können, zudem werden \textit{interpreted systems} eingeführt.
+In Kapitel \ref{mcmas} wird dann zunächst kurz erklärt, wie die eingeführten Grundlagen von MCMAS genutzt werden um Model Checking für MAS zu ermöglichen, danach wird die Nutzung des Tools anhand eines Beispiels demonstriert.
+Da der genutzte Ansatz von MCMAS nur eine Möglichkeit ist Model Checking für MAS durchzuführen, werden in Kapitel \ref{related} andere Ansätze und Tools vorgestellt.
+Abschließend wird in Kapitel \ref{zusammenfassung} das Essay resümiert und auf den aktuellen Stand der Forschung eingegangen.
 
 \section{Hintergrund}
+\label{hintergrund}
+\subsection{Spezialteil: CTL Model Checking mit OBDDs}
+\subsection{Interpreted systems}
 
-
-\section{Iterierte Umfärbungen }
-\label{sec:Iterierte-Umfärbungen}
-
-Im folgenden betrachten wir Umfärbungen von Tüten sowie deren
-Iteration.  Hierbei ist insbesondere der Grenzwertprozess von
-Interesse.
-
-
-
-\subsection{  Iteration, Stabilisation }
-
-Wir nehmen eine vorgegebene Mengen an Farben $C$ an.  Der Einfachheit
-halber identifizieren wir eine Tüte $T$ mit $n$ Gummibären mit dem
-Intervall $[1, \ldots, n]$.
-
-
-\begin{definition}[Färbung]
-  Eine \emph{Färbung} ist eine Abbildung $f: [1, \ldots, n] \to C$.
-
-  Sei $F$  die Menge aller Färbungen
-\end{definition}
-
-Ein \emph{Funktional} ist eine Funktion, die Funktionen als Argumente
-hat, d.h. .....
-
-\begin{definition}[Umfärbung]
-  Eine \emph{Umfärbung} ist eine Funktional $u: F \to F$.
-\end{definition}
-
-
-
-
-\begin{definition}    
-  Sei die Färbung $f: [1, \ldots, n] \to C$ gegeben.
-  Die Iteration einer Umfärbung $u: F \to F$ ist
-  \[
-  \begin{array}{rcl}
-    u^0(f) &:=& f \\
-    u^{n+1}(f) &:=&     u(u^{n}(f)) 
-  \end{array}
-  \]
-\end{definition}
-
-Wir hätten es gerne, dass sich $u^{n}(f)$ für $n \to \infty$
-stabilisiert.
-
-
-
-
-\subsection{  Ordnungen }
-
-In \citep{hans-riegel-1994} findet sich der folgende Satz:
-
-\begin{theorem}[Hans und Riegel, 1994]
-  Zu jeder wohlgeordneten Menge von Gummibärenfarben ...
-\end{theorem}
-
-Historisch betrachtet findet sich der Wohklordnungsbegriff aber
-bereits schon \citep{riegel-1993} angelegt.
-
-\subsection{  Eindeutigkeit  }
-
-Es gibt eine Besonderheit des Wohlordnungssatz auf Gummibärenfarben:
-Der Wohlordnungssatz auf Gummibärenfarben garantiert die
-Stabiliserung.  Er garantiert aber nicht die Eindeutigkeit des
-Endergebnisses.  Das Endergebnis hängt von der Auswahlfunktion $g:
-\mathbb{N} \to [1, \ldots, k]$ auf dem Umfärbungsensemble ab.  Es
-ergibt sich also sofort die Frage: Für welche Umfärbungsensembles ist
-auch das Endergebnis eindeutig?
-
-
+\section{Das Tool MCMAS }
+\label{mcmas}
+\subsection{Ein Beispiel}
 
 \section{Verwandte Arbeiten und Ansätze}
+\label{related}
 
-Wir finden in der Literatur eine Reihe ähnlicher Ansätze, von denen
-wir einige vorstellen wollen.
+Eine alternative Möglichkeit zu der Verwendung von \textit{intepreted systems} für das Model Checking ist die Rückführung der Problems auf Probleme, die bereits von etablierten Tools gelöst werden können.
 
-\paragraph{Ondulierten Umfärbung}
-\paragraph{Iterierte Verfärbung}
-\paragraph{Gefärbte Iteration}
+Zu dem Tool MCMAS gibt es Alternativen, die sich in einigen Punkten unterscheiden:
+\begin{itemize}
+	\item \textbf{CASP}
+	\item \textbf{MABLE}
+	\item \textbf{MCK}
+\end{itemize}
 
-
-
-
-
-\section{Ausblick und Zusammenfassung}
+\section{Zusammenfassung und Ausblick}
+\label{zusammenfassung}
 
 \subsection{ Zusammenfassung}
 
@@ -168,9 +103,7 @@ wir einige vorstellen wollen.
 In dieser Hausarbeit habe ich einiges nur kurz angerissen bzw. ganz
 weggelassen, weil es den Rahmen des Seminars sprengt.
 
-Insbesondere habe ich nicht die Theorie der Umfärbung auf unendlich
-großen Tüten behandelt.  Diese Theorie basiert prinzipiell auch auf
-den hier behandelten Konzepten, wobei daruaf zu achten ist, dass....
+ctlkd-aDC, Spezialtteil für weitere Logiken erweitert, für MCMAS S69 ff
 
 
 
