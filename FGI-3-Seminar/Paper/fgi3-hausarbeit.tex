@@ -15,10 +15,10 @@
 
 \begin{document}
 
-\title{  Über die Umfärbbarkeit\\ roter Gummibären } 
-\subtitle{Eine informelle Einführung in die Iterationstheorie}
-\author{Michael K\"ohler-Bu{\ss}meier}
-\date{\small Hausarbeit im Modul FGI-3, WS 2042/2043\\
+\title{ Model-Checking für Multiagentensysteme } 
+\subtitle{Betrachtung des Tools MCMAS}
+\author{Jan Fabian Schmid}
+\date{\small Hausarbeit im Modul FGI-3, WS 2015/2016\\
   Fachbereich Informatik \\ Universität Hamburg\\[4mm]
   \today }
 
@@ -37,14 +37,20 @@
 
 \section{Einleitung}
 
-Warum brach die 40-jährige Hegemonie der Sowjetunion in Mittel- und
-Osteuropa im Jahre 1989 innerhalb von wenigen Monaten zusammen? 
-Dies liegt an den roten Gummibären!
+Multiagentensysteme (kurz MAS) eignen sich zur Beschreibung von Systemen dessen Eigenschaften sich durch die verschränkte Zusammenarbeit mehrerer eigenständig agierender Einheiten beschreiben lassen.
+
+Ein Agent wird von Raimondi als eine Einheit eingeführt, die autonom, also ohne Einwirkung anderer, handeln kann, mit anderen Agenten interagieren kann, auf die Handlungen anderer Agenten oder Änderungen in der Umgebung reagieren kann und in der Lage ist mit seinen Handlungen ein eigenes Ziel zu verfolgen. \citep{raimondi2006model} S. 2.
+
+Agenten werden zunächst individuell modelliert, dann können durch die Betrachtung des Zusammenspiels mehrerer Agenten in einem MAS komplexe Szenarien nachgebildet und untersucht werden. Zusätzlich zu den interagierenden Agenten kann eine Umgebung des MAS definiert werden, die ebenso Einfluss auf die Agenten hat und von ihnen beeinflusst werden kann. Da sich die Umgebung somit wie ein weiterer Agent verhält, kann sie zur Vereinfachung auch als ein solcher definiert werden.
 
 
 \subsection{Motivation}
 
-Warum sollte man sich mit der Theorie roter Gummibären beschäftigen?
+Wenn Systeme modelliert werden sollen, die intuitiv als das Zusammenspiel mehrerer Einheiten angesehen werden, wie beispielsweise ein Fußballfeld mit zwei Teams von gegeneinander antretenden Robotern, beim Kommunikationsprotokoll zwischen mehreren Einheiten oder bei einem Kartenspiel mit mehreren Mitspielern, dann bietet es sich an ein MAS zu verwenden. In einem solchen Fall können die verschiedenen Einheiten des realen Systems direkt als einzelne Agenten des MAS modlliert werden, sodass die Beziehungen zwischen realem System und Modell intuitiv erkannt werden können.
+Anschließend können Eigenschaften des Modells anhand von Spezifikationsformeln untersucht werden, so könnte man beispielsweise zeigen, dass zu Beginn eines Kartenspiels der Gewinner nicht bereits feststeht.
+
+Die Alternative wäre im Modell eine Einzelne Einheit zu verwenden, die das Verhalten mehrerer individueller Einheiten simuliert. Man würde beispielsweise das Verhalten der Agenten als einzelne Automaten modellieren und anschließend den Produktautomaten aller Einheiten berechnen. Zur Überprüfung einer Spezifikation im System könnten dann herkömmliche \textit{model checker} auf den Produktautomaten angewendet werden.
+Mit diesem Vorgehen wird es für den Modellierer jedoch schwierig Spezifikationen zu definieren und positiv oder negativ Beispiele nachzuvollziehen, da das Modell seine intuitive Anschauung, in der das Verhalten der einzelnen Agenten nachvollzogen werden kann, verloren hat.
 
 
 \subsection{Probleme und  Fragen}
@@ -65,6 +71,7 @@ Die Arbeit hat den folgenden Aufbau: Um zu einer Theorie der roten
 Gummibären zu gelangen, beschäftigen wir uns in
 Kapitel~\ref{sec:Iterierte-Umfärbungen} mit ....
 
+\section{Hintergrund}
 
 
 \section{Iterierte Umfärbungen }
