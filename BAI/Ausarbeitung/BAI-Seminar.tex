@@ -172,9 +172,9 @@
 \section*{Abstract}
  Synaptic plasticity is an important aspect of the development of artificial neural networks (ANNs) with the capabilities of nature like animal nervous systems.
  The ability of ANNs to deal with a larger scope of problems depends strongly on their synaptic plasticity.
- Tonelli and Mouret are using an approach to develop ANNs with evolutionary algorithms and different genetic encodings.
+ Tonelli and Mouret use an approach to develop ANNs with evolutionary algorithms and different genetic encodings.
  They describe synaptic plasticity as the appearance of regularity in the ANN and successfully identify a dependency of the regularity of ANNs and their general learning ability.
- The approach and its results seem promising, however the measurement of regularity is problematic and doesn't allow doubtless conclusions.
+ The approach and its results are promising, however the used measurement of regularity doesn't allow doubtless conclusions.
 
 % Lists:
 \setcounter{tocdepth}{2} 					% depth of the table of contents (for Seminars 2 is recommented)
@@ -398,9 +398,8 @@ The figure \ref{fig:formalization} shows an illustration of the network structur
 \end{figure}
 \footnotetext{Source: \cite{citeulike:12788284} p.3}
 
-To calculate the answer of the ANN to an input the softmax of the output values from the network is taken. The \textit{softmax} in contrast to the simple \textit{max} function does not just take the output node with the highest value as answer of the ANN, but assigns a probability to be taken proportional to the quantity of a value (higher value leads to higher likelihood to be chosen as final answer).\medskip
-
-An example of the first steps to the calculation of the fitness of an ANN in respect to the association (3,B) is presented in figure \ref{fig:input}
+To calculate the answer of the ANN to an input the softmax of the output values from the network is taken. The \textit{softmax} in contrast to the simple \textit{max} function does not just take the output node with the highest value as answer of the ANN, but assigns a probability to be taken proportional to the quantity of a value (higher value leads to higher likelihood to be chosen as final answer).\\
+An example of the first steps to the calculation of the fitness of an ANN in respect to the association (3,B) is presented in figure \ref{fig:input}.\medskip
 
 \begin{figure}[!tbp]
 	\centering
@@ -498,7 +497,7 @@ The used experimental setup however considered only a rather simple task (four t
 Therefore the  shown dominance of ANNs with many graph automorphisms might be impaired for a more complex problem. A second experiment with higher demands on the ANNs could have answered this question.\medskip
  
 It is problematic that the used experiment doesn't penalize the complexity of the networks. With a cost for connections an additional goal which requires to minimize the sum of connection costs could have been introduced (cf. \cite{citeulike:12788284} p.7).
-With an implementation of these suggestions it would be possible to make statements about the \textbf{efficiency} of ANNs with high regularity (and high general learning ability) compared to ANNs evolved with direct encoding (and maybe same GLA score).
+With an implementation of these suggestions it would be possible to make statements about the efficiency of ANNs with high regularity (and high general learning ability) compared to ANNs evolved with direct encoding (and maybe same GLA score).
 Thereby the actual usefulness of regularity for animal nervous systems could be assessed.
 Also Ellefsen et. al were able to show that the introduction of a connection cost leads to modularity in an ANN, if it is supposed to adapt to different problems \cite{ellefsen2015neural}. This makes sense because without connection cost a new complex network part can be used for every new problem, if high complexity is penalized however network parts are more likely to be used for multiple tasks.
 Huizinga et. al were actually able to show that the introduction of an connection cost combined with an HyperNEAT algorithm lead to \glqq significantly more modular, regular, and higher performing [neural networks]\grqq \cite{huizinga2014evolving} p.1.\\

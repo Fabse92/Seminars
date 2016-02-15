@@ -1,0 +1,469 @@
+\documentclass[t]{beamer} %% alles am TOP ausrichten, c=CENTER ist default.
+%% \documentclass[pausesections]{beamer}
+% \documentclass[handout]{beamer}
+
+% \usepackage{pgfpages}
+%% \pgfpagesuselayout{4 on 1}[a4paper, border shrink 5mm]
+% \pgfpagesuselayout{2 on 1}[a4paper, border shrink 5mm]
+%% \pgfpagesuselayout{4 on 1}[a4paper, landscape]
+
+% \usepackage[german]{babel}
+\usepackage[latin1]{inputenc}
+% \usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amscd}
+
+
+\setlength{\parskip}{2mm}
+
+% % don't show title and author in the footer
+% \beamertemplatefootempty
+% % Navigationssymbole ausblenden:
+% \setbeamertemplate{navigation symbols}{}
+% % \setbeamertemplate{footline}{}
+% %% ohne Navigation:
+% \beamertemplatenavigationsymbolsempty  
+
+% don't show structure in header
+% \beamertemplateheadempty
+% fix block title font for acroread
+% \setbeamerfont*{block title}{}
+
+\mode<presentation>
+{
+  % \usetheme{Madrid} %ohne navigation
+  % \usetheme{Warsaw}  
+  % \usetheme{Hannover} 
+  \usetheme{PaloAlto} 
+  \setbeamercovered{transparent}
+}
+
+
+\title{  Über die Umfärbbarkeit roter Gummibären } 
+\subtitle{Eine informelle Einführung in die Iterationstheorie}
+\author[K\"ohler-Bu{\ss}meier]{Michael K\"ohler-Bu{\ss}meier}
+\date[]{\today} 
+\institute[UHH] {Seminar im Modul FGI-3\\
+  Fachbereich Informatik \\ Universität Hamburg }
+
+% Dies wird lediglich in den PDF Informationskatalog einfügt. 
+\subject{Slides}
+
+\pgfdeclareimage[height=1.5cm]{university-logo}{UHH-Logo-cut}
+\logo{\pgfuseimage{university-logo}}
+
+
+% Folgendes sollte gelöscht werden, wenn man nicht am Anfang jedes
+% Unterabschnitts die Gliederung nochmal sehen möchte.
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline}
+    \small\tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+% Falls Aufzählungen immer schrittweise gezeigt werden sollen, kann
+% folgendes Kommando benutzt werden:
+% \beamerdefaultoverlayspecification{<+->}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Einführung}
+
+\subsection{Motivation}
+
+\begin{frame}
+  % \small
+  % \footnotesize
+  \frametitle{ Was sind rote Gummibären }
+
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+
+      \begin{block}{Gummibären:}    
+        \begin{itemize}
+        \item klein
+        \item süß
+        \item ...
+        \end{itemize}
+      \end{block}
+      
+      \begin{block}{rot}    
+        \begin{itemize}
+        \item rot (RGB = FF0000)
+        \item gefärbt mit roter Beete
+        \item ....
+        \end{itemize}
+      \end{block}
+
+    \end{column}
+
+    \pause
+    \begin{column}{0.45\textwidth}
+
+      \begin{block}{Umgebung}    
+        \begin{itemize}
+        \item kleine Tüten
+        \item große Tüten
+        \item ....
+        \end{itemize}
+      \end{block}
+
+      \begin{block}{Zielgruppe}    
+        \begin{itemize}
+        \item Kinder
+        \item Nicht-Kinder
+        \item ....
+        \end{itemize}
+      \end{block}
+    \end{column}
+
+  \end{columns}
+
+\end{frame}
+
+
+\subsection{Probleme und  Fragen}
+
+
+\begin{frame}
+  \frametitle{ Probleme }
+
+  Befasst man sich mit roten Gummibären, so ist folgendes zu beachten:
+
+  \begin{enumerate}
+  \item Rote Gummibären treten selten isoliert auf.
+  \item Typischerweise bilden sie Rudel.
+  \item Meist sind die Rudel multi-coloriert.
+  \end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{ Der Spezialfall: rote Gummibären }
+
+  Man möchte aber Gruppen roter Gummibären studieren:
+  \begin{enumerate}
+  \item Gruppen roter Gummibären haben den Vorteil, dass sie sich zu
+    Teilchenpaaren koppeln, die nach außen wie Bosonen wirken.
+  \item Es ist daher (anders als bei farblich gemischten Gruppen) möglich,
+    tiefgekühlte Gummibärengruppen zu erstellen -- zumidest prinzipiell.
+  \item ...
+  \end{enumerate}
+
+
+
+  \begin{block}{Das Thema ist spannend, denn:}
+    Mit tiefgekühlte Gummibärengruppen kann man die Welt retten.
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{ Erste Ansätze }
+
+  \begin{enumerate}
+  \item Der Filteransatz nach [Trichter et al., 1981]
+  \item Der Ansatz stimulierter Farbemission [Couloris, 1983]
+  \item Der 4-Farbenansatz nach [Pizza Mista, 1961]
+  \item ....
+  \end{enumerate}
+
+\end{frame}
+
+\section{Die Theorie der Iteration von Ensembles}
+
+\begin{frame}
+  \frametitle{ Ansatz: Iterierte Umfärbungen }
+
+  Wir betrachten hier einen neuen Ansatz nach [Farb und Froh, 1993]:
+
+  Grundidee:
+  \begin{enumerate}
+  \item Definition von iterierten Umfärbungen auf farblich gemischten
+    Gruppen.
+  \item Algebraische Struktur der Farbauswahl garantiert Termination
+  \item Nichtdetministsiche Auswahl
+  \end{enumerate}
+
+  Kernkomponenten:
+  \begin{enumerate}
+  \item Algebraische Struktur  der Umfärbbarkeit
+  \item Wohlordnung auf Farben
+  \item Konfluenzeigenschaft
+  \end{enumerate}
+\end{frame}
+
+
+\section{ Iterierte Umfärbungen }
+
+\begin{frame}
+  \frametitle{ Färbungen und Umfärbungen }
+
+
+  Wir nehmen eine vorgegebene Mengen an Farben $C$ an.
+
+  Der Einfachheit halber identifizieren wir eine Tüte $T$ mit $n$
+  Gummibären mit dem Intervall $[1, \ldots, n]$.
+
+
+  \begin{definition}[Färbung]
+    Eine \emph{Färbung} ist eine Abbildung $f: [1, \ldots, n] \to C$.
+
+    Sei $F$  die Menge aller Färbungen
+  \end{definition}
+
+  \begin{definition}[Umfärbung]
+    Eine \emph{Umfärbung} ist eine Funktional $u: F \to F$.
+  \end{definition}
+
+
+  Anmerkung: Wir wollen \emph{Funktional} nicht formal einführen;
+  informal ist es eine Funktion, die Funktionen als Argumente hat
+  (Details in der Ausarbeitung).
+
+\end{frame}
+
+
+\subsection{  Iteration, Stabilisation }
+
+\begin{frame}
+  \frametitle{  Iterierte Umfärbungen }
+
+  Sei die Färbung $f: [1, \ldots, n] \to C$ gegeben.
+
+  \begin{definition}    
+    Die Iteration einer Umfärbung $u: F \to F$ ist
+    \[
+    \begin{array}{rcl}
+      u^0(f) &:=& f \\
+      u^{n+1}(f) &:=&     u(u^{n}(f)) 
+    \end{array}
+    \]
+  \end{definition}
+
+  \pause
+
+  Wir hätten es gerne, dass sich $u^{n}(f)$ für $n \to \infty$
+  stabilisiert.
+
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{  Stabilisierung iterierter Umfärbungen }
+
+  Wir hätten es gerne, dass sich $u^{n}(f)$ für $n \to \infty$
+  stabilisiert.
+
+  \begin{definition}[Stabilisierung]
+
+    Die Iteration einer Umfärbung $u: F \to F$ stabilisiert sich,
+    wenn .....
+  \end{definition}
+
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{  Beispiele zur Stabilisierung }
+
+  Manchmal stabilisiert sich $u^{n}(f)$ für $n \to \infty$:
+
+
+  \begin{example}
+    Sei ....
+  \end{example}
+
+  \pause
+
+  Das sich $u^{n}(f)$ nicht immer stabilisiert, zeigt folgendes
+  Beispiel:
+  \begin{example}
+    Sei ....
+  \end{example}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{  Umfärbungsensembles }
+  
+  Angenommen wir haben die Menge von Umfärbungen $U = \{u_1, \ldots
+  u_k: F \to F\}$, genannt \emph{Umfärbungsensemble}.
+
+  Dann können wir $U$ auch iterieren, indem wir im $n$-ten Schritt
+  eine der $k$ Umfärbungen anwenden.
+
+
+  Formal haben wir dazu eine Abbildung $g: \mathbb{N} \to [1, \ldots,
+  k]$, die im $n$-ten Schritt die Umfärbung $u_{g(n)}$ auswählt.
+
+  \begin{definition}
+    Die \emph{Iteration von $f$ durch das Umfärbungsensemble $U$ mit
+      Auswahl $g$} ist:
+    \[
+    \begin{array}{rcl}
+      U_g^0(f) &:=& f \\[3mm]
+      U_g^{n+1}(f) &:=&     u_{g(n+1)}(U_g^{n}(f)) 
+    \end{array}
+    \]
+  \end{definition}
+
+
+\end{frame}
+
+
+\subsection{  Ordnungen }
+\begin{frame}
+  \frametitle{  Wohlordnungen }
+
+  Im folgenden:
+  Hinreichendes Kriterium für die Stabilisierung.
+
+
+
+  \begin{definition}[Wohlordnungen]    
+    Eine Wohlordnungen ist
+    ...
+  \end{definition}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{ Der Wohlordnungssatz auf Gummibärenfarben }
+
+  \begin{theorem}[Hans und Riegel, 1994]
+    Zu jeder wohlgeordneten Menge von Gummibärenfarben ...
+  \end{theorem}
+
+\end{frame}
+
+\subsection{  Eindeutigkeit  }
+
+
+
+\begin{frame}
+  \frametitle{ Das Problem der Eindeutigkeit }
+
+  Es gibt eine Besonderheit des Wohlordnungssatz auf Gummibärenfarben:
+
+
+  Der Wohlordnungssatz auf Gummibärenfarben garantiert die Stabiliserung.
+
+  Er garantiert aber nicht die Eindeutigkeit des Endergebnisses.
+
+  Das Endergebnis hängt von der Auswahlfunktion $g: \mathbb{N} \to [1,
+  \ldots, k]$ auf dem Umfärbungsensemble ab.
+
+  \begin{block}{Frage}
+    Für welche Umfärbungsensembles ist auch das Endergebnis eindeutig?
+    
+  \end{block}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{  Kolossale Umfärbungsensembles }
+
+  \begin{definition}[Kolossale Umfärbungsensembles]
+    Kolossale Umfärbungsensembles sind    ....
+  \end{definition}
+\end{frame}
+
+
+
+\section{Umblick}
+
+\begin{frame}
+  \frametitle{Blick zurück:  Zusammenfassung }
+
+  Die \emph{take home message} noch einmal auf einer Folie:
+
+  \begin{enumerate}
+  \item Spannend, weil ...
+  \item Theorie der Iteration als Ansatz für ...
+  \item Wohlordnungssatz garantiert ...
+  \item Kolossale Ensembles  garantieren ...
+  \item Aber: Kolossale Ensembles sind schwer zu finden ...
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Blick nach links:  Verwandte Arbeiten }
+
+  Ähnlich zum Ansatz der iterierten Umfärbung sind die Ideen zur...
+
+  \begin{enumerate}
+  \item Ondulierten Umfärbung: ...
+  \item Iterierte Verfärbung: ...
+  \item Gefärbte Iteration: ....
+  \item ....
+  \end{enumerate}
+
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Blick nach rechts:  Was nicht gesagt wurde... }
+
+  ..., was aber in der Hausarbeit stehen wird:
+
+  \begin{enumerate}
+  \item Formale Definition der Stabilisation
+  \item Wohlordnungssatz auf Gummibärenfarben
+  \item ....
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Blick nach vorn:  Was man noch machen könnte...}
+
+  ..., ich aber weggelassen habe, weil es den Rahmen des Seminars sprengt:
+
+  \begin{enumerate}
+  \item Umfärbung auf unendlich großen Tüten
+  \item ....
+  \end{enumerate}
+\end{frame}
+
+
+\section{Bezug zum M.Sc.}
+
+
+\begin{frame}
+  \frametitle{ Blick in die Runde: Bezug zum M.Sc. }
+
+
+  Wie könnte eine Masterarbeit aussehen, die auf dieser Theorie
+  aufbaut?
+  \begin{itemize}
+  \item Entwicklung eines Simulators zur Gummibärenumfärbung
+  \item Entwicklung einer Umfärbungstheorie für Lakritzschnecken
+  \item ....
+  \end{itemize}
+  
+
+\end{frame}
+
+
+
+
+\end{document}
