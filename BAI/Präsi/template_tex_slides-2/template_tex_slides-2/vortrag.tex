@@ -1,0 +1,382 @@
+\documentclass[14pt]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Meta informations:
+\newcommand{\trauthor}{Jan Fabian Schmid}
+\newcommand{\trtype}{Seminar} %{Proseminar} {Seminar} %{Workshop}
+\newcommand{\trcourse}{Bio-inspired Artificial Intelligence}
+\newcommand{\trtitle}{Effects of encoding on the general learning ability of artificial neural networks}
+\newcommand{\trmatrikelnummer}{6440383}
+\newcommand{\tremail}{2schmid@informatik.uni-hamburg.de}
+\newcommand{\trinstitute}{Dept. Informatik -- Knowledge Technology, WTM}
+\newcommand{\trwebsiteordate}{{http://www.informatik.uni-hamburg.de/WTM/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Languages:
+
+% Falls die Ausarbeitung in Deutsch erfolgt:
+% \usepackage[german]{babel}
+% \usepackage[T1]{fontenc}
+% \usepackage[latin1]{inputenc}
+% \usepackage[latin9]{inputenc}	 				
+% \selectlanguage{german}
+
+% If the thesis is written in English:
+\usepackage[english]{babel} 						
+\selectlanguage{english}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bind packages:
+\usepackage{beamerthemesplit}
+\usetheme{Boadilla}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Frankfurt}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Madrid}
+%\usetheme{Warsaw }
+%\usecolortheme{dolphin}
+%\setbeamertemplate{sections/subsections in toc}[sections numbered]
+%\beamertemplatenavigationsymbolsempty
+%\setbeamertemplate{headline}[default] 	% deaktiviert die Kopfzeile
+\setbeamertemplate{navigation symbols}{}% deaktiviert Navigationssymbole
+%\useinnertheme{rounded}
+
+\usepackage{acronym}                    % Acronyms
+\usepackage{algorithmic}								% Algorithms and Pseudocode
+\usepackage{algorithm}									% Algorithms and Pseudocode
+\usepackage{amsfonts}                   % AMS Math Packet (Fonts)
+\usepackage{amsmath}                    % AMS Math Packet
+\usepackage{amssymb}                    % Additional mathematical symbols
+\usepackage{amsthm}
+\usepackage{color}                      % Enables defining of colors via \definecolor
+\usepackage{fancybox}                   % Gleichungen einrahmen
+\usepackage{fancyhdr}										% Paket zur schickeren der Gestaltung der 
+\usepackage{graphicx}                   % Inclusion of graphics
+%\usepackage{latexsym}                  % Special symbols
+\usepackage{longtable}									% Allow tables over several parges
+\usepackage{listings}                   % Nicer source code listings
+\usepackage{lmodern}
+\usepackage{multicol}										% Content of a table over several columns
+\usepackage{multirow}										% Content of a table over several rows
+\usepackage{rotating}										% Alows to rotate text and objects
+\usepackage[section]{placeins}          % Ermoeglich \Floatbarrier fuer Gleitobj. 
+\usepackage[hang]{subfigure}            % Allows to use multiple (partial) figures in a fig
+%\usepackage[font=footnotesize,labelfont=rm]{subfig}	% Pictures in a floating environment
+\usepackage{tabularx}										% Tables with fixed width but variable rows
+\usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
+
+\definecolor{uhhRed}{RGB}{254,0,0}		  % Official Uni Hamburg Red
+\definecolor{uhhGrey}{RGB}{136,136,136} % Official Uni Hamburg Grey
+\definecolor{uhhLightGrey}{RGB}{180,180,180} % Official Uni Hamburg LightGrey
+\definecolor{uhhLightLightGrey}{RGB}{220,220,220} % Official Uni Hamburg LightLightGrey
+\setbeamertemplate{itemize items}[ball]
+\setbeamercolor{title}{fg=uhhRed,bg=white}
+\setbeamercolor{title in head/foot}{bg=uhhRed}
+\setbeamercolor{block title}{bg=uhhGrey,fg=white}
+\setbeamercolor{block body}{bg=uhhLightLightGrey,fg=black}
+\setbeamercolor{section in head/foot}{bg=black}
+\setbeamercolor{frametitle}{bg=white,fg=uhhRed}
+\setbeamercolor{author in head/foot}{bg=black,fg=white}
+\setbeamercolor{author in footline}{bg=white,fg=black}
+\setbeamercolor*{item}{fg=uhhRed}
+\setbeamercolor*{section in toc}{fg=black}
+\setbeamercolor*{separation line}{bg=black}
+\setbeamerfont*{author in footline}{size=\scriptsize,series=\mdseries}
+\setbeamerfont*{institute}{size=\footnotesize}
+
+\newcommand{\opticalseperator}{0.0025\paperwidth}
+
+\institute{Universit\"at Hamburg\\\trinstitute}
+\title{\trtitle}
+\subtitle{\trtype}
+\author{\trauthor}
+\date{}
+\logo{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Configurationen:
+%\hypersetup{pdfpagemode=FullScreen}
+
+\hyphenation{whe-ther} 									% Manually use: "\-" in a word: Staats\-ver\-trag
+
+%\lstloadlanguages{C}                   % Set the default language for listings
+\DeclareGraphicsExtensions{.pdf,.svg,.jpg,.png,.eps} % first try pdf, then eps, png and jpg
+\graphicspath{{./src/}} 								% Path to a folder where all pictures are located
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Costom Definitions:
+\setbeamertemplate{title page}
+{
+  \vbox{}
+	\vspace{0.4cm}
+  \begin{centering}
+    \begin{beamercolorbox}[sep=8pt,center,colsep=-4bp]{title}
+      \usebeamerfont{title}\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.20em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%     
+    \end{beamercolorbox}%
+		\vskip0.4em
+    \begin{beamercolorbox}[sep=8pt,center,colsep=-4bp,rounded=true,shadow=true]{author}
+      \usebeamerfont{author}\insertauthor \\ \insertinstitute
+    \end{beamercolorbox}
+
+	  \vfill
+	  \begin{beamercolorbox}[ht=8ex,center]{}
+		  	\vspace*{-0.22cm}
+		  \includegraphics[width=0.20\paperwidth]{wtmIcon.pdf}
+	  \end{beamercolorbox}%
+    \begin{beamercolorbox}[sep=8pt,center,colsep=-4bp,rounded=true,shadow=true]{institute}
+      \usebeamerfont{institute}\trwebsiteordate
+    \end{beamercolorbox}
+		\vspace{-0.1cm}
+  \end{centering}
+}
+
+\setbeamertemplate{frametitle}
+{
+\begin{beamercolorbox}[wd=\paperwidth,ht=3.8ex,dp=1.2ex,leftskip=0pt,rightskip=4.0ex]{frametitle}%
+		\usebeamerfont*{frametitle}\centerline{\insertframetitle}
+	\end{beamercolorbox}
+	\vspace{0.0cm}
+}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode
+	\vspace{-0.05cm}
+  \hbox{
+	  \begin{beamercolorbox}[wd=.32\paperwidth,ht=4.8ex,dp=2.7ex,center]{author in footline}
+	    \hspace*{2ex}\usebeamerfont*{author in footline}\trauthor
+	  \end{beamercolorbox}%
+	  \begin{beamercolorbox}[wd=.60\paperwidth,ht=4.8ex,dp=2.7ex,center]{author in footline}
+	    \usebeamerfont*{author in footline}\trtitle
+	  \end{beamercolorbox}%
+	  \begin{beamercolorbox}[wd=.07\paperwidth,ht=4.8ex,dp=2.7ex,center]{author in footline}
+	    \usebeamerfont*{author in footline}\insertframenumber{}
+	  \end{beamercolorbox}
+  }
+	\vspace{0.15cm}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Additional 'theorem' and 'definition' blocks:
+\newtheorem{axiom}{Axiom}[section] 	
+%\newtheorem{axiom}{Fakt}[section]			% Wenn in Deutsch geschrieben wird.
+%Usage:%\begin{axiom}[optional description]%Main part%\end{fakt}
+
+%Additional types of axioms:
+\newtheorem{observation}[axiom]{Observation}
+
+%Additional types of definitions:
+\theoremstyle{remark}
+%\newtheorem{remark}[section]{Bemerkung} % Wenn in Deutsch geschrieben wird.
+\newtheorem{remark}[section]{Remark} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Provides TODOs within the margin:
+\newcommand{\TODO}[1]{\marginpar{\emph{\small{{\bf TODO: } #1}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abbreviations and mathematical symbols
+\newcommand{\modd}{\text{ mod }}
+\newcommand{\RS}{\mathbb{R}}
+\newcommand{\NS}{\mathbb{N}}
+\newcommand{\ZS}{\mathbb{Z}}
+\newcommand{\dnormal}{\mathit{N}}
+\newcommand{\duniform}{\mathit{U}}
+
+\newcommand{\erdos}{Erd\H{o}s}
+\newcommand{\renyi}{-R\'{e}nyi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Display of TOCs:
+\AtBeginSection[]
+{
+	\setcounter{tocdepth}{2}  
+	\frame
+	{
+	  \frametitle{Outline}
+		\tableofcontents[currentsection]
+	}
+}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document:
+\begin{document}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{frame}[plain] % plain => kein Rahmen
+  \titlepage
+\end{frame}
+%\setcounter{framenumber}{0}
+
+\frame{
+	\frametitle{Outline}
+	\tableofcontents
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Your Content
+
+\section{Motivation and Question}
+
+\frame[t]{
+  \frametitle{Motivation}
+  \begin{itemize}
+  	\item Animal nervous systems are cabable of dealing with a large variety of complex tasks 
+	\item Artificial neural networks (ANNs) are not up to par
+	%usually single purpose networks
+		\begin{itemize}
+			\item smaller, less organized and less plastic \textsuperscript{[Tonelli and Mouret, 2013]}
+		\end{itemize}
+	\item Improvements needed
+	%to modell animal nervous systems
+	%desired goal for many scientists in bio-inspired artificial intelligence
+	\item Appoach: Use different genetic encodings for the development of ANNs and study the effects
+	%using evolutionary algorithms, -> it has 1. on the regularity and 2. on the general learning ability
+		\begin{itemize}
+			\item On regularity and learning abilities of the ANNs
+		\end{itemize}	
+	\end{itemize}
+}
+
+\section{Basics and Definitions}
+\frame[t]{
+	\frametitle{Regularity}
+	\begin{columns}
+		\column{.6\textwidth}
+			\begin{itemize}
+				\item Measurement for the compressibility of a network
+				\item Computed by counting symmetry axes (graph automorphisms)
+				%because for symmetric network parts one describtion can be used multiple times
+			\end{itemize}
+		\column{.4\textwidth}
+		\includegraphics[width=1\linewidth]{src/GleichseitigUndGeschmeidig.png}
+		%permutation of the vertexes, that maps edges on same positions
+		%identiy, reflection on the perpendicular between b and c, 120 degree rotation clockwise
+	\end{columns}
+}
+\frame[t]{
+	\frametitle{From genes to nervous systems}
+	\begin{itemize}
+		\item Evolutionary algorithms for generation of ANNs
+		%as it is happening in nature
+		%An encoding of the network structure as genotype has to be defined
+		\item An encoding of the network structure as genotype has to be defined
+		\item Developmental encodings
+		\begin{itemize}
+			\item Definition of abstract constructions rules
+			%like defining the properties of a whole field of neurons
+		\end{itemize}
+		\item Direct encodings
+		\begin{itemize}
+			\item Direct mapping of genotype to phenotyp
+			%describing each neuron individually
+		\end{itemize}
+	\end{itemize}
+}
+\frame[t]{
+	\frametitle{Skinner box}
+	\begin{columns}
+		\column{1\textwidth}
+		\begin{itemize}
+			\item Experimental setup to test the learning ability of a test subject
+		\end{itemize}
+		%\column{.4\textwidth}
+		%\hspace*{-0.2cm}
+		\centering
+		\includegraphics[width=0.4\linewidth]{src/Skinner_box_scheme_01.png}
+		%test animal is supposed to associate some input stimuli to the appropriate action response
+		%food and electric shocks used to support/punish right/wrong behaviour
+	\end{columns}
+}
+\section{Approach}
+\frame[t]{
+	\frametitle{Experimental setup}
+	\begin{itemize}
+		\item ANNs are trained and tested in the environment of a simulated Skinner box
+	\end{itemize}
+	\centering
+	\includegraphics[width=0.45\linewidth]{src/network_structure.png}
+}
+\frame[t]{
+	\frametitle{Experimental setup}
+	\begin{itemize}
+		\item An association set is a set with one association for each input (e.g. $\left\{(1,A),(2,B),(3,C),(4,D)\right\})$
+		\item The network has to use the reward signals
+		% should associate stimuli to actions by working with the signals
+		\begin{itemize}
+			\item Weights are not changed with backpropagation,
+			\item but with modulatory neurons
+			%enables the ANN to learn something by changing connection weights
+		\end{itemize}
+		\item The evolutionary algorithm uses a subset of all possible association sets (training set) %for the evaluation of its fitness function
+		
+	\end{itemize}
+}
+\frame[t]{
+	\frametitle{A step in the evaluation of an ANN}
+	\includegraphics[width=0.45\linewidth]{src/network_structure_input1.png}
+	\hfill
+	\includegraphics[width=0.45\linewidth]{src/network_structure_input2.png}
+}
+\frame[t]{
+	\frametitle{A run of the experiment}
+	\begin{itemize}
+		\item Choose a genetic encoding (direct or developmental)
+		\item Select a evolutionary training set
+		\item Develop ANNs that perform well on the training set
+		\item Calculate the general learning ability (GLA) of the ANNs by evaluating their performance on unseen association sets
+		\item Evaluate the regularity by counting the graph automorphisms
+	\end{itemize}
+}
+
+\section{Results}
+\frame[t]{
+	\frametitle{Results}
+}
+\section{Conclusion}
+\frame[t]
+{
+  \frametitle{Conclusion}
+
+  Novelty and contribution of this work:
+  \begin{itemize}
+	  \item Sum up the approach
+		\item Sum op the results
+		\item ...
+		\item Show that it solves the question
+  \end{itemize}
+
+\mbox{ }
+  
+	Open Questions:
+  \begin{itemize}
+  	\item Something
+	  \item ... is always missing
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%
+
+\frame[c]{
+  \frametitle{The End}
+\begin{center}
+  Thank you for your attention.\\[1ex]
+  Any question?\\[5ex]
+\end{center}
+  \footnotesize
+  Literature:
+	\begin{itemize}
+		\item Paul Tonelli and Mouret Jean-Baptiste. On the Relationships between Generative Encodings, Regularity, and Learning Abilities when Evolving Plastic Artificial Neural Networks. \emph{PLoS ONE}, 2013
+	
+		\item Paul Tonelli and Mouret Jean-Baptiste. Name of the conference paper. \emph{In: Proceedings of the Conference Name}, 2008
+		\item Author, Author, and Author. Name of the Article. \emph{Name of the Journal}, 42:111-133, 2010
+		\item Author, and Author. \emph{Name of the Book}. Publisher, 2009
+	\end{itemize}
+}
+
+\end{document}
