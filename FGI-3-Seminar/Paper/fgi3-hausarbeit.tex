@@ -8,6 +8,15 @@
 \usepackage{amssymb}
 \usepackage{amsxtra}
 \usepackage[round]{natbib}
+\usepackage{listings}  
+\usepackage{graphicx}  
+
+\renewcaptionname{german}{\contentsname}{Inhalt}
+\renewcaptionname{german}{\listfigurename}{Abbildungen}
+\renewcaptionname{german}{\listtablename}{Tabellen}
+\renewcaptionname{german}{\figurename}{Abb.}
+\renewcaptionname{german}{\tablename}{Tab.}
+\newcaptionname{german}{\lstlistingname}{Algorithmus}
 
 \newtheorem{theorem}{Theorem} 
 \newtheorem{definition}[theorem]{Definition} 
@@ -58,11 +67,13 @@ Mit diesem Vorgehen wird es für den Modellierer jedoch schwierig Spezifikationen
 
 \subsection{Probleme und  Fragen}
 
-Oft stellt sich zu einem entworfenen Modell die Frage, ob es bestimmte Eigenschaften erfüllt, beispielsweise das vom System nie eine Deadlock-Situation eingenommen wird. \citep{raimondi2006model} S. 2. Erschöpfendes Testen, bei dem sämtliche möglichen Anfangsbedingungen überprüft werden, ist aufgrund der großen Grundmenge vieler Variablen oft nicht praktikabel. Stattdessen kann mittels formaler Verifikation mit mathematischen Hilfsmitteln bewiesen werden, dass bestimmte Eigenschaften im Modell gelten. Dabei wird gezeigt, dass das System nie einen Zustand einnehmen kann, in dem die Eigenschaft nicht gilt. Aufgrund der 'Zustandsraumexplosion' (analog zum Problem der Vielfalt an Startbedingungen) in komplexen Systemen, ist es eine der Hauptaufgaben eines \textit{model checkers} auf effiziente Weise die möglichen Zustände abzuarbeiten. \citep{raimondi2006model} S. 37.
+Oft stellt sich zu einem entworfenen Modell die Frage, ob es bestimmte Eigenschaften erfüllt, beispielsweise das vom System nie eine Deadlock-Situation eingenommen wird. \citep{raimondi2006model} S. 2. Erschöpfendes Testen, bei dem sämtliche möglichen Anfangsbedingungen überprüft werden, ist aufgrund der großen Grundmenge vieler Variablen oft nicht praktikabel. Stattdessen kann mittels formaler Verifikation in Form des Modell Checkings bewiesen werden, dass bestimmte Eigenschaften im Modell gelten. Dabei wird gezeigt, dass das System nie einen Zustand einnehmen kann, in dem die Eigenschaft nicht gilt.
+Dazu muss zunächst ein Modell zu einem zu untersuchenden System erstellt werden.
+Diese Modelle leiden allerdings unter der 'Zustandsraumexplosion' (analog zum Problem der Vielfalt an Startbedingungen). Es ist daher eine der Hauptaufgaben eines Modell Checkers auf effiziente Weise den Raum aller möglichen Zustände abzuarbeiten. \citep{raimondi2006model} S. 37.
 
 Im Model Checking Tool MCMAS werden dazu OBDDs (Ordered Binary Decision Diagramms) genutzt \citep{lomuscio2006mcmas} S. 1. Das Überprüfen einer Spezifikation als CTL-Formel kann auf das Problem reduziert werden zwei OBDDs miteinander zu vergleichen \citep{raimondi2006model} S. 40. 
 
-Ein alternativer Ansatz für LTL-Formeln besteht darin Büchi-Automaten zu verwenden \citep{raimondi2006model} S. 47. Dabei werden zwei Büchi-Automaten konstruiert, einer der die Sprache der negativen Spezifikation akzeptiert und einer der die Sprache des Modells akzeptiert, anschließend wird die Sprache des Produktautomaten der beiden Büchi-Automaten darauf untersucht, ob sie leer ist oder nicht. 
+Ein alternativer Ansatz zum Modell Checking existiert beispielsweise für LTL-Formeln, dabei werden Büchi-Automaten verwendet \citep{raimondi2006model} S. 47. Dabei werden zwei Büchi-Automaten konstruiert, einer der die Sprache der negativen Spezifikation akzeptiert und einer der die Sprache des Modells akzeptiert, anschließend wird die Sprache des Produktautomaten der beiden Büchi-Automaten darauf untersucht, ob sie leer ist oder nicht. 
 
 \subsection{Aufbau der Arbeit}
 
@@ -75,6 +86,74 @@ Abschließend wird in Kapitel \ref{zusammenfassung} das Essay resümiert und auf d
 \section{Hintergrund}
 \label{hintergrund}
 \subsection{Spezialteil: CTL Model Checking mit OBDDs}
+Die Sprache der \textit{Computational Tree Logic} kann mit folgender Syntax definiert werden:
+\begin{align*}
+	\phi &::= p\,|\,\lnot\phi\,|\,\phi\lor\phi\,|\,EX\phi\,|\,EG\phi\,|\,E[\phi U\phi]\,|.
+\end{align*}
+Formeln mit dem Pfadquantifikator $A$ und dem temporalen Operator $F$ können aus dieser minimalen Syntax abgeleitet werden.\medskip
+
+Die Semantik der CTL-Formeln wird anhand der möglichen Sequenzen an Zustandsübergängen (Pfade) in den Zuständen eines Transitionssystems beschrieben.
+
+Ein solches Transitionssystems wird auch CTL-Modell genannt entspricht bei Raimondi einem Tripel (S,R,V) mit der Menge der Zustände S, einer Übergangsrelation $R \subseteq S \times S$ und der Evaluierungsfunktion oder auch \textit{labelling function} $S \rightarrow 2^P$ (vgl. \citep{raimondi2006model} S. 13).\medskip
+
+Um nun zunächst zu überprüfen, ob eine Spezifikation $\phi$ in einem Zustand des CTL-Modells M gilt kann ein Algorithmus von Huth und Ryan genutzt werden, der \textit{labelling algorithm} genannt wird. Als Eingabe erhält dieser Algorithmus die Spezifikation $\phi$ und das Modell M und als Ausgabe gibt er alle Zustände des Modells zurück in denen $\phi$ gilt (vgl. \cite{huth2004logic}). Der Hauptteil des Algorithmus ist in Abbildung \ref{lst:labelling} zu sehen. \medskip
+
+\begin{lstlisting}[mathescape, frame=single, captionpos=b, caption={Der \textit{labelling algorithm} gibt alle Zustände aus M aus, in denen $\phi$ gilt.},label={lst:labelling}]
+$MC$($\phi$, M) {
+	$\phi$ is an atomic formula: return V($\phi$);
+	$\phi$ is $\lnot\phi_1$: return S \ $MC$($\phi_1$, M);
+	$\phi$ is $\phi_1 \lor \phi_2$: return $MC$($\phi_1$, M) $\cup$ $MC$($\phi_2$, M);
+	$\phi$ is EX$\phi_1$: return $MC_{EX}$($\phi_1$, M);
+	$\phi$ is EG$\phi_1$: return $MC_{EG}$($\phi_1$, M);
+	$\phi$ is E[$\phi_1$U$\phi_2$]: return $MC_{EU}$($\phi_1$, $\phi_2$, M);
+}
+\end{lstlisting}
+
+Dabei ist V($\phi$) eine Erweiterung zur normalen Evaluierungsfunktion für atomare Formeln, die die Menge der Zustände zurückgibt, in denen $\phi$ gilt.
+
+Die Algorithmen $MC_{EX}$, $MC_{EG}$ und $MC_{EU}$ werden separat definiert.
+$MC_{EX}$ berechnet die Zustände, in denen eine Transition in einen Zustand möglich ist, in dem $\phi$ gilt.
+
+Da die Formeln $EG\phi$ und $E[\phi U \psi]$ Aussagen über eine zunächst unbekannte Teilmenge aller Zustände treffen ist ihre Berechnung aufwendiger.
+Hier werden Fixpunkte genutzt, um die Menge der Zustände, in denen die Formeln gelten, eindeutig zu definieren. Dazu werden folgende Äquivalenzen genutzt (vgl. \citep{raimondi2006model} S. 38):
+
+\begin{align}
+	EG\phi &\equiv \phi \land EXEG\phi\\
+	E[\phi U \psi] &\equiv \psi \lor (\phi\land EXE[\phi U \psi])
+\end{align}
+
+Diese Äquivalenzen können als Abwicklungen der Operatoren EG und EU betrachtet werden.
+In den Algorithmen $MC_{EG}$ und $MC_{EU}$ werden diese Abwicklungen nun so oft durchgeführt, bis sich die gefundene Menge der Zustände, in denen die Formel gilt, nicht mehr ändert.\medskip
+
+Zur Überprüfung, ob die Formel $\phi$ in einem bestimmten Zustand in M gilt, kann nun einfach überprüft werden, ob der Zustand in der von $MC$($\phi$, M) berechneten Menge enthalten ist.
+
+\subsection*{Verwendung von OBBDs}
+
+Wenn nun die Frage angegangen werden soll, ob $M\models\phi$ gilt, muss überprüft werden, ob $\phi$ in allen Zuständen von M gilt.
+Da MCMAS intern Modelle als \textit{Ordered Binary Decision Diagrams} (OBBDs) beschreibt, wird das Problem auf den Test auf Gleichheit des OBBD des Modells M und des OBBD zur Ausgabe von $MC$($\phi$, M) zurückgeführt.\medskip
+
+Ein OBBD hat eine Wurzel, ist gerichtet und azyklisch. Zu jeder booleschen Funktion $f:\{0,1\}^n \rightarrow \{0,1\}$ kann bei gegebener Variablenordnung ein eindeutiger minimaler OBBD bestimmt werden (vgl. \citep{raimondi2006model} S. 41).
+
+An den Knoten des Graphen werden die Variablen der booleschen Funktion eingetragen, von jedem Knoten gehen zwei Kanten aus, die den beiden möglichen Belegungen 0 oder 1 der Variablen entsprechen. Entsprechend der gewählten Belegung der Variablen kann durch Verfolgung des  dadurch gegebenen Pfades bis zu einem Blatt die Auswertung der Formel berechnet werden.
+In Abbildung \ref{obbds} sind der OBBD und der minimale OBBD zur Formel $f=x1\land (x2 \lor x3)$ dargestellt.
+
+\begin{figure}[htb!]
+	\label{obbds}
+	\includegraphics[height=.4\textwidth]{src/obbd.png}
+	\hfill
+	\includegraphics[height=.4\textwidth]{src/obbd_reduced.png}
+	\caption{Links der OBBD zur Formel $f=x1\land (x2 \lor x3)$, rechts der minimale OBBD}
+\end{figure}
+
+Da OBBDs immer einer booleschen Funktion entsprechen, muss definiert werden, wie die Zustände und die Übergangsrelation als solche Funktionen dargestellt werden können.
+Wenn diese Übersetzungen gegeben sind, kann ein Modell als OBBD dargestellt werden.
+Damit der \textit{labelling algorithm} ein OBBD als Ausgabe berechnen kann, muss zudem definiert werden, wie die Mengenoperationen als boolesche Funktion beschrieben werden können.
+
+So werden die Zustände beispielsweise folgendermaßen als boolesche Formeln beschrieben. Ein Zustand wird als Konjunktion der Belegungen aller atomarer Formeln in dem Zustand übersetzt. Eine Menge von Zuständen entspricht dann der Disjunktion aller Formeln der Zustände.\medskip
+
+Wenn alle erforderlichen Übersetzungen zu booleschen Funktionen in geeigneter Weise definiert worden sind, kann der zuvor dargestellte \textit{labelling algorithm} vollständig auf OBBDs arbeiten und das Modell M als OBBD dargestellt werden.
+Da die Darstellung der booleschen Formeln als minimale OBBDs eindeutig ist, reicht es am Ende aus zu überprüfen, ob die Ausgabe des Algorithmus dem OBBD des Modells entspricht.
+
 \subsection{Interpreted systems}
 
 \section{Das Tool MCMAS }

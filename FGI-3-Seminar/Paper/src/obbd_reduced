@@ -1,0 +1,22 @@
+digraph {
+	node [style=filled]
+ 	node [fontname = "helvetica"];
+ 	edge [fontname = "helvetica"];	
+	#node [fontsize = 21];
+ 	#edge [fontsize = 21];	
+	rankdir=TD;
+	x1[label = "x1"]
+	end01[label = "0", shape=box]
+	x3r[label = "x3"]
+	end11[label = "1", shape=box]
+	x2r[label = "x2"]
+	x1 -> end01[label="0"]
+	x1 -> x2r[label="1"]
+	
+	x2r -> x3r[label="0"]
+	x2r -> end11[label="1"]
+	
+	x3r -> end01[label="0"]
+	x3r -> end11[label="1"]
+
+}

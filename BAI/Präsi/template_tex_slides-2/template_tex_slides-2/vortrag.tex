@@ -4,7 +4,7 @@
 \newcommand{\trauthor}{Jan Fabian Schmid}
 \newcommand{\trtype}{Seminar} %{Proseminar} {Seminar} %{Workshop}
 \newcommand{\trcourse}{Bio-inspired Artificial Intelligence}
-\newcommand{\trtitle}{Effects of encoding on the general learning ability of artificial neural networks}
+\newcommand{\trtitle}{Effects of encoding on the general learning ability of ANNs}
 \newcommand{\trmatrikelnummer}{6440383}
 \newcommand{\tremail}{2schmid@informatik.uni-hamburg.de}
 \newcommand{\trinstitute}{Dept. Informatik -- Knowledge Technology, WTM}
@@ -65,6 +65,7 @@
 %\usepackage[font=footnotesize,labelfont=rm]{subfig}	% Pictures in a floating environment
 \usepackage{tabularx}										% Tables with fixed width but variable rows
 \usepackage{url,xspace,boxedminipage}   % Accurate display of URLs
+\usepackage[font={scriptsize,it}]{caption}
 
 \definecolor{uhhRed}{RGB}{254,0,0}		  % Official Uni Hamburg Red
 \definecolor{uhhGrey}{RGB}{136,136,136} % Official Uni Hamburg Grey
@@ -221,7 +222,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Your Content
 
-\section{Motivation and Question}
+\section{Motivation and Goal}
 
 \frame[t]{
   \frametitle{Motivation}
@@ -230,12 +231,14 @@
 	\item Artificial neural networks (ANNs) are not up to par
 	%usually single purpose networks
 		\begin{itemize}
-			\item smaller, less organized and less plastic \textsuperscript{[Tonelli and Mouret, 2013]}
+			\item smaller, less organized and less plastic
+			%plasticity describes the ability to adapt to different tasks during lifetime
+			\textsuperscript{[Tonelli and Mouret, 2013]}
 		\end{itemize}
 	\item Improvements needed
 	%to modell animal nervous systems
 	%desired goal for many scientists in bio-inspired artificial intelligence
-	\item Appoach: Use different genetic encodings for the development of ANNs and study the effects
+	\item Approach: Use different genetic encodings for the development of ANNs and study the effects
 	%using evolutionary algorithms, -> it has 1. on the regularity and 2. on the general learning ability
 		\begin{itemize}
 			\item On regularity and learning abilities of the ANNs
@@ -247,13 +250,15 @@
 \frame[t]{
 	\frametitle{Regularity}
 	\begin{columns}
-		\column{.6\textwidth}
+		\column{.7\textwidth}
 			\begin{itemize}
-				\item Measurement for the compressibility of a network
+				\item Measurement for the compressibility of the describtion of a network
 				\item Computed by counting symmetry axes (graph automorphisms)
 				%because for symmetric network parts one describtion can be used multiple times
+				% an automorphism of a graph is a form of symmetry in which the graph is mapped onto itself while preserving the edge–vertex connectivity.
 			\end{itemize}
 		\column{.4\textwidth}
+		\hspace*{-0.35cm}
 		\includegraphics[width=1\linewidth]{src/GleichseitigUndGeschmeidig.png}
 		%permutation of the vertexes, that maps edges on same positions
 		%identiy, reflection on the perpendicular between b and c, 120 degree rotation clockwise
@@ -273,9 +278,10 @@
 		\end{itemize}
 		\item Direct encodings
 		\begin{itemize}
-			\item Direct mapping of genotype to phenotyp
+			\item Direct mapping of genotype to phenotype
 			%describing each neuron individually
 		\end{itemize}
+		%during this short presentation I don't explain the different encodings further
 	\end{itemize}
 }
 \frame[t]{
@@ -284,11 +290,21 @@
 		\column{1\textwidth}
 		\begin{itemize}
 			\item Experimental setup to test the learning ability of a test subject
+			%stimulators
 		\end{itemize}
 		%\column{.4\textwidth}
 		%\hspace*{-0.2cm}
-		\centering
-		\includegraphics[width=0.4\linewidth]{src/Skinner_box_scheme_01.png}
+		%\centering
+		%\includegraphics[width=0.4\linewidth]{src/Skinner_box_scheme_01.png}
+		\vspace*{-1cm}
+		\begin{figure}[h]
+			\begin{center}
+				\includegraphics[width=.4\textwidth]{Skinner_box_scheme_01.png}
+			\end{center}
+			\vspace*{-0.2cm}
+			\caption*{{\tiny \url{https://commons.wikimedia.org/wiki/File:Skinner_box_scheme_01.png}}}
+		\end{figure}
+		
 		%test animal is supposed to associate some input stimuli to the appropriate action response
 		%food and electric shocks used to support/punish right/wrong behaviour
 	\end{columns}
@@ -299,37 +315,52 @@
 	\begin{itemize}
 		\item ANNs are trained and tested in the environment of a simulated Skinner box
 	\end{itemize}
-	\centering
-	\includegraphics[width=0.45\linewidth]{src/network_structure.png}
-}
-\frame[t]{
-	\frametitle{Experimental setup}
-	\begin{itemize}
-		\item An association set is a set with one association for each input (e.g. $\left\{(1,A),(2,B),(3,C),(4,D)\right\})$
-		\item The network has to use the reward signals
-		% should associate stimuli to actions by working with the signals
+	%\centering
+	%\includegraphics[width=0.45\linewidth]{src/network_structure.png}
+	%\vspace*{-1cm}
+	\begin{columns}
+		\column{.65\textwidth}
 		\begin{itemize}
-			\item Weights are not changed with backpropagation,
-			\item but with modulatory neurons
-			%enables the ANN to learn something by changing connection weights
+			\item An association set is a set that relates each input to an output e.g. {\small $\left\{(1,C),(2,D),(3,B),(4,A)\right\}$}
+			\item The evolutionary algorithm uses a subset of all possible association sets (training set) %for the evaluation of its fitness function
 		\end{itemize}
-		\item The evolutionary algorithm uses a subset of all possible association sets (training set) %for the evaluation of its fitness function
-		
-	\end{itemize}
+		\column{.4\textwidth}
+		\begin{figure}[h]
+			\begin{center}
+				\includegraphics[width=1\textwidth]{network_structure.png}
+			\end{center}
+			%\vspace*{-0.2cm}
+			\caption*{\textsuperscript{[Tonelli and Mouret, 2013]}}
+		\end{figure}
+	\end{columns}
 }
 \frame[t]{
 	\frametitle{A step in the evaluation of an ANN}
-	\includegraphics[width=0.45\linewidth]{src/network_structure_input1.png}
-	\hfill
-	\includegraphics[width=0.45\linewidth]{src/network_structure_input2.png}
+	%modulatory neurons use the reward signals
+	%\includegraphics[width=0.45\linewidth]{src/network_structure_input1.png}
+	\begin{figure}
+		\includegraphics[width=.4\textwidth]{src/network_structure_input1.png}
+		%\vspace*{-0.2cm}		
+		\hfill
+		\includegraphics[width=0.4\linewidth]{src/network_structure_input2.png}
+		%\caption*{Based on \textsuperscript{[Tonelli and Mouret, 2013]}}
+		\caption*{{\tiny Based on [Tonelli and Mouret, 2013]}}
+	\end{figure}
+	\begin{itemize}
+		\item Weights in the network are changed with modulatory neurons
+		% should associate stimuli to actions by working with the signals
+		%no direct influence on the ANN, it has to 
+		%enables the ANN to learn something by changing connection weights
+	\end{itemize}
 }
 \frame[t]{
 	\frametitle{A run of the experiment}
 	\begin{itemize}
 		\item Choose a genetic encoding (direct or developmental)
-		\item Select a evolutionary training set
+		\item Select an evolutionary training set
 		\item Develop ANNs that perform well on the training set
 		\item Calculate the general learning ability (GLA) of the ANNs by evaluating their performance on unseen association sets
+		%count the number of correct learned associations
 		\item Evaluate the regularity by counting the graph automorphisms
 	\end{itemize}
 }
@@ -337,26 +368,51 @@
 \section{Results}
 \frame[t]{
 	\frametitle{Results}
+	%\vspace*{-0.8cm}
+	\begin{itemize}
+		\item All \textit{solutions} hold at least one modulatory neuron
+		%solutions are ANNs with perfect score on the evolutionary training set
+		%plasticity can only be achieved with modulatory neurons  
+	\end{itemize}
+	%\hspace*{-0.47cm}
+	%\includegraphics<2>[width=1.072\linewidth]{src/results.png}
+}
+\frame[t]{
+	\frametitle{Results}
+	\vspace*{-1.15cm}
+	\begin{figure}
+		\hspace*{-0.515cm}
+			\includegraphics[width=1.077\textwidth]{src/results.png}
+		%\vspace*{-0.2cm}
+		\caption*{\textsuperscript{[Tonelli and Mouret, 2013]}}
+	\end{figure}
+		%A: number of graph automorphisms positively correlated to its GLA score
+		%B: developmental encodings produce more graph automorphisms thatn direct enc		
 }
 \section{Conclusion}
 \frame[t]
 {
   \frametitle{Conclusion}
 
-  Novelty and contribution of this work:
+%ANNs general learning ability for different genetic encodings got tested
   \begin{itemize}
-	  \item Sum up the approach
-		\item Sum op the results
-		\item ...
-		\item Show that it solves the question
+	  \item Plasticity and genetic encoding should be studied together
+	    \begin{itemize}
+	    	\item Developmental encodings lead to more more regular network structures than direct encodings
+	    	\item Higher regularity leads to better general learning ability
+	    \end{itemize}
+		%\item The genetic encoding is an important aspect for the development of animal like nervous systems 
   \end{itemize}
 
 \mbox{ }
   
-	Open Questions:
+	Open Question:
   \begin{itemize}
-  	\item Something
-	  \item ... is always missing
+  	%\item Do few graph automorphisms imply low regularity?
+  	%small changes lead to no graph automorphisms
+  	\item Do plasticity and trainability have a trade-off relationship?
+  	%the advantage in flexibility is achieved through redundante network parts
+  	%a more complex task for the ANNs might impair the advantages of regular networks, because they are bigger and therefore harder to train
   \end{itemize}
 }
 
@@ -373,9 +429,9 @@
 	\begin{itemize}
 		\item Paul Tonelli and Mouret Jean-Baptiste. On the Relationships between Generative Encodings, Regularity, and Learning Abilities when Evolving Plastic Artificial Neural Networks. \emph{PLoS ONE}, 2013
 	
-		\item Paul Tonelli and Mouret Jean-Baptiste. Name of the conference paper. \emph{In: Proceedings of the Conference Name}, 2008
-		\item Author, Author, and Author. Name of the Article. \emph{Name of the Journal}, 42:111-133, 2010
-		\item Author, and Author. \emph{Name of the Book}. Publisher, 2009
+		%\item Paul Tonelli and Mouret Jean-Baptiste. Name of the conference paper. \emph{In: Proceedings of the Conference Name}, 2008
+		%\item Author, Author, and Author. Name of the Article. \emph{Name of the Journal}, 42:111-133, 2010
+		%\item Author, and Author. \emph{Name of the Book}. Publisher, 2009
 	\end{itemize}
 }
 

@@ -1,0 +1,42 @@
+digraph {
+	node [style=filled]
+ 	node [fontname = "helvetica"];
+ 	edge [fontname = "helvetica"];	
+	#node [fontsize = 21];
+ 	#edge [fontsize = 21];	
+	rankdir=TD;
+	#"Neuronales Netz"[shape=box,fontcolor=red]
+	#Zugriffsgröße -> "Neuronales Netz"
+	#"Delta-Offset" -> "Neuronales Netz"
+	#OpTyp -> "Neuronales Netz"
+	#"Neuronales Netz" -> Zugriffszeit
+	x1[label = "x1"]
+	x2l[label = "x2"]
+	x2r[label = "x2"]
+	x1 -> x2l[label="0"]
+	x1 -> x2r[label="1"]
+	x3ll[label = "x3"]
+	x3l[label = "x3"]
+	x3r[label = "x3"]
+	x3rr[label = "x3"]
+	x2l -> x3ll[label="0"]
+	x2l -> x3l[label="1"]
+	x2r -> x3r[label="0"]
+	x2r -> x3rr[label="1"]
+	end01[label = "0", shape=box]
+	end02[label = "0", shape=box]
+	end03[label = "0", shape=box]
+	end04[label = "0", shape=box]
+	end05[label = "0", shape=box]
+	end11[label = "1", shape=box]
+	end12[label = "1", shape=box]
+	end13[label = "1", shape=box]
+	x3ll -> end01[label="0"]
+	x3ll -> end02[label="1"]
+	x3l -> end03[label="0"]
+	x3l -> end04[label="1"]
+	x3r -> end05[label="0"]
+	x3r -> end11[label="1"]
+	x3rr -> end12[label="0"]
+	x3rr -> end13[label="1"]
+}
