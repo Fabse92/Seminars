@@ -38,7 +38,9 @@
 \begin{abstract}
   \small\noindent\textbf{Zusammenfassung:}
 
-  Rote Gummibären können die Welt retten!
+  Multiagentensysteme eignen sich zur intuitiven Beschreibung von Systemen mit mehreren autonom agierenden Einheiten.
+  Das Model Checking Tool MCMAS ermöglicht es Spezifikationen, mit einer Vielzahl verschiedener logischer Operatoren, zu einem Modell eines solchen Systems zu testen. 
+  Dazu werden die Multiagentensysteme als \textit{interpreted systems} modelliert und intern zu \textit{ordered binary decision diagrams} übersetzt. 
 \end{abstract}
 
 \tableofcontents
@@ -174,7 +176,7 @@ Die Bestandteile der Tupel werden nun beschrieben:
 	\item $\mathbf{V}$ ist die Evaluierungsfunktion, die dort definierten Spezifikationen werden als Fairness-Bedingungen oder zur Verifikation des Modells verwendet.
 \end{itemize}
 
-Die Umwelt unterscheidet sich von anderen Agenten darin, dass ihre Zustände global einsehbar sind. Die Zustände der Agenten verändern sich alle in diskreten Zeitschritten simultan.\medskip
+Die Umwelt unterscheidet sich von anderen Agenten darin, dass ihre Zustände global einsehbar sein können. Die Zustände der Agenten verändern sich alle in diskreten Zeitschritten simultan.\medskip
 
 Zusätzlich zu den CTL-Operatoren kann mit \textit{interpreted systems} mit Operatoren der epistemischen Logik gearbeitet werden (vgl. \citep{raimondi2006model} S. 30 ff.).
 Diese kennzeichnet sich im Wesentlichen durch den Operator K (vom englischen \textit{knowledge}).
@@ -188,6 +190,21 @@ Für den Model Checker für Multiagentensysteme MCMAS wird das MAS als \textit{int
 Für diese Erweiterungen mussten entsprechende boolesche Funktionen zu den Operatoren eingeführt werden (vgl. \citep{raimondi2006model} S. 69 ff.).
 
 \subsection{Eine Beispielanwendung}
+Ein Beispiel für eine Anwendung von MCMAS ist das \textit{dining cryptographers problem} (vgl. \cite{chaum1988dining}). Dabei geht es darum anonymen Nachrichtenaustausch zu betreiben.
+Drei Kryptographen gehen Essen. Der Kellner informiert die drei, dass das Essen anonym bezahlt wurde. Die drei respektieren das Recht der anderen anonym für das Essen zu zahlen, doch es könnte sein, dass die NSA dahinter steckt, um herauszufinden, ob dies der Fall ist, überlegen sie sich folgendes Verfahren: 
+Jeder Kryptograph wirft eine Münze und zeigt das Ergebnis seinem rechten Nachbarn.
+Am Ende weiß jeder den Ausgang seines Münzwurfs und den des linken Nachbarn.
+Nun teilen die drei jeweils allen mit, ob die beiden Münzen, die er gesehen hat auf der selben Seite gelandet sind oder nicht.
+Falls einer der drei selbst bezahlt hat, sagt er dabei die Unwahrheit.\medskip
+
+Dieses Szenario kann intuitiv als MAS modelliert werden.
+Die Zustände der Umwelt enthalten das Ergebnis der drei Münzen, und lässt nur jeweils zwei der drei Kryptographen Einsicht auf eine der Münzen.
+Ein weiterer Zustand enthält die Information, über die Anzahl der Kryptographen, die ungleiche Münzen gesehen haben möchte.
+Die Zustände der Kryptographen enthalten die Informationen über die beiden Münzen, die er gesehen hat, ob er bezahlt hat oder nicht und ob die ihm bekannten Münzen die gleiche Seite zeigen. Den letzten Wert teilen sie der Umgebung mit, sobald er feststeht, bzw. falls einer von ihnen gezahlt hat, sagt er das Gegenteil.
+
+Nun kann beispielsweise eine Formel in dem so definierten MAS verifiziert werden, die folgendes besagt: Wenn die Anzahl der Angaben, ob die gesehenen Münzen die gleiche Seite haben, gerade ist, dann \textit{weiß} der erste Kryptograph, wenn er nicht selbst gezahlt hat, dass einer der anderen beiden gezahlt hat, er \textit{weiß} jedoch nicht welcher der beiden.\medskip
+
+Das Verfahren funktioniert also und auf ähnliche Weise können auch komplexere Kommunikationsprotokolle zum anonymen Nachrichtenaustausch entworfen werden.
 
 \section{Verwandte Arbeiten und Ansätze}
 \label{related}
