@@ -86,6 +86,7 @@ Abschließend wird in Kapitel \ref{zusammenfassung} das Essay resümiert und auf d
 \section{Hintergrund}
 \label{hintergrund}
 \subsection{Spezialteil: CTL Model Checking mit OBDDs}
+\label{specical:obbds}
 Die Sprache der \textit{Computational Tree Logic} kann mit folgender Syntax definiert werden:
 \begin{align*}
 	\phi &::= p\,|\,\lnot\phi\,|\,\phi\lor\phi\,|\,EX\phi\,|\,EG\phi\,|\,E[\phi U\phi]\,|.
@@ -155,43 +156,76 @@ Wenn alle erforderlichen Übersetzungen zu booleschen Funktionen in geeigneter We
 Da die Darstellung der booleschen Formeln als minimale OBBDs eindeutig ist, reicht es am Ende aus zu überprüfen, ob die Ausgabe des Algorithmus dem OBBD des Modells entspricht.
 
 \subsection{Interpreted systems}
+\label{interpreted_systems}
+In dem Tool MCMAS werden Multiagentensysteme als \textit{interpreted systems} modelliert (bzw. mit den leicht modifizierten \textit{deontic interpreted systems}) (vgl. \citep{raimondi2006model} S. 28 ff.).
+Ein \textit{interpreted system} mit n Agenten entspricht folgendem Tupel:
+\begin{align*}
+IS &= \biggl\langle(L_i,Act_i,P_i,t_i)_{i\in{1,...,n}},(L_E,Act_E,P_E,t_E),I,V \biggr\rangle
+\end{align*}
+Die Eigenschaften der einzelnen Agenten werden mit dem Tupel $(L_i,Act_i,P_i,t_i)$
+beschrieben, das Tupel $(L_E,Act_E,P_E,t_E)$ bezieht sich auf einen besonderen Agenten, der als Umwelt (engl. \textit{environment}) bezeichnet wird.
+Die Bestandteile der Tupel werden nun beschrieben:
+\begin{itemize}
+	\item $\mathbf{L_x}$ ist die Menge der lokalen Zustände des Agenten x.
+	\item $\mathbf{Act_x}$ ist die Menge an Aktionen, die der Agent x durchführen kann.
+	\item $\mathbf{P_x}$ ist das Protokoll des Agenten x, es beschreibt welche Aktionen in den einzelnen Zuständen verfügbar sind.
+	\item $\mathbf{t_x}$ ist die Evolutionsfunktion des Agenten x, diese beschreibt, wie die Zustände des Agenten sich abhängig von den Aktionen der anderen Agenten und dem Zustand der Umwelt entwickeln.
+	\item $\mathbf{I}$ ist die initiale Belegung der Zustände aller Agenten und der Umwelt.
+	\item $\mathbf{V}$ ist die Evaluierungsfunktion, die dort definierten Spezifikationen werden als Fairness-Bedingungen oder zur Verifikation des Modells verwendet.
+\end{itemize}
+
+Die Umwelt unterscheidet sich von anderen Agenten darin, dass ihre Zustände global einsehbar sind. Die Zustände der Agenten verändern sich alle in diskreten Zeitschritten simultan.\medskip
+
+Zusätzlich zu den CTL-Operatoren kann mit \textit{interpreted systems} mit Operatoren der epistemischen Logik gearbeitet werden (vgl. \citep{raimondi2006model} S. 30 ff.).
+Diese kennzeichnet sich im Wesentlichen durch den Operator K (vom englischen \textit{knowledge}).
+Für die Semantik der \textit{interpreted systems} werden die aus der CTL-Semantik bekannten Zustände des Transitionssystems zu \textit{Welten} verallgemeinert.
+Eine spezifische Belegung aller Zustände im Multiagentensystem wird als eine Welt bezeichnet. Die Menge W aller erreichbaren Welten enthält alle Welten, die in dem Modell durch legitime Übergänge erreichbar sind. In dem assoziierten Modell $M_{IS}$ zum \textit{interpreted system} $IS$ ist die Formel $K_i\phi$ wahr in der Welt $w$ ($M_{IS},w\models K_I\phi$) wenn gilt: In allen Welten, in denen der Agent $i$ die selben lokalen Zustände hat, wie in $w$, gilt $\phi$. Man sagt: Der Agent i \textit{weiß}, dass $\phi$ gilt.
+Intuitiv weiß ein Agent etwas, wenn er es allein aus seinen lokalen Zuständen ableiten kann.
 
 \section{Das Tool MCMAS }
 \label{mcmas}
-\subsection{Ein Beispiel}
+Für den Model Checker für Multiagentensysteme MCMAS wird das MAS als \textit{interpreted system} mit Hilfe der Programmiersprache ISPL (Interpreted Systems Programming Language) definiert. Intern verwendet der Model Checker dabei Algorithmen, die auf OBDDs basieren. Dazu wurde der in Kapitel \ref{specical:obbds} vorgestellte Ansatz für weitere Logiken außer CTL erweitert, sodass in den zu verifizierenden Formeln zusätzlich zu den CTL-Operatoren, epistemische Operatoren (siehe \ref{interpreted_systems}) und noch weitere Operatoren genutzt werden, mit denen man beispielsweise eine Strategie beschreiben kann, die ein Agent verfolgt  \cite{lomuscio2009mcmas}.
+Für diese Erweiterungen mussten entsprechende boolesche Funktionen zu den Operatoren eingeführt werden (vgl. \citep{raimondi2006model} S. 69 ff.).
+
+\subsection{Eine Beispielanwendung}
 
 \section{Verwandte Arbeiten und Ansätze}
 \label{related}
 
-Eine alternative Möglichkeit zu der Verwendung von \textit{intepreted systems} für das Model Checking ist die Rückführung der Problems auf Probleme, die bereits von etablierten Tools gelöst werden können.
+Eine alternative zu der Verwendung von \textit{intepreted systems} für das Model Checking von MAS ist die Rückführung der Problems auf Strukturen, die bereits von etablierten Tools gelöst werden können. 
+So wird von Raimondi selbst ein Verfahren vorgestellt, bei dem einer der beiden Modell Checker Akka oder NuSMV genutzt werden, der Nachteil dabei ist das entweder nur Formeln mit temporalen Operatoren (NuSMV) oder epistemischen Operatoren (Akka) verwendet werden können (vgl. \citep{raimondi2006model} S. 69).\medskip
 
-Zu dem Tool MCMAS gibt es Alternativen, die sich in einigen Punkten unterscheiden:
+Es gibt einige Alternativen zu dem Tool MCMAS zum Model Checking von MAS. Auf zwei dieser Tools gehe ich hier kurz ein, sie unterscheiden sich in einigen Punkten zu MCMAS:
 \begin{itemize}
-	\item \textbf{CASP}
-	\item \textbf{MABLE}
-	\item \textbf{MCK}
+	\item \textbf{MABLE} ist eine Programmiersprache zu Spezifikation von MAS. MABLE verwendet für die Verifikation von Formeln den LTL-Model Checker SPIN  \cite{wooldridge2006model}.
+	\item \textbf{MCK} arbeitet ähnlich zu MCMAS, es verwendet auch \textit{interpreted systems} und OBDDs \cite{gammie2004mck}. MCMAS implementiert allerdings eine größere Auswahl an logischen Operatoren (vgl. \citep{raimondi2006model} S. 129).
 \end{itemize}
 
 \section{Zusammenfassung und Ausblick}
 \label{zusammenfassung}
 
 \subsection{ Zusammenfassung}
+Das Tool MCMAS ist in der Lage Modell Checking für Multiagentensystem, die als \textit{interpreted systems} beschrieben wurden, durchzuführen, indem Algorithmen verwendet werden, die auf OBBDs aufbauen. Dabei können für die Formeln, die verifiziert werden sollen, eine Vielzahl verschiedener logischer Operatoren verwendet werden. 
+Gegenüber Ansätzen, die das Problem auf Model Checking für Systeme ohne Agenten zurückführen, hat das Tool den Vorteil das eine intuitivere und ausdrucksstärkere Sprache verwendet werden kann, zudem ist das Tool effizienter, da keine Übersetzung in einfachere Probleme stattfindet (vgl. \citep{raimondi2006model} S. 129).
 
 \subsection{Ausblick}
 
-In dieser Hausarbeit habe ich einiges nur kurz angerissen bzw. ganz
-weggelassen, weil es den Rahmen des Seminars sprengt.
+Wichtige Aspekte die in dieser Arbeit nicht behandelt wurden sind:
+\begin{itemize}
+	\item Die logischen Operatoren, die über CTL und dem epistemischen \textit{knowledge}-Operator hinausgehen, die allerdings im Tool MCMAS verwendet werden können.
+	\item Auf welche Weise es möglich ist die Sprachen mehrerer Logiken zu einer zu vereinigen.
+	\item Wie das Konzept des Modell Checking mit OBDDs auf MAS und die weiteren logischen Operatoren erweitert werden kann.
+	\item Die Komplexitätsanalyse der Model Checking-Problems für MAS.	
+\end{itemize}
 
-ctlkd-aDC, Spezialtteil für weitere Logiken erweitert, für MCMAS S69 ff
-
-
+Aktuelle Forschungen des Themas befassen sich beispielsweise damit, dass die generierten Gegenbeispiele zu Spezifikationen oft sehr kompliziert sind, sodass versucht wird Gegenbeispiele zu entwickeln, die möglichst einfach von Menschen verstanden werden können.
+Andere Probleme sind die Optimierung der Algorithmen und das on-line Model Checking.
 
 \subsection{Bezug zum M.Sc. Studium}
 
-Abschließend möchte ich die Relevanz des Themas für das weitere
-Studium im Master skizzieren....
-
-
+Das Thema des Model Checking für Multiagentensysteme hat einige Bezugspunkte in andere Themenbereiche.
+Generell lassen sich viele autonome Systeme, beispielsweise Roboter oder künstliche Intelligenzen, als MAS beschreiben und untersuchen.
+Besonders nützlich ist Model Checking für MAS auch für die Spezifikation von Kommunikationsprotokollen wie man sie in der Mobiltechnik oder der Kryptografie verwendet.
 
 \newpage\bibliographystyle{dinat}
 \bibliography{mybib}
