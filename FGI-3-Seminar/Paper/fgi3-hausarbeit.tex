@@ -40,49 +40,49 @@
 
   Multiagentensysteme eignen sich zur intuitiven Beschreibung von Systemen mit mehreren autonom agierenden Einheiten.
   Das Model Checking Tool MCMAS ermöglicht es Spezifikationen, mit einer Vielzahl verschiedener logischer Operatoren, zu einem Modell eines solchen Systems zu testen. 
-  Dazu werden die Multiagentensysteme als \textit{interpreted systems} modelliert und intern zu \textit{ordered binary decision diagrams} übersetzt. 
+  Dazu werden die Multiagentensysteme als \textit{interpreted systems} modelliert und intern zu \textit{Ordered Binary Decision Diagrams} (OBDDs) übersetzt. 
 \end{abstract}
 
 \tableofcontents
 \newpage
 
 \section{Einleitung}
+Zunächst wird hier ein Teil der erforderlichen Fachbegriffe zum Thema eingeführt.\medskip
 
-\textbf{Multiagentensysteme} (kurz \textbf{MAS}) eignen sich zur Beschreibung von Systemen dessen Eigenschaften sich durch die verschränkte Zusammenarbeit mehrerer eigenständig agierender Einheiten beschreiben lassen.\medskip
+Modelle die aus einer Mehrzahl Agenten bestehen werden als \textbf{Multiagentensystem} (\textbf{MAS}) bezeichnet.
 
-Ein \textbf{Agent} wird von Raimondi als eine Einheit eingeführt, die autonom, also ohne Einwirkung anderer, handeln kann, mit anderen Agenten interagieren kann, auf die Handlungen anderer Agenten oder Änderungen in der Umgebung reagieren kann und in der Lage ist mit seinen Handlungen ein eigenes Ziel zu verfolgen. \citep{raimondi2006model} S. 2.
+Ein \textbf{Agent} wird von Raimondi als eine Einheit eingeführt, die autonom handeln kann, mit anderen Agenten interagieren kann, auf die Handlungen anderer Agenten oder Änderungen in der Umgebung reagieren kann und in der Lage ist mit seinen Handlungen ein eigenes Ziel zu verfolgen und zu erreichen (vgl. \citealp{raimondi2006model} S. 2).
 
-Agenten werden zunächst individuell modelliert, dann können durch die Betrachtung des Zusammenspiels mehrerer Agenten in einem MAS komplexe Szenarien nachgebildet und untersucht werden. Zusätzlich zu den interagierenden Agenten kann eine Umgebung des MAS definiert werden, die ebenso Einfluss auf die Agenten hat und von ihnen beeinflusst werden kann. Da sich die Umgebung somit wie ein weiterer Agent verhält, kann sie zur Vereinfachung auch als ein solcher definiert werden.\medskip
+Agenten werden zunächst individuell modelliert, dann können durch die Betrachtung des Zusammenspiels mehrerer Agenten in einem MAS komplexe Szenarien nachgebildet und untersucht werden. Zusätzlich zu den interagierenden Agenten kann eine Umgebung des MAS definiert werden, die ebenso Einfluss auf die Agenten hat und von ihnen beeinflusst werden kann.
 
-Beim \textbf{Model Checking} wird zu einem Modell M überprüft, ob es eine Eigenschaft $\phi$ erfüllt ($M\models\phi$). Ein \textit{model checker} kann in automatischer Weise verifizieren, ob die Eigenschaft gilt, oder liefert ein entsprechendes Gegenbeispiel, das die Eigenschaft verletzt.
-
-Model Checking für Multiagentensysteme bedeutet dementsprechend, dass Eigenschaften von Modellen untersucht werden, die als MAS repräsentiert sind. Das Tool \textbf{MCMAS} (Model Checking for Multi-Agent Systems) erfüllt diese Aufgabe für eine große Bandbreite möglicher Eigenschaften.
+Beim \textbf{Model Checking} wird zu einem Modell M überprüft, ob es eine Eigenschaft $\phi$ erfüllt ($M\models\phi$). Ein Model Checker kann dies auf automatische Weise verifizieren, oder liefert ein entsprechendes Gegenbeispiel, das die Eigenschaft verletzt.
+\textbf{MCMAS} ist ein solcher Model Checker für Multiagentensysteme.
 
 \subsection{Motivation}
+MAS eignen sich zur Beschreibung von Systemen, deren Eigenschaften sich aus dem Zusammenwirken mehrerer eigenständig agierender Einheiten ergeben.
+So könnte man beispielsweise Kommunikationsprotokolle als MAS beschreiben oder sogar rundenbasierende Kartenspiele.
+%Wenn Systeme modelliert werden sollen, die intuitiv als das Zusammenspiel mehrerer Einheiten angesehen werden, wie beispielsweise ein Fußballfeld mit zwei Teams von gegeneinander antretenden Robotern, beim Kommunikationsprotokoll zwischen mehreren Einheiten oder bei einem Kartenspiel mit mehreren Mitspielern, dann bietet es sich an ein MAS zu verwenden.
+%In einem solchen Fall können die verschiedenen Einheiten des realen Systems direkt als einzelne Agenten des MAS modlliert werden, sodass die Beziehungen zwischen realem System und Modell intuitiv erkannt werden können.
+Die modellierten MAS können dann anschließend anhand von Spezifikationsformeln untersucht werden, so könnte man beispielsweise zeigen, dass zu Beginn eines Kartenspiels der Gewinner nicht bereits feststeht.\medskip
 
-Wenn Systeme modelliert werden sollen, die intuitiv als das Zusammenspiel mehrerer Einheiten angesehen werden, wie beispielsweise ein Fußballfeld mit zwei Teams von gegeneinander antretenden Robotern, beim Kommunikationsprotokoll zwischen mehreren Einheiten oder bei einem Kartenspiel mit mehreren Mitspielern, dann bietet es sich an ein MAS zu verwenden. In einem solchen Fall können die verschiedenen Einheiten des realen Systems direkt als einzelne Agenten des MAS modlliert werden, sodass die Beziehungen zwischen realem System und Modell intuitiv erkannt werden können.
-Anschließend können Eigenschaften des Modells anhand von Spezifikationsformeln untersucht werden, so könnte man beispielsweise zeigen, dass zu Beginn eines Kartenspiels der Gewinner nicht bereits feststeht.\medskip
-
-Die Alternative wäre im Modell eine einzelne Einheit zu verwenden, die das Verhalten mehrerer individueller Einheiten simuliert. Man würde beispielsweise das Verhalten der Agenten als einzelne Automaten modellieren und anschließend den Produktautomaten aller Einheiten berechnen. Zur Überprüfung einer Spezifikation im System könnten dann herkömmliche \textit{model checker} auf den Produktautomaten angewendet werden.
-Mit diesem Vorgehen wird es für den Modellierer jedoch schwierig Spezifikationen zu definieren und positiv oder negativ Beispiele nachzuvollziehen, da das Modell seine intuitive Anschauung, in der das Verhalten der einzelnen Agenten nachvollzogen werden kann, verloren hat.
-
+Eine Alternative zu MAS wäre es ein Modell mit einer einzigen Einheit zu verwenden, die das Verhalten mehrerer Einheiten simuliert. Man würde beispielsweise das Verhalten jedes Agenten als Automaten modellieren und dann den Produktautomaten der Einheiten berechnen. Zur Überprüfung einer Spezifikation im System könnten dann \textit{herkömmliche} Model Checker verwendet werden.
+Dieses Vorgehen erlaubt jedoch nicht die intuitive Modellierung und Untersuchung, wie sie bei der Verwendung von MAS gegeben ist.
+%Mit diesem Vorgehen wird es für den Modellierer jedoch schwierig Spezifikationen zu definieren und positiv oder negativ Beispiele nachzuvollziehen, da das Modell seine intuitive Anschauung, in der das Verhalten der einzelnen Agenten nachvollzogen werden kann, verloren hat.
+%Ein alternativer Ansatz zum Modell Checking existiert beispielsweise für LTL-Formeln, dabei werden Büchi-Automaten verwendet \citep{raimondi2006model} S. 47. Dabei werden zwei Büchi-Automaten konstruiert, einer der die Sprache der negativen Spezifikation akzeptiert und einer der die Sprache des Modells akzeptiert, anschließend wird die Sprache des Produktautomaten der beiden Büchi-Automaten darauf untersucht, ob sie leer ist oder nicht. 
 
 \subsection{Probleme und  Fragen}
+%Oft stellt sich zu einem entworfenen Modell die Frage, ob es bestimmte Eigenschaften erfüllt, beispielsweise das vom System nie eine Deadlock-Situation eingenommen wird. \citep{raimondi2006model} S. 2. Erschöpfendes Testen, bei dem sämtliche möglichen Anfangsbedingungen überprüft werden, ist aufgrund der großen Grundmenge vieler Variablen oft nicht praktikabel. Stattdessen kann mittels formaler Verifikation in Form des Modell Checkings bewiesen werden, dass bestimmte Eigenschaften im Modell gelten. Dabei wird gezeigt, dass das System nie einen Zustand einnehmen kann, in dem die Eigenschaft nicht gilt.
+%Dazu muss zunächst ein Modell zu einem zu untersuchenden System erstellt werden.
+Beim Model Checking wird mittels formaler Verifikation bewiesen, dass bestimmte Eigenschaften in einem Modell gelten. Dazu wird gezeigt, dass das System nie einen Zustand einnimmt, in dem die Eigenschaft nicht gilt.
+Die große Kombinationsvielfalt der Variablenbelegungen in dem Modell führt allerdings zur sogenannten Zustandsraumexplosion. Es ist daher eine der Hauptaufgaben eines Model Checkers auf effiziente Weise den Raum aller möglichen Zustände zu betrachten (vgl. \citealp{raimondi2006model} S. 37).
 
-Oft stellt sich zu einem entworfenen Modell die Frage, ob es bestimmte Eigenschaften erfüllt, beispielsweise das vom System nie eine Deadlock-Situation eingenommen wird. \citep{raimondi2006model} S. 2. Erschöpfendes Testen, bei dem sämtliche möglichen Anfangsbedingungen überprüft werden, ist aufgrund der großen Grundmenge vieler Variablen oft nicht praktikabel. Stattdessen kann mittels formaler Verifikation in Form des Modell Checkings bewiesen werden, dass bestimmte Eigenschaften im Modell gelten. Dabei wird gezeigt, dass das System nie einen Zustand einnehmen kann, in dem die Eigenschaft nicht gilt.
-Dazu muss zunächst ein Modell zu einem zu untersuchenden System erstellt werden.
-Diese Modelle leiden allerdings unter der 'Zustandsraumexplosion' (analog zum Problem der Vielfalt an Startbedingungen). Es ist daher eine der Hauptaufgaben eines Modell Checkers auf effiziente Weise den Raum aller möglichen Zustände abzuarbeiten. \citep{raimondi2006model} S. 37.
-
-Im Model Checking Tool MCMAS werden dazu OBDDs (Ordered Binary Decision Diagramms) genutzt \citep{lomuscio2006mcmas} S. 1. Das Überprüfen einer Spezifikation als CTL-Formel kann auf das Problem reduziert werden zwei OBDDs miteinander zu vergleichen \citep{raimondi2006model} S. 40. 
-
-Ein alternativer Ansatz zum Modell Checking existiert beispielsweise für LTL-Formeln, dabei werden Büchi-Automaten verwendet \citep{raimondi2006model} S. 47. Dabei werden zwei Büchi-Automaten konstruiert, einer der die Sprache der negativen Spezifikation akzeptiert und einer der die Sprache des Modells akzeptiert, anschließend wird die Sprache des Produktautomaten der beiden Büchi-Automaten darauf untersucht, ob sie leer ist oder nicht. 
+Im Model Checking Tool MCMAS werden dazu OBDDs (\textit{Ordered Binary Decision Diagrams}) genutzt. Dies beruht auf der Idee die Überprüfung einer Spezifikation auf das Problem zurückzuführen zwei OBDDs miteinander zu vergleichen. 
 
 \subsection{Aufbau der Arbeit}
-
 Nachdem in diesem Kapitel der thematische Rahmen zum Thema Model Checking für Multiagentensysteme gelegt wurde, soll nun betrachtet werden, wie das Tool MCMAS das Problem löst.
-Dazu wird im folgenden Kapitel \ref{hintergrund} detailiert darauf eingegangen, wie OBDDs zum Model Checking für CTL Formeln verwendet werden können, zudem werden \textit{interpreted systems} eingeführt.
+Da der Model Checking-Algorithmus von MCMAS eine Verallgemeinerung des Algorithmus zum Model Checking für CTL-Formeln mit OBDDs ist, werde ich diese einfachere Variante im Kapitel \ref{hintergrund} betrachten, sodass der Leser sich eine Vorstellung von der Funktionsweise von MCMAS machen kann. Da dieser Part etwas weiter ins Detail geht, wird er als Spezialteil der Hausarbeit bezeichnet. Danach werden kurz \textit{interpreted systems} eingeführt, da MAS mit diesen in MCMAS repräsentiert werden.
 In Kapitel \ref{mcmas} wird dann zunächst kurz erklärt, wie die eingeführten Grundlagen von MCMAS genutzt werden um Model Checking für MAS zu ermöglichen, danach wird die Nutzung des Tools anhand eines Beispiels demonstriert.
-Da der genutzte Ansatz von MCMAS nur eine Möglichkeit ist Model Checking für MAS durchzuführen, werden in Kapitel \ref{related} andere Ansätze und Tools vorgestellt.
+Da der genutzte Ansatz von MCMAS nur eins von vielen Tools zum Model Checking von MAS ist, werden im Kapitel \ref{related} weitere Tools mit teilweise anderen Ansätzen vorgestellt.
 Abschließend wird in Kapitel \ref{zusammenfassung} das Essay resümiert und auf den aktuellen Stand der Forschung eingegangen.
 
 \section{Hintergrund}
@@ -95,11 +95,10 @@ Die Sprache der \textit{Computational Tree Logic} kann mit folgender Syntax defi
 \end{align*}
 Formeln mit dem Pfadquantifikator $A$ und dem temporalen Operator $F$ können aus dieser minimalen Syntax abgeleitet werden.\medskip
 
-Die Semantik der CTL-Formeln wird anhand der möglichen Sequenzen an Zustandsübergängen (Pfade) in den Zuständen eines Transitionssystems beschrieben.
+Die Semantik der CTL-Formeln wird anhand der möglichen Sequenzen an Zustandsübergängen (Pfade) in einem Transitionssystem beschrieben.
+Ein solches Transitionssystems wird auch CTL-Modell genannt und entspricht bei Raimondi einem Tripel (S,R,V) mit der Menge der Zustände S, einer Übergangsrelation $R \subseteq S \times S$ und der Evaluierungsfunktion (bzw. \textit{labelling function}) $S \rightarrow 2^P$ (vgl. \citealp{raimondi2006model} S. 13).\medskip
 
-Ein solches Transitionssystems wird auch CTL-Modell genannt entspricht bei Raimondi einem Tripel (S,R,V) mit der Menge der Zustände S, einer Übergangsrelation $R \subseteq S \times S$ und der Evaluierungsfunktion oder auch \textit{labelling function} $S \rightarrow 2^P$ (vgl. \citep{raimondi2006model} S. 13).\medskip
-
-Um nun zunächst zu überprüfen, ob eine Spezifikation $\phi$ in einem Zustand des CTL-Modells M gilt kann ein Algorithmus von Huth und Ryan genutzt werden, der \textit{labelling algorithm} genannt wird. Als Eingabe erhält dieser Algorithmus die Spezifikation $\phi$ und das Modell M und als Ausgabe gibt er alle Zustände des Modells zurück in denen $\phi$ gilt (vgl. \cite{huth2004logic}). Der Hauptteil des Algorithmus ist in Abbildung \ref{lst:labelling} zu sehen. \medskip
+Um zu überprüfen, ob eine Spezifikation $\phi$ in einem spezifischen Zustand des CTL-Modells M gilt kann ein Algorithmus genutzt werden, der \textit{labelling algorithm} genannt wird (\citealp{huth2004logic}). Als Eingabe erhält dieser Algorithmus die Spezifikation $\phi$ und das Modell M und als Ausgabe gibt er alle Zustände des Modells zurück in denen $\phi$ gilt. Der Hauptteil des \textit{labelling algorithm} ist in Algorithmus \ref{lst:labelling} dargestellt. Die Algorithmen $MC_{EX}$, $MC_{EG}$ und $MC_{EU}$ werden separat definiert.\medskip
 
 \begin{lstlisting}[mathescape, frame=single, captionpos=b, caption={Der \textit{labelling algorithm} gibt alle Zustände aus M aus, in denen $\phi$ gilt.},label={lst:labelling}]
 $MC$($\phi$, M) {
@@ -112,95 +111,93 @@ $MC$($\phi$, M) {
 }
 \end{lstlisting}
 
-Dabei ist V($\phi$) eine Erweiterung zur normalen Evaluierungsfunktion für atomare Formeln, die die Menge der Zustände zurückgibt, in denen $\phi$ gilt.
+Dabei ist V($\phi$) eine Erweiterung zur normalen Evaluierungsfunktion, sodass sie bei Eingabe von $\phi$ die Menge der Zustände zurückgibt in denen $\phi$ gilt.
 
-Die Algorithmen $MC_{EX}$, $MC_{EG}$ und $MC_{EU}$ werden separat definiert.
-$MC_{EX}$ berechnet die Zustände, in denen eine Transition in einen Zustand möglich ist, in dem $\phi$ gilt.
-
-Da die Formeln $EG\phi$ und $E[\phi U \psi]$ Aussagen über eine zunächst unbekannte Teilmenge aller Zustände treffen ist ihre Berechnung aufwendiger.
-Hier werden Fixpunkte genutzt, um die Menge der Zustände, in denen die Formeln gelten, eindeutig zu definieren. Dazu werden folgende Äquivalenzen genutzt (vgl. \citep{raimondi2006model} S. 38):
+$MC_{EX}$ berechnet die Zustände, in denen eine Transition in einen Zustand möglich ist, in dem $\phi_1$ gilt.
+Die Algorithmen zu $EG\phi$ und $E[\phi U \psi]$ sind aufwendiger.
+Hier werden Fixpunkte genutzt, um die Menge der Zustände, in denen die Formeln gelten, eindeutig zu definieren. Dazu werden folgende Äquivalenzen genutzt (vgl. \citealp{raimondi2006model} S. 38):
 
 \begin{align}
 	EG\phi &\equiv \phi \land EXEG\phi\\
 	E[\phi U \psi] &\equiv \psi \lor (\phi\land EXE[\phi U \psi])
 \end{align}
 
-Diese Äquivalenzen können als Abwicklungen der Operatoren EG und EU betrachtet werden.
+Diese Äquivalenzen können als Abwicklungen der Operatoren EG (1) und EU (2) betrachtet werden.
 In den Algorithmen $MC_{EG}$ und $MC_{EU}$ werden diese Abwicklungen nun so oft durchgeführt, bis sich die gefundene Menge der Zustände, in denen die Formel gilt, nicht mehr ändert.\medskip
 
 Zur Überprüfung, ob die Formel $\phi$ in einem bestimmten Zustand in M gilt, kann nun einfach überprüft werden, ob der Zustand in der von $MC$($\phi$, M) berechneten Menge enthalten ist.
 
-\subsection*{Verwendung von OBBDs}
+\subsection*{Verwendung von OBDDs}
 
 Wenn nun die Frage angegangen werden soll, ob $M\models\phi$ gilt, muss überprüft werden, ob $\phi$ in allen Zuständen von M gilt.
-Da MCMAS intern Modelle als \textit{Ordered Binary Decision Diagrams} (OBBDs) beschreibt, wird das Problem auf den Test auf Gleichheit des OBBD des Modells M und des OBBD zur Ausgabe von $MC$($\phi$, M) zurückgeführt.\medskip
+Da MCMAS intern Modelle als OBDDs beschreibt, kann ohne großen Übersetzungsaufwand das Problem auf den Test auf Gleichheit des OBDD des Modells M und des OBDD zur Ausgabe von $MC$($\phi$, M) zurückgeführt werden.\medskip
 
-Ein OBBD hat eine Wurzel, ist gerichtet und azyklisch. Zu jeder booleschen Funktion $f:\{0,1\}^n \rightarrow \{0,1\}$ kann bei gegebener Variablenordnung ein eindeutiger minimaler OBBD bestimmt werden (vgl. \citep{raimondi2006model} S. 41).
-
-An den Knoten des Graphen werden die Variablen der booleschen Funktion eingetragen, von jedem Knoten gehen zwei Kanten aus, die den beiden möglichen Belegungen 0 oder 1 der Variablen entsprechen. Entsprechend der gewählten Belegung der Variablen kann durch Verfolgung des  dadurch gegebenen Pfades bis zu einem Blatt die Auswertung der Formel berechnet werden.
-In Abbildung \ref{obbds} sind der OBBD und der minimale OBBD zur Formel $f=x1\land (x2 \lor x3)$ dargestellt.
+Ein OBDD ist ein Binärbaum. Zu jeder Booleschen Funktion $f:\{0,1\}^n \rightarrow \{0,1\}$ kann bei gegebener Variablenordnung ein eindeutiger minimaler OBDD bestimmt werden (vgl. \citealp{raimondi2006model} S. 41).
+An den inneren Knoten des Graphen werden die Variablen der Booleschen Funktion eingetragen, von ihnen gehen je zwei Kanten aus, die den beiden möglichen Belegungen 0 und 1 der Variablen entsprechen. Durch das Verfolgen eines Pfades von der Wurzel des Baums zu einem Blatt kann man die Auswertung der Funktion zur gewählten Variablenbelegung anhand der Beschriftung des Blatts ablesen.
+In Abbildung \ref{obbds} sind der OBDD und der minimale OBDD zur Formel $f=x1\land (x2 \lor x3)$ dargestellt.
 
 \begin{figure}[htb!]
 	\label{obbds}
 	\includegraphics[height=.4\textwidth]{src/obbd.png}
 	\hfill
 	\includegraphics[height=.4\textwidth]{src/obbd_reduced.png}
-	\caption{Links der OBBD zur Formel $f=x1\land (x2 \lor x3)$, rechts der minimale OBBD}
+	\caption{Links der OBDD zur Formel $f=x1\land (x2 \lor x3)$, rechts der minimale OBDD}
 \end{figure}
 
-Da OBBDs immer einer booleschen Funktion entsprechen, muss definiert werden, wie die Zustände und die Übergangsrelation als solche Funktionen dargestellt werden können.
-Wenn diese Übersetzungen gegeben sind, kann ein Modell als OBBD dargestellt werden.
-Damit der \textit{labelling algorithm} ein OBBD als Ausgabe berechnen kann, muss zudem definiert werden, wie die Mengenoperationen als boolesche Funktion beschrieben werden können.
+Zur Übersetzung eines CTL-Modells in einen OBDD wird definiert wie die Zustände und die Übergangsrelation als Boolesche Funktionen dargestellt werden können.
+Anschließend kann ein OBDD erstellt werden, der diese Funktionen repräsentiert.
 
-So werden die Zustände beispielsweise folgendermaßen als boolesche Formeln beschrieben. Ein Zustand wird als Konjunktion der Belegungen aller atomarer Formeln in dem Zustand übersetzt. Eine Menge von Zuständen entspricht dann der Disjunktion aller Formeln der Zustände.\medskip
+Damit der \textit{labelling algorithm} ein OBDD als Ausgabe berechnen kann, muss zudem definiert werden, wie die dort verwendeten Mengenoperationen als Boolesche Funktionen beschrieben werden können.\medskip
 
-Wenn alle erforderlichen Übersetzungen zu booleschen Funktionen in geeigneter Weise definiert worden sind, kann der zuvor dargestellte \textit{labelling algorithm} vollständig auf OBBDs arbeiten und das Modell M als OBBD dargestellt werden.
-Da die Darstellung der booleschen Formeln als minimale OBBDs eindeutig ist, reicht es am Ende aus zu überprüfen, ob die Ausgabe des Algorithmus dem OBBD des Modells entspricht.
+So werden die Zustände beispielsweise folgendermaßen als Boolesche Formeln beschrieben: Ein Zustand wird als Konjunktion der Belegungen aller atomarer Formeln in dem Zustand übersetzt. Eine Menge von Zuständen entspricht dann der Disjunktion aller Formeln der Zustände.\medskip
+
+Wenn alle erforderlichen Übersetzungen zu Booleschen Funktionen in geeigneter Weise definiert worden sind, kann der zuvor dargestellte \textit{labelling algorithm} vollständig auf OBDDs arbeiten und das Modell M als OBDD dargestellt werden.
+Da die Darstellung der Booleschen Formeln als minimale OBDDs eindeutig ist, reicht es dann aus zu überprüfen, ob der OBDD der Ausgabe des \textit{labelling algorithm} dem OBDD des Modells entspricht (vgl. \citealp{raimondi2006model} S. 43).
 
 \subsection{Interpreted systems}
 \label{interpreted_systems}
-In dem Tool MCMAS werden Multiagentensysteme als \textit{interpreted systems} modelliert (bzw. mit den leicht modifizierten \textit{deontic interpreted systems}) (vgl. \citep{raimondi2006model} S. 28 ff.).
+In dem Tool MCMAS werden Multiagentensysteme als \textit{interpreted systems} modelliert (bzw. mit den leicht modifizierten \textit{deontic interpreted systems}) (vgl. \citealp{raimondi2006model} S. 28 ff.).
 Ein \textit{interpreted system} mit n Agenten entspricht folgendem Tupel:
 \begin{align*}
 IS &= \biggl\langle(L_i,Act_i,P_i,t_i)_{i\in{1,...,n}},(L_E,Act_E,P_E,t_E),I,V \biggr\rangle
 \end{align*}
-Die Eigenschaften der einzelnen Agenten werden mit dem Tupel $(L_i,Act_i,P_i,t_i)$
+Die Eigenschaften der einzelnen Agenten werden in $(L_i,Act_i,P_i,t_i)$
 beschrieben, das Tupel $(L_E,Act_E,P_E,t_E)$ bezieht sich auf einen besonderen Agenten, der als Umwelt (engl. \textit{environment}) bezeichnet wird.
-Die Bestandteile der Tupel werden nun beschrieben:
+Die einzelnen Variablen der Tupel haben folgende Bedeutungen:
 \begin{itemize}
 	\item $\mathbf{L_x}$ ist die Menge der lokalen Zustände des Agenten x.
 	\item $\mathbf{Act_x}$ ist die Menge an Aktionen, die der Agent x durchführen kann.
 	\item $\mathbf{P_x}$ ist das Protokoll des Agenten x, es beschreibt welche Aktionen in den einzelnen Zuständen verfügbar sind.
-	\item $\mathbf{t_x}$ ist die Evolutionsfunktion des Agenten x, diese beschreibt, wie die Zustände des Agenten sich abhängig von den Aktionen der anderen Agenten und dem Zustand der Umwelt entwickeln.
+	\item $\mathbf{t_x}$ ist die Evolutionsfunktion des Agenten x. Diese beschreibt wie die Zustände des Agenten sich abhängig von den Aktionen der anderen Agenten und dem Zustand der Umwelt entwickeln.
 	\item $\mathbf{I}$ ist die initiale Belegung der Zustände aller Agenten und der Umwelt.
 	\item $\mathbf{V}$ ist die Evaluierungsfunktion, die dort definierten Spezifikationen werden als Fairness-Bedingungen oder zur Verifikation des Modells verwendet.
 \end{itemize}
 
-Die Umwelt unterscheidet sich von anderen Agenten darin, dass ihre Zustände global einsehbar sein können. Die Zustände der Agenten verändern sich alle in diskreten Zeitschritten simultan.\medskip
+Die Umwelt unterscheidet sich von anderen Agenten darin, dass ihre Zustände global einsehbar sein können. Die Zustände der Agenten verändern sich ihrer Evolutionsfunktion entsprechend in diskreten Zeitschritten simultan.\medskip
 
-Zusätzlich zu den CTL-Operatoren kann mit \textit{interpreted systems} mit Operatoren der epistemischen Logik gearbeitet werden (vgl. \citep{raimondi2006model} S. 30 ff.).
+Zusätzlich zu den CTL-Operatoren kann auf den \textit{interpreted systems} mit Operatoren der epistemischen Logik gearbeitet werden (vgl. \citealp{raimondi2006model} S. 30 ff.).
 Diese kennzeichnet sich im Wesentlichen durch den Operator K (vom englischen \textit{knowledge}).
-Für die Semantik der \textit{interpreted systems} werden die aus der CTL-Semantik bekannten Zustände des Transitionssystems zu \textit{Welten} verallgemeinert.
-Eine spezifische Belegung aller Zustände im Multiagentensystem wird als eine Welt bezeichnet. Die Menge W aller erreichbaren Welten enthält alle Welten, die in dem Modell durch legitime Übergänge erreichbar sind. In dem assoziierten Modell $M_{IS}$ zum \textit{interpreted system} $IS$ ist die Formel $K_i\phi$ wahr in der Welt $w$ ($M_{IS},w\models K_I\phi$) wenn gilt: In allen Welten, in denen der Agent $i$ die selben lokalen Zustände hat, wie in $w$, gilt $\phi$. Man sagt: Der Agent i \textit{weiß}, dass $\phi$ gilt.
+%Für die Semantik der \textit{interpreted systems} werden die aus der CTL-Semantik bekannten Zustände des Transitionssystems zu \textit{Welten} verallgemeinert.
+Eine spezifische Belegung aller Zustände im Multiagentensystem wird als eine Welt bezeichnet. Die Menge W aller erreichbaren Welten enthält alle Welten, die in dem Modell durch legitime Übergänge erreichbar sind. In dem zum \textit{interpreted system} $IS$ assoziierten Modell $M_{IS}$ ist die Formel $K_i\phi$ in der Welt $w$ wahr ($M_{IS},w\models K_I\phi$) wenn gilt: In allen Welten, in denen der Agent $i$ dieselben lokalen Zustände hat, wie in $w$, gilt $\phi$. Man sagt: Der Agent i \textit{weiß}, dass $\phi$ gilt.
 Intuitiv weiß ein Agent etwas, wenn er es allein aus seinen lokalen Zuständen ableiten kann.
 
 \section{Das Tool MCMAS }
 \label{mcmas}
-Für den Model Checker für Multiagentensysteme MCMAS wird das MAS als \textit{interpreted system} mit Hilfe der Programmiersprache ISPL (Interpreted Systems Programming Language) definiert. Intern verwendet der Model Checker dabei Algorithmen, die auf OBDDs basieren. Dazu wurde der in Kapitel \ref{specical:obbds} vorgestellte Ansatz für weitere Logiken außer CTL erweitert, sodass in den zu verifizierenden Formeln zusätzlich zu den CTL-Operatoren, epistemische Operatoren (siehe \ref{interpreted_systems}) und noch weitere Operatoren genutzt werden, mit denen man beispielsweise eine Strategie beschreiben kann, die ein Agent verfolgt  \cite{lomuscio2009mcmas}.
-Für diese Erweiterungen mussten entsprechende boolesche Funktionen zu den Operatoren eingeführt werden (vgl. \citep{raimondi2006model} S. 69 ff.).
+Für die Verwendung des Model Checkers für Multiagentensysteme MCMAS wird das MAS als \textit{interpreted system} mit Hilfe der Programmiersprache ISPL (Interpreted Systems Programming Language) definiert. Intern verwendet MCMAS für das Model Checken Algorithmen, die auf OBDDs basieren. Dazu wurde der in Kapitel \ref{specical:obbds} vorgestellte Ansatz für weitere Logiken als CTL erweitert. In den zu verifizierenden Formeln können daher zusätzlich zu den CTL-Operatoren, epistemische Operatoren (siehe \ref{interpreted_systems}) und noch weitere Operatoren genutzt werden, mit denen man beispielsweise eine Strategie eines Agenten beschreiben kann  (vgl. \citealp{lomuscio2009mcmas}).
+Für diese Erweiterungen mussten entsprechende Boolesche Funktionen zu den Operatoren eingeführt werden (vgl. \citealp{raimondi2006model} S. 69 ff.).
 
 \subsection{Eine Beispielanwendung}
-Ein Beispiel für eine Anwendung von MCMAS ist das \textit{dining cryptographers problem} (vgl. \cite{chaum1988dining}). Dabei geht es darum anonymen Nachrichtenaustausch zu betreiben.
-Drei Kryptographen gehen Essen. Der Kellner informiert die drei, dass das Essen anonym bezahlt wurde. Die drei respektieren das Recht der anderen anonym für das Essen zu zahlen, doch es könnte sein, dass die NSA dahinter steckt, um herauszufinden, ob dies der Fall ist, überlegen sie sich folgendes Verfahren: 
+Ein Beispiel für eine Anwendung von MCMAS ist das \textit{dining cryptographers problem} (vgl. \citealp{chaum1988dining}). Dabei geht es darum anonymen Nachrichtenaustausch zu betreiben.
+Drei Kryptographen gehen Essen. Der Kellner informiert die drei, dass das Essen anonym bezahlt wurde. Die drei respektieren das Recht der anderen anonym für das Essen zu zahlen, doch es könnte sein, dass die NSA dahinter steckt. Um herauszufinden, ob dies der Fall ist, überlegen sie sich folgendes Verfahren: 
 Jeder Kryptograph wirft eine Münze und zeigt das Ergebnis seinem rechten Nachbarn.
 Am Ende weiß jeder den Ausgang seines Münzwurfs und den des linken Nachbarn.
 Nun teilen die drei jeweils allen mit, ob die beiden Münzen, die er gesehen hat auf der selben Seite gelandet sind oder nicht.
 Falls einer der drei selbst bezahlt hat, sagt er dabei die Unwahrheit.\medskip
 
-Dieses Szenario kann intuitiv als MAS modelliert werden.
-Die Zustände der Umwelt enthalten das Ergebnis der drei Münzen, und lässt nur jeweils zwei der drei Kryptographen Einsicht auf eine der Münzen.
-Ein weiterer Zustand enthält die Information, über die Anzahl der Kryptographen, die ungleiche Münzen gesehen haben möchte.
-Die Zustände der Kryptographen enthalten die Informationen über die beiden Münzen, die er gesehen hat, ob er bezahlt hat oder nicht und ob die ihm bekannten Münzen die gleiche Seite zeigen. Den letzten Wert teilen sie der Umgebung mit, sobald er feststeht, bzw. falls einer von ihnen gezahlt hat, sagt er das Gegenteil.
+Dieses Szenario kann intuitiv als MAS mit drei Agenten und einer Umwelt modelliert werden.
+Die Zustände der Umwelt enthalten das Ergebnis der drei Münzen.
+Ein weiterer Zustand enthält die Information, über die Anzahl der Kryptographen, die gesagt haben, dass sie ungleiche Münzen gesehen haben.
+Die Zustände der drei Agenten enthalten die Informationen über die beiden Münzen, die sie jeweils gesehen haben, ob sie bezahlt haben oder nicht und ob die ihnen bekannten Münzen die gleiche Seite zeigen. Den letzten Wert teilen sie der Umwelt mit, sobald er feststeht (falls einer von ihnen gezahlt hat, sagt er dabei das Gegenteil).
 
 Nun kann beispielsweise eine Formel in dem so definierten MAS verifiziert werden, die folgendes besagt: Wenn die Anzahl der Angaben, ob die gesehenen Münzen die gleiche Seite haben, gerade ist, dann \textit{weiß} der erste Kryptograph, wenn er nicht selbst gezahlt hat, dass einer der anderen beiden gezahlt hat, er \textit{weiß} jedoch nicht welcher der beiden.\medskip
 
@@ -209,34 +206,34 @@ Das Verfahren funktioniert also und auf ähnliche Weise können auch komplexere Ko
 \section{Verwandte Arbeiten und Ansätze}
 \label{related}
 
-Eine alternative zu der Verwendung von \textit{intepreted systems} für das Model Checking von MAS ist die Rückführung der Problems auf Strukturen, die bereits von etablierten Tools gelöst werden können. 
-So wird von Raimondi selbst ein Verfahren vorgestellt, bei dem einer der beiden Modell Checker Akka oder NuSMV genutzt werden, der Nachteil dabei ist das entweder nur Formeln mit temporalen Operatoren (NuSMV) oder epistemischen Operatoren (Akka) verwendet werden können (vgl. \citep{raimondi2006model} S. 69).\medskip
+Eine Alternative zu der Verwendung von \textit{intepreted systems} für das Model Checking von MAS ist die Rückführung der Problems auf Strukturen, die bereits von etablierten Tools gelöst werden können. 
+So wird von Raimondi selbst ein Verfahren vorgestellt, bei dem einer der beiden Model Checker Akka oder NuSMV genutzt werden. Der Nachteil der beiden Verfahren ist, dass entweder nur Formeln mit temporalen Operatoren (NuSMV) oder epistemischen Operatoren (Akka) verwendet werden können (vgl. \citealp{raimondi2006model} S. 69).\medskip
 
 Es gibt einige Alternativen zu dem Tool MCMAS zum Model Checking von MAS. Auf zwei dieser Tools gehe ich hier kurz ein, sie unterscheiden sich in einigen Punkten zu MCMAS:
 \begin{itemize}
-	\item \textbf{MABLE} ist eine Programmiersprache zu Spezifikation von MAS. MABLE verwendet für die Verifikation von Formeln den LTL-Model Checker SPIN  \cite{wooldridge2006model}.
-	\item \textbf{MCK} arbeitet ähnlich zu MCMAS, es verwendet auch \textit{interpreted systems} und OBDDs \cite{gammie2004mck}. MCMAS implementiert allerdings eine größere Auswahl an logischen Operatoren (vgl. \citep{raimondi2006model} S. 129).
+	\item \textbf{MABLE} (\citealp{wooldridge2006model}) ist eine Programmiersprache zur Programmierung und Spezifikation von MAS. MABLE führt die Verifikation von Formeln auf die Verwendung des LTL-Model Checkers SPIN zurück, dadurch ist auch hier die Auswahl an verfügbaren Operatoren beschränkt.
+	\item \textbf{MCK} (\citealp{gammie2004mck}) arbeitet ähnlich zu MCMAS, es verwendet auch \textit{interpreted systems} und OBDDs. MCMAS implementiert allerdings eine größere Auswahl an logischen Operatoren (vgl. \citealp{raimondi2006model} S. 129).
 \end{itemize}
 
 \section{Zusammenfassung und Ausblick}
 \label{zusammenfassung}
 
 \subsection{ Zusammenfassung}
-Das Tool MCMAS ist in der Lage Modell Checking für Multiagentensystem, die als \textit{interpreted systems} beschrieben wurden, durchzuführen, indem Algorithmen verwendet werden, die auf OBBDs aufbauen. Dabei können für die Formeln, die verifiziert werden sollen, eine Vielzahl verschiedener logischer Operatoren verwendet werden. 
-Gegenüber Ansätzen, die das Problem auf Model Checking für Systeme ohne Agenten zurückführen, hat das Tool den Vorteil das eine intuitivere und ausdrucksstärkere Sprache verwendet werden kann, zudem ist das Tool effizienter, da keine Übersetzung in einfachere Probleme stattfindet (vgl. \citep{raimondi2006model} S. 129).
+Das Tool MCMAS ist in der Lage Model Checking für Multiagentensystem, die als \textit{interpreted systems} beschrieben wurden, durchzuführen. Dazu werden Algorithmen genutzt, die auf der Verwendung von OBDDs basieren. Für die Formeln, die verifiziert werden sollen, können eine Vielzahl verschiedener logischer Operatoren verwendet werden. 
+Gegenüber Ansätzen, die das Problem auf Model Checking für Systeme ohne Agenten zurückführen, hat das Tool den Vorteil, dass eine intuitivere und ausdrucksstärkere Sprache verwendet werden kann, zudem ist das Tool effizienter, da keine Übersetzung in einfachere Probleme stattfindet (vgl. \citealp{raimondi2006model} S. 129).
 
 \subsection{Ausblick}
 
-Wichtige Aspekte die in dieser Arbeit nicht behandelt wurden sind:
+Wichtige Aspekte die in dieser Arbeit nicht behandelt worden sind:
 \begin{itemize}
 	\item Die logischen Operatoren, die über CTL und dem epistemischen \textit{knowledge}-Operator hinausgehen, die allerdings im Tool MCMAS verwendet werden können.
 	\item Auf welche Weise es möglich ist die Sprachen mehrerer Logiken zu einer zu vereinigen.
-	\item Wie das Konzept des Modell Checking mit OBDDs auf MAS und die weiteren logischen Operatoren erweitert werden kann.
-	\item Die Komplexitätsanalyse der Model Checking-Problems für MAS.	
+	\item Wie im Detail das Konzept des Model Checkings von CTL-Formeln mit OBDDs auf MAS und die zusätzlichen logischen Operatoren erweitert werden kann.
+	\item Die Komplexitätsanalyse des Model Checking-Problems für MAS.	
 \end{itemize}
 
-Aktuelle Forschungen des Themas befassen sich beispielsweise damit, dass die generierten Gegenbeispiele zu Spezifikationen oft sehr kompliziert sind, sodass versucht wird Gegenbeispiele zu entwickeln, die möglichst einfach von Menschen verstanden werden können.
-Andere Probleme sind die Optimierung der Algorithmen und das on-line Model Checking.
+Aktuelle Forschungen des Themas befassen sich beispielsweise damit, dass die generierten Gegenbeispiele von automatisierten Model Checkern oft sehr kompliziert sind, es soll dabei mehr Rücksicht darauf gelegt werden, dass die Gegenbeispiele möglichst einfach von Menschen verstanden werden können.
+Andere Probleme sind die Optimierung der Algorithmen und das on-line Model Checking (vgl. \citealp{raimondi2006model} S. 130 f.).
 
 \subsection{Bezug zum M.Sc. Studium}
 

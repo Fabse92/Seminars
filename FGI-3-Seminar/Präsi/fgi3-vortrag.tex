@@ -7,12 +7,14 @@
 % \pgfpagesuselayout{2 on 1}[a4paper, border shrink 5mm]
 %% \pgfpagesuselayout{4 on 1}[a4paper, landscape]
 
-% \usepackage[german]{babel}
+\usepackage[german]{babel}
 \usepackage[latin1]{inputenc}
 % \usepackage{times}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{amscd}
+
+
 
 
 \setlength{\parskip}{2mm}
@@ -23,7 +25,7 @@
 % \setbeamertemplate{navigation symbols}{}
 % % \setbeamertemplate{footline}{}
 % %% ohne Navigation:
-% \beamertemplatenavigationsymbolsempty  
+\beamertemplatenavigationsymbolsempty  
 
 % don't show structure in header
 % \beamertemplateheadempty
@@ -40,9 +42,9 @@
 }
 
 
-\title{  Über die Umfärbbarkeit roter Gummibären } 
-\subtitle{Eine informelle Einführung in die Iterationstheorie}
-\author[K\"ohler-Bu{\ss}meier]{Michael K\"ohler-Bu{\ss}meier}
+\title{  Model Checking für Multiagentensysteme } 
+\subtitle{Betrachtung des Tools MCMAS}
+\author[Schmid]{Jan Fabian Schmid}
 \date[]{\today} 
 \institute[UHH] {Seminar im Modul FGI-3\\
   Fachbereich Informatik \\ Universität Hamburg }
@@ -80,390 +82,284 @@
 
 \section{Einführung}
 
-\subsection{Motivation}
+%\subsection{Motivation}
 
 \begin{frame}
   % \small
   % \footnotesize
-  \frametitle{ Was sind rote Gummibären }
-
-  \begin{columns}
-    \begin{column}{0.45\textwidth}
-
-      \begin{block}{Gummibären:}    
-        \begin{itemize}
-        \item klein
-        \item süß
-        \item ...
-        \end{itemize}
-      \end{block}
-      
-      \begin{block}{rot}    
-        \begin{itemize}
-        \item rot (RGB = FF0000)
-        \item gefärbt mit roter Beete
-        \item ....
-        \end{itemize}
-      \end{block}
-
-    \end{column}
-
-    \pause
-    \begin{column}{0.45\textwidth}
-
-      \begin{block}{Umgebung}    
-        \begin{itemize}
-        \item kleine Tüten
-        \item große Tüten
-        \item ....
-        \end{itemize}
-      \end{block}
-
-      \begin{block}{Zielgruppe}    
-        \begin{itemize}
-        \item Kinder
-        \item Nicht-Kinder
-        \item ....
-        \end{itemize}
-      \end{block}
-    \end{column}
-
-  \end{columns}
-
+  \frametitle{ The dining cryptographers problem }
+  %\begin{itemize}
+  %	\item
+  %\end{itemize}
+   Wer hat für das Essen bezahlt?
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{src/crypto.png}
+		%Das der Lösungsvorschlag funktioniert, kann man sich zwar fix überlegen, aber cooler wäre ein automatischer Beweis
+	\end{figure}
 \end{frame}
 
-
-\subsection{Probleme und  Fragen}
-
-
+%\subsection{Grundbegriffe}
 \begin{frame}
-  \frametitle{ Probleme }
-
-  Befasst man sich mit roten Gummibären, so ist folgendes zu beachten:
-
-  \begin{enumerate}
-  \item Rote Gummibären treten selten isoliert auf.
-  \item Typischerweise bilden sie Rudel.
-  \item Meist sind die Rudel multi-coloriert.
-  \end{enumerate}
-
+	% \small
+	% \footnotesize
+	\frametitle{ Einige Grundbegriffe }	
+	\begin{columns}
+		\begin{column}{0.45\textwidth}			
+			\begin{block}{Ein Agent}    
+				\begin{itemize}
+					\item handelt autonom
+					\item interagiert
+					\item reagiert
+					\item verfolgt ein Ziel
+				\end{itemize}
+			\end{block}			
+			
+			\begin{block}{Multiagentensystem}    
+				\begin{itemize}
+					\item Mehrzahl Agenten
+					\item Umwelt
+				\end{itemize}
+			\end{block}			
+		\end{column}
+		
+		\begin{column}{0.45\textwidth}
+			\begin{block}{Model Checking}    
+				\begin{itemize}
+					\item Modell M
+					\item Formel $\phi$
+					\item gilt $M\models\phi$?
+				\end{itemize}
+			\end{block}
+			\begin{block}{MCMAS}    
+				\begin{itemize}
+					\item Model Checker für Multiagentensysteme
+				\end{itemize}
+			\end{block}		
+		\end{column}		
+	\end{columns}	
 \end{frame}
 
-
+%\subsection{Probleme und  Fragen}
 \begin{frame}
-  \frametitle{ Der Spezialfall: rote Gummibären }
-
-  Man möchte aber Gruppen roter Gummibären studieren:
-  \begin{enumerate}
-  \item Gruppen roter Gummibären haben den Vorteil, dass sie sich zu
-    Teilchenpaaren koppeln, die nach außen wie Bosonen wirken.
-  \item Es ist daher (anders als bei farblich gemischten Gruppen) möglich,
-    tiefgekühlte Gummibärengruppen zu erstellen -- zumidest prinzipiell.
-  \item ...
-  \end{enumerate}
-
-
-
-  \begin{block}{Das Thema ist spannend, denn:}
-    Mit tiefgekühlte Gummibärengruppen kann man die Welt retten.
-  \end{block}
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{ Erste Ansätze }
-
-  \begin{enumerate}
-  \item Der Filteransatz nach [Trichter et al., 1981]
-  \item Der Ansatz stimulierter Farbemission [Couloris, 1983]
-  \item Der 4-Farbenansatz nach [Pizza Mista, 1961]
-  \item ....
-  \end{enumerate}
-
-\end{frame}
-
-\section{Die Theorie der Iteration von Ensembles}
-
-\begin{frame}
-  \frametitle{ Ansatz: Iterierte Umfärbungen }
-
-  Wir betrachten hier einen neuen Ansatz nach [Farb und Froh, 1993]:
-
-  Grundidee:
-  \begin{enumerate}
-  \item Definition von iterierten Umfärbungen auf farblich gemischten
-    Gruppen.
-  \item Algebraische Struktur der Farbauswahl garantiert Termination
-  \item Nichtdetministsiche Auswahl
-  \end{enumerate}
-
-  Kernkomponenten:
-  \begin{enumerate}
-  \item Algebraische Struktur  der Umfärbbarkeit
-  \item Wohlordnung auf Farben
-  \item Konfluenzeigenschaft
-  \end{enumerate}
-\end{frame}
-
-
-\section{ Iterierte Umfärbungen }
-
-\begin{frame}
-  \frametitle{ Färbungen und Umfärbungen }
-
-
-  Wir nehmen eine vorgegebene Mengen an Farben $C$ an.
-
-  Der Einfachheit halber identifizieren wir eine Tüte $T$ mit $n$
-  Gummibären mit dem Intervall $[1, \ldots, n]$.
-
-
-  \begin{definition}[Färbung]
-    Eine \emph{Färbung} ist eine Abbildung $f: [1, \ldots, n] \to C$.
-
-    Sei $F$  die Menge aller Färbungen
-  \end{definition}
-
-  \begin{definition}[Umfärbung]
-    Eine \emph{Umfärbung} ist eine Funktional $u: F \to F$.
-  \end{definition}
-
-
-  Anmerkung: Wir wollen \emph{Funktional} nicht formal einführen;
-  informal ist es eine Funktion, die Funktionen als Argumente hat
-  (Details in der Ausarbeitung).
-
-\end{frame}
-
-
-\subsection{  Iteration, Stabilisation }
-
-\begin{frame}
-  \frametitle{  Iterierte Umfärbungen }
-
-  Sei die Färbung $f: [1, \ldots, n] \to C$ gegeben.
-
-  \begin{definition}    
-    Die Iteration einer Umfärbung $u: F \to F$ ist
-    \[
-    \begin{array}{rcl}
-      u^0(f) &:=& f \\
-      u^{n+1}(f) &:=&     u(u^{n}(f)) 
-    \end{array}
-    \]
-  \end{definition}
-
-  \pause
-
-  Wir hätten es gerne, dass sich $u^{n}(f)$ für $n \to \infty$
-  stabilisiert.
-
-
-\end{frame}
-
-
-
-\begin{frame}
-  \frametitle{  Stabilisierung iterierter Umfärbungen }
-
-  Wir hätten es gerne, dass sich $u^{n}(f)$ für $n \to \infty$
-  stabilisiert.
-
-  \begin{definition}[Stabilisierung]
-
-    Die Iteration einer Umfärbung $u: F \to F$ stabilisiert sich,
-    wenn .....
-  \end{definition}
-
-
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{  Beispiele zur Stabilisierung }
-
-  Manchmal stabilisiert sich $u^{n}(f)$ für $n \to \infty$:
-
-
-  \begin{example}
-    Sei ....
-  \end{example}
-
-  \pause
-
-  Das sich $u^{n}(f)$ nicht immer stabilisiert, zeigt folgendes
-  Beispiel:
-  \begin{example}
-    Sei ....
-  \end{example}
-
-\end{frame}
-
-
-
-\begin{frame}
-  \frametitle{  Umfärbungsensembles }
+  \frametitle{ Problem }
+  Beim Model Checking werden Spezifikationen zu einem Modell verifiziert \bigskip
   
-  Angenommen wir haben die Menge von Umfärbungen $U = \{u_1, \ldots
-  u_k: F \to F\}$, genannt \emph{Umfärbungsensemble}.
-
-  Dann können wir $U$ auch iterieren, indem wir im $n$-ten Schritt
-  eine der $k$ Umfärbungen anwenden.
-
-
-  Formal haben wir dazu eine Abbildung $g: \mathbb{N} \to [1, \ldots,
-  k]$, die im $n$-ten Schritt die Umfärbung $u_{g(n)}$ auswählt.
-
-  \begin{definition}
-    Die \emph{Iteration von $f$ durch das Umfärbungsensemble $U$ mit
-      Auswahl $g$} ist:
-    \[
-    \begin{array}{rcl}
-      U_g^0(f) &:=& f \\[3mm]
-      U_g^{n+1}(f) &:=&     u_{g(n+1)}(U_g^{n}(f)) 
-    \end{array}
-    \]
-  \end{definition}
-
-
+  \begin{itemize}
+	  \item In keinem Zustand darf die Spezifikationen verletzt sein
+	  \item Es gibt eine große Kombinationsvielfalt bei den Variablenbelegungen
+	  \begin{itemize}
+	  	\item Dies führt zur \textbf{Zustandsraumexplosion}
+	  \end{itemize}
+	  %ein Model Checking Tool muss irgendwie auf effiziente Weise den Zustandsraum behandeln
+	  \item Ein Model Checker muss den Zustandsraum effizient durchsuchen können
+	  \begin{itemize}
+	  	\item MCMAS nutzt dazu \textit{\textbf{O}rdered \textbf{B}inary \textbf{D}ecision \textbf{D}iagrams}
+	  \end{itemize}
+  \end{itemize}
 \end{frame}
 
-
-\subsection{  Ordnungen }
+\section{CTL Model Checking mit OBDDs}
 \begin{frame}
-  \frametitle{  Wohlordnungen }
-
-  Im folgenden:
-  Hinreichendes Kriterium für die Stabilisierung.
-
-
-
-  \begin{definition}[Wohlordnungen]    
-    Eine Wohlordnungen ist
-    ...
-  \end{definition}
-
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{ Der Wohlordnungssatz auf Gummibärenfarben }
-
-  \begin{theorem}[Hans und Riegel, 1994]
-    Zu jeder wohlgeordneten Menge von Gummibärenfarben ...
-  \end{theorem}
-
-\end{frame}
-
-\subsection{  Eindeutigkeit  }
-
-
-
-\begin{frame}
-  \frametitle{ Das Problem der Eindeutigkeit }
-
-  Es gibt eine Besonderheit des Wohlordnungssatz auf Gummibärenfarben:
-
-
-  Der Wohlordnungssatz auf Gummibärenfarben garantiert die Stabiliserung.
-
-  Er garantiert aber nicht die Eindeutigkeit des Endergebnisses.
-
-  Das Endergebnis hängt von der Auswahlfunktion $g: \mathbb{N} \to [1,
-  \ldots, k]$ auf dem Umfärbungsensemble ab.
-
-  \begin{block}{Frage}
-    Für welche Umfärbungsensembles ist auch das Endergebnis eindeutig?
-    
-  \end{block}
-
+  \frametitle{ Computational Tree Logic }
+	CTL Syntax:
+	\begin{align*}
+		\phi &::= p\,|\,\lnot\phi\,|\,\phi\lor\phi\,|\,EX\phi\,|\,EG\phi\,|\,E[\phi U\phi]\,|.
+	\end{align*}
+	\medskip
+	
+	CTL Semantik:
+	\begin{itemize}
+		\item Wird entlang der möglichen Pfade eines Transitionssystems TS ausgewertet
+		\item $TS = (S,R,V)$
+		\begin{itemize}
+			\item S: Zustandsmenge
+			\item R: Übergangsrelation $R \subseteq S \times S$
+			\item V: Evaluierungsfunktion $S \rightarrow 2^P$
+			%P Menge der atomaren Aussagen
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{  Kolossale Umfärbungsensembles }
-
-  \begin{definition}[Kolossale Umfärbungsensembles]
-    Kolossale Umfärbungsensembles sind    ....
-  \end{definition}
+	\frametitle{ labelling algorithm $MC$($\phi$, M) }
+	Berechnet die Menge der Zustände in M, in denen $\phi$ gilt:\bigskip
+	
+	\begin{itemize}
+		\item Für atomare Formeln: $MC$($\phi$, M) = V($\phi$)
+		\item Für $\phi = \phi_1 \lor \phi_2$: $MC$($\phi$, M) = $MC$($\phi_1$, M) $\cup$ $MC$($\phi_2$, M)
+		\item Für $\phi$ = EX$\phi_1$: Die Menge der Zustände, in denen eine Transition in einen Zustand möglich ist, in dem $\phi_1$ gilt
+		\item Für EG$\phi_1$ und E[$\phi_1$U$\phi_2$] werden Fixpunkte genutzt
+		%Für weitere Details siehe Paper
+	\end{itemize}
+	%Zur Überprüfung, ob ein Zustand eine Spez. erfüllt, muss man nur schauen, ob Zustand in der Menge enthalten ist
 \end{frame}
 
+\begin{frame}
+	\frametitle{ OBDDs }
+	\begin{itemize}
+		\item OBDDs sind Binärbäume, die Boolesche Funktionen repräsentieren
+		\item Minimale OBDDs sind eindeutig für äquivalente Boolesche Funktionen
+	\end{itemize}
+	
+	\begin{figure}[htb!]
+		\label{obbds}
+		\includegraphics[height=.4\textwidth]{src/obbd.png}
+		\hfill
+		\includegraphics[height=.4\textwidth]{src/obbd_reduced.png}
+		\caption{OBDDs zur Formel $f=x1\land (x2 \lor x3)$}
+	\end{figure}
+\end{frame}
 
+\begin{frame}
+	\frametitle{ OBDDs zum Model Checking }
+	%Wir wollen wissen, ob Spez. in allen Zuständen im Modell gilt
+	Frage: Gilt $M\models\phi$?\medskip
+	
+	\begin{itemize}
+		\item Modell M wird als OBDD dargestellt
+		\begin{itemize}
+			\item Zustände und Übergangsrelation müssen zu Booleschen Funktionen übersetzt werden
+			%das ist notwendig, um Formeln zu verifizieren, die über Pfade Quantifiziert sind
+		\end{itemize}
+		\item Der \textit{labelling algorithm} wird auf OBDDs umgestellt
+		\begin{itemize}
+			\item Mengenoperationen müssen für OBDDs definiert werden
+		\end{itemize}
+		\item Der Vergleich der OBDDs von M und $MC$($\phi$, M) liefert die Antwort auf unsere Frage
+	\end{itemize}
+\end{frame}
+
+\section{ Interpreted systems }
+
+\begin{frame}
+  \frametitle{ Interpreted systems }
+  In MCMAS werden Multiagentensysteme als \textit{interpreted systems} modelliert. Sie haben folgende Bestandteile:\bigskip
+  \begin{itemize}
+  	\item Eine Menge lokaler Zustände
+  	\item Eine Menge möglicher Aktionen
+  	\item Ein Protokoll
+  	%Welche Aktionen sind in welchen Zuständen möglich
+  	\item Eine Evolutionsfunktion
+  	%welche Zustandsübergänge werden wann vollzogen
+  \end{itemize}
+\end{frame}
+
+\section{Das Tool MCMAS}
+\begin{frame}
+	\frametitle{ MCMAS }
+	Das Model Checking Tool MCMAS:\bigskip	
+	\begin{itemize}
+	\item Nutzt OBDDs zum Model Checking auf \textit{interpreted systems}
+	\item Erweitert die Konzepte um weitere Logiken
+		\begin{itemize}
+		\item Bspw. um den \textit{knowledge}-Operator K
+		%ein Agent weiß etwas, wenn er es ausschließlich aus seinen lokalen Zuständen schließen kann. Unabhängig von allen anderen Umständen
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ The dining cryptographers problem }	
+	\begin{figure}[htb!]
+		\vfill
+		\includegraphics[width=1\textwidth]{src/eclipse.png}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{ Environment }	
+	\begin{figure}[htb!]
+		\vfill
+		\includegraphics[width=1\textwidth]{src/env.png}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{ Ein Kryptograph }	
+	\begin{figure}[htb!]
+		\vfill
+		\includegraphics[width=1\textwidth]{src/agent.png}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{ Die Spezifikation und Verifikation }	
+	\begin{figure}[htb!]
+		\includegraphics[width=1\textwidth]{src/formulae.png}\\
+		\vfill
+		\includegraphics[width=1\textwidth]{src/verification.png}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{ Gegenbeispiel }	
+	\begin{figure}[htb!]
+		\vfill
+		\includegraphics[width=1\textwidth]{src/counter.png}
+	\end{figure}
+\end{frame}
 
 \section{Umblick}
 
 \begin{frame}
-  \frametitle{Blick zurück:  Zusammenfassung }
-
-  Die \emph{take home message} noch einmal auf einer Folie:
-
-  \begin{enumerate}
-  \item Spannend, weil ...
-  \item Theorie der Iteration als Ansatz für ...
-  \item Wohlordnungssatz garantiert ...
-  \item Kolossale Ensembles  garantieren ...
-  \item Aber: Kolossale Ensembles sind schwer zu finden ...
-  \end{enumerate}
+  \frametitle{Blick zurück}
+	Zusammenfassung: \bigskip
+	
+  \begin{itemize}
+  \item Mit Multiagentensystemen können eine Vielzahl autonomer Systeme beschrieben werden
+  \item Multiagentensysteme können als \textit{interpreted systems} modelliert werden
+  \item Model Checking kann mit OBDDs durchgeführt werden
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Blick nach links:  Verwandte Arbeiten }
+  \frametitle{Blick nach links}
 
-  Ähnlich zum Ansatz der iterierten Umfärbung sind die Ideen zur...
+  Andere Tools zum Model Checking von Multiagentensystemen:\bigskip
 
-  \begin{enumerate}
-  \item Ondulierten Umfärbung: ...
-  \item Iterierte Verfärbung: ...
-  \item Gefärbte Iteration: ....
-  \item ....
-  \end{enumerate}
-
-
+  \begin{itemize}
+  \item MABLE
+  \item MCK
+  \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{Blick nach rechts:  Was nicht gesagt wurde... }
+  \frametitle{Blick nach rechts}
+	Was nicht gesagt wurde:\bigskip
+ % ..., was aber in der Hausarbeit stehen wird:
 
-  ..., was aber in der Hausarbeit stehen wird:
-
-  \begin{enumerate}
-  \item Formale Definition der Stabilisation
-  \item Wohlordnungssatz auf Gummibärenfarben
-  \item ....
-  \end{enumerate}
+  \begin{itemize}
+  \item Andere Ansätze
+  \item Details
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Blick nach vorn:  Was man noch machen könnte...}
+  \frametitle{Blick nach vorn}
+	Was man noch betrachten könnte:\bigskip
+  %..., ich aber weggelassen habe, weil es den Rahmen des Seminars sprengt:
 
-  ..., ich aber weggelassen habe, weil es den Rahmen des Seminars sprengt:
-
-  \begin{enumerate}
-  \item Umfärbung auf unendlich großen Tüten
-  \item ....
-  \end{enumerate}
+  \begin{itemize}
+  \item Wie MCMAS den gezeigten Ansatz für CTL auf weitere Logiken erweitert
+  \item Die Komplexitätsanalyse des Model Checking-Problems für MAS.
+  \end{itemize}
 \end{frame}
 
 
 \section{Bezug zum M.Sc.}
 
-
 \begin{frame}
   \frametitle{ Blick in die Runde: Bezug zum M.Sc. }
 
-
-  Wie könnte eine Masterarbeit aussehen, die auf dieser Theorie
-  aufbaut?
+  Wie könnte eine Masterarbeit zu diesem Thema aussehen?\bigskip
   \begin{itemize}
-  \item Entwicklung eines Simulators zur Gummibärenumfärbung
-  \item Entwicklung einer Umfärbungstheorie für Lakritzschnecken
-  \item ....
+  \item Man könnte versuchen zu beweisen, dass eine KI bestimmte Spezifikationen erfüllt
   \end{itemize}
-  
-
+ \end{frame}
+ 
+\section*{} 
+\begin{frame}
+	\frametitle{ Ende der Präsentation }
+	\bigskip
+	Vielen Dank für eure Aufmerksamkeit!
 \end{frame}
-
-
-
 
 \end{document}
